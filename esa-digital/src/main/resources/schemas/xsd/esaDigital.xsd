@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.example.org/ESADigital"
+	xmlns:tns="http://www.example.org/ESADigital" elementFormDefault="qualified">
+
+
+    <complexType name="Claimant">
+    	<sequence>
+	    	<element name="title" type="string"></element>
+	    	<element name="firstName" type="string"></element>
+	    	<element name="otherName" type="string"></element>
+	    	<element name="surname" type="string"></element>
+	    	<element name="dobYear" type="int"></element>
+	    	<element name="dobMonth" type="int"></element>
+	    	<element name="dobDay" type="int"></element>
+	    	<element name="nino" type="string"></element>
+    	</sequence>
+    </complexType>
+
+    <complexType name="ContactDetails">
+    	<sequence>
+    		<element name="addressLine1" type="string"></element>
+    		<element name="addressLine2" type="string"></element>
+    		<element name="addressLine3" type="string"></element>
+    		<element name="addressLine4" type="string"></element>
+    		<element name="postCode" type="string"></element>
+    		<element name="phoneNumber" type="int"></element>
+    		<element name="messageYN" type="boolean"></element>
+    		<element name="mobile" type="int"></element>
+    		<element name="email" type="string"></element>
+    	</sequence>
+    </complexType>
+
+    <complexType name="ThirdParty">
+    <sequence>
+    	<element name="helpWithApp" type="boolean"></element>
+    	<element name="repPersonName" type="string"></element>
+    	<element name="repRelation" type="string"></element>
+    	<element name="repComment" type="string"></element>
+    </sequence>
+    </complexType>
+
+    <complexType name="Employment">
+	    <sequence>
+		    	<element name="employmentYN" type="boolean"></element>
+		    	<element name="jobTitle" type="string"></element>
+		    	<element name="companyName" type="string"></element>
+		    	<element name="workAddLine1" type="string"></element>
+		    	<element name="workAddLine2" type="string"></element>
+		    	<element name="workAddLine3" type="string"></element>
+		    	<element name="workAddLine4" type="string"></element>
+		    	<element name="workPostCode" type="string"></element>
+		    	<element name="workingHoursUsual" type="double"></element>
+		    	<element name="workingHoursCurrent" type="double"></element>
+		    	<element name="salary" type="double"></element>
+		    	<element name="paymentFreq" type="string"></element>
+		    	<element name="supportWorkerYN" type="boolean"></element>
+		    	<element name="workerName" type="string"></element>
+		    	<element name="workerAddress1" type="string"></element>
+		    	<element name="workerAddress2" type="string"></element>
+		    	<element name="workerAddress3" type="string"></element>
+		    	<element name="workerAddress4" type="string"></element>
+		    	<element name="workerPostCode" type="string"></element>
+		    	<element name="voluntaryWorkYN" type="boolean"></element>
+		    	<element name="expensesYN" type="boolean"></element>
+		    	<element name="selfEmployedYN" type="boolean"></element>
+		    	<element name="companyDirectorYN" type="boolean"></element>
+		    	<element name="specialOccupationYN" type="boolean"></element>
+	    	</sequence>
+    </complexType>
+
+
+    <complexType name="PaymentFrequency">
+	    <sequence>
+	    	<element name="paymentType" type="string"></element>
+	    	<element name="paymentAmount" type="double"></element>
+	    	<element name="paymentFrequency" type="string"></element>
+	    	<element name="paymentEndDay" type="int"></element>
+	    	<element name="paymentEndMonth" type="int"></element>
+	    	<element name="paymentEndYear" type="int"></element>
+	    	<element name="paymentPayDay" type="int"></element>
+	    	<element name="paymentPayMonth" type="int"></element>
+	    	<element name="paymentPayYear" type="int"></element>
+	    	<element name="finalPaymentAmt" type="double"></element>
+	    </sequence>
+    </complexType>
+
+	<complexType name="Shares">
+		<sequence>
+			<element name="name" type="string"></element>
+			<element name="quantity" type="double"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="Savings">
+		<sequence>
+			<element name="savingType" type="string"></element>
+			<element name="savingCapitalMoreThan5in6YN" type="boolean"></element>
+			<element name="savingsAmt" type="double"></element>
+			<element name="savingsFrom" type="string"></element>
+			<element name="ownPropertyYN" type="boolean"></element>
+			<element name="propertySoldYN" type="boolean"></element>
+			<element name="sharesYN" type="boolean"></element>
+			<element name="shares" type="tns:Shares" maxOccurs="unbounded" minOccurs="0"></element>
+		</sequence>
+	</complexType>
+
+
+
+	<complexType name="GPDetails">
+		<sequence>
+			<element name="doctorName" type="string"></element>
+			<element name="docAddLine1" type="string"></element>
+			<element name="docAddLine2" type="string"></element>
+			<element name="docAddLine3" type="string"></element>
+			<element name="docAddLine4" type="string"></element>
+			<element name="docPostCode" type="string"></element>
+			<element name="docTelNumber" type="int"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="HealthConditions">
+		<sequence>
+			<element name="conditions" type="tns:Conditions" maxOccurs="unbounded" minOccurs="0"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="Conditions">
+		<sequence>
+			<element name="name" type="string"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="Fitnote">
+		<sequence>
+			<element name="fitnoteYN" type="boolean"></element>
+			<element name="fitnoteStartDay" type="int"></element>
+			<element name="fitnoteStartMonth" type="int"></element>
+			<element name="fitnoteStartYear" type="int"></element>
+			<element name="fitnoteEndDay" type="string"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="BankDetails">
+		<sequence>
+			<element name="acctHolderName" type="string"></element>
+			<element name="bankName" type="string"></element>
+			<element name="sortCode" type="int"></element>
+			<element name="accountNumber" type="int"></element>
+			<element name="buildingSociety" type="int"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="Education">
+		<sequence>
+			<element name="educationType" type="tns:EducationType" maxOccurs="unbounded" minOccurs="0"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="Hrt">
+		<sequence>
+			<element name="nationalityNotBritishYN" type="boolean"></element>
+			<element name="whatNationality" type="string"></element>
+			<element name="workedAbroadYN" type="boolean"></element>
+			<element name="beenAbroadYN" type="boolean"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="SpecialRules">
+		<sequence>
+			<element name="termIllnessYN" type="boolean"></element>
+			<element name="dS1500YN" type="boolean"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="ClaimDate">
+		<sequence>
+			<element name="startESADay" type="int"></element>
+			<element name="startESAMonth" type="int"></element>
+			<element name="startESAYear" type="int"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="HousingBenefit">
+		<sequence>
+			<element name="noHousingBenefitYN" type="boolean"></element>
+			<element name="planHousingBenefitYN" type="boolean"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="EducationType">
+		<sequence>
+			<element name="educationHours16YN" type="boolean"></element>
+			<element name="educationName" type="string"></element>
+			<element name="educationAddress" type="string"></element>
+			<element name="educationStartDay" type="int"></element>
+			<element name="educationStartMonth" type="int"></element>
+			<element name="educationStartYear" type="int"></element>
+			<element name="educationEndDay" type="int"></element>
+			<element name="educationEndMonth" type="int"></element>
+			<element name="educationEndYear" type="int"></element>
+			<element name="dLAPIPYN" type="boolean"></element>
+		</sequence>
+	</complexType>
+
+	
+    <complexType name="Claim">
+    	<sequence>
+    		<element name="ableToWorkYN" type="boolean"></element>
+    		<element name="industrialActionYN" type="boolean"></element>
+    		<element name="working16HrsPerWeekYN" type="boolean"></element>
+    		<element name="contactPrefType" type="string"></element>
+    		<element name="contactPrefYN" type="boolean"></element>
+    		<element name="thirdParty" type="tns:ThirdParty"></element>
+    		<element name="claimant" type="tns:Claimant"></element>
+    		<element name="contactDetails" type="tns:ContactDetails"></element>
+    		<element name="employment" type="tns:Employment"></element>
+    		<element name="paymentFrequency" type="tns:PaymentFrequency"></element>
+    		<element name="savings" type="tns:Savings"></element>
+    		<element name="gpDetails" type="tns:GPDetails"></element>
+    		<element name="healthConditions" type="tns:HealthConditions" maxOccurs="11" minOccurs="0"></element>
+    		<element name="fitNote" type="tns:Fitnote"></element>
+    		<element name="bankDetails" type="tns:BankDetails"></element>
+    		<element name="education" type="tns:Education" maxOccurs="2" minOccurs="0"></element>
+    		<element name="hrt" type="tns:Hrt"></element>
+    		<element name="specialRules" type="tns:SpecialRules"></element>
+    		<element name="claimDate" type="tns:ClaimDate"></element>
+    		<element name="housingBenefit" type="tns:HousingBenefit"></element>
+    	</sequence>
+    </complexType>
+
+
+    <element name="Claim" type="tns:Claim"></element>
+</schema>
