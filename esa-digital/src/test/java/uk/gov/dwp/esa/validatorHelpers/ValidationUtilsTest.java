@@ -89,6 +89,8 @@ public class ValidationUtilsTest {
         month = "DECEMber";
         year = "1989";
         Assert.assertTrue(ValidationUtils.isDateValid(day, month, year));
+        
+        
 
         //All month possibilities
         String[] months = new String[] { "jan", "feb", "mar", "apr", "may", "jun", "jul", "aug",
@@ -163,6 +165,18 @@ public class ValidationUtilsTest {
         day = "8";
         month = "mar";
         year = "87";
+        Assert.assertFalse(ValidationUtils.isDateValid(day, month, year));
+        day = "19";
+        month = "DECEMber";
+        year = "1899";
+        Assert.assertFalse(ValidationUtils.isDateValid(day, month, year));
+        day = "00";
+        month = "DECEMber";
+        year = "0000";
+        Assert.assertFalse(ValidationUtils.isDateValid(day, month, year));
+        day = "00";
+        month = "00";
+        year = "0000";
         Assert.assertFalse(ValidationUtils.isDateValid(day, month, year));
     }
 
@@ -516,6 +530,9 @@ public class ValidationUtilsTest {
     	testStrings.add("abc@");
     	testStrings.add("1abc");
     	testStrings.add("a1bc");
+    	testStrings.add("");
+    	testStrings.add(null);
+    	 
     	
     	for(String str : testStrings){
     		Assert.assertFalse(ValidationUtils.isAlphaOnly(str));

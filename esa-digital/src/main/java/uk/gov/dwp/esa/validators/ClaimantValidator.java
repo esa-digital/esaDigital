@@ -16,7 +16,7 @@ public class ClaimantValidator {
 	private static final String FIRST_NAME="claimant.firstName";
 	private static final String SURNAME="claimant.surname";
 	private static final String OTHERNAME="claimant.otherName";
-	private  static final String DOB = "claimant.DOB";
+	private static final String DOB = "claimant.DOB";
 	/*
 	 * This method is used to validate the basic claimant properties 
 	 * gathered from front end.
@@ -33,6 +33,7 @@ public class ClaimantValidator {
 			claimant = new Claimant();
 		}
 		//check mandatory fields
+		//This is a title validation - checks if empty. If not empty, checks length (!>27)
 		if(ValidationUtils.isEmpty(claimant.getTitle())){
 			ValidationError titleValidation = new ValidationError(TITLE, ValidationCodes.CLAIMANT_TITLE_EMPTY);
 			errors.add(titleValidation );
@@ -53,9 +54,9 @@ public class ClaimantValidator {
 		}else if(ValidationUtils.isStringLengthOver(claimant.getSurname(), maxLength )){
 			errors.add(new ValidationError(SURNAME, ValidationCodes.CLAIMANT_SURNAME_TOO_LONG));
 		}
-		
+		// Checks if othername is not empty and stringlength is >27 chars.If so, returns error
 		if(!claimant.getOtherName().isEmpty() && ValidationUtils.isStringLengthOver(OTHERNAME, maxLength)){
-			errors.add(new ValidationError(OTHERNAME, ValidationCodes.CLAIMANT_MIDDILE_NAME_TOO_LONG));
+			errors.add(new ValidationError(OTHERNAME, ValidationCodes.CLAIMANT_MIDDLE_NAME_TOO_LONG));
 		}
 		
 		if(!ValidationUtils.isAlphaOnly(claimant.getFirstName())){
@@ -67,6 +68,7 @@ public class ClaimantValidator {
 		if(!ValidationUtils.isAlphaOnly(claimant.getOtherName())){
 			errors.add(new ValidationError(OTHERNAME, ValidationCodes.CLAIMANT_OTHERNAME_ALPHA));
 		}
+		// Checks if title is alpha only
 		if(!ValidationUtils.isAlphaOnly(claimant.getTitle())){
 			errors.add(new ValidationError(TITLE, ValidationCodes.CLAIMANT_TITLE_ALPHA));
 		}

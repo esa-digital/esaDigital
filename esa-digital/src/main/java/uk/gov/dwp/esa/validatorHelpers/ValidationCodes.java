@@ -49,7 +49,7 @@ public final class ValidationCodes {
     public static final String CLAIMANT_FULL_NAME_TOO_LONG = "claimant.fullName.greater.than.limit";
     public static final String CLAIMANT_FIRST_NAME_TOO_LONG = "claimant.firstName.greater.than.limit";
     public static final String CLAIMANT_SURNAME_TOO_LONG = "claimant.surname.greater.than.limit";
-    public static final String CLAIMANT_MIDDILE_NAME_TOO_LONG = "claimant.middleName.greater.than.limit";
+    public static final String CLAIMANT_MIDDLE_NAME_TOO_LONG = "claimant.middleName.greater.than.limit";
 
 
     public static final String CLAIMANT_ADDRESS1_TOO_LONG = "claimant.address1.greater.than.limit";

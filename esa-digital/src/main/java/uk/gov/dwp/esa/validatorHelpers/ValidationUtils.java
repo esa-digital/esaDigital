@@ -140,7 +140,7 @@ public final class ValidationUtils {
      * day may be entered as ‘dd’ or ‘d’ (e.g. 08 or 8) month may be entered as ‘mm’ or ‘m’ (e.g. 04
      * or 4) year must be entered as ‘yyyy’ (e.g. 2014)
      * 
-     * must contain a valid date which is in the past and at least 16 years ago
+     * must contain a valid date.
      * 
      * @param day
      * @param month
@@ -170,7 +170,13 @@ public final class ValidationUtils {
                               // validation as "sept" is not recognised
             }
         }
+        //We need to check if the date is pre 1900
+        
         boolean isYearValid = Pattern.matches(DIGITS_4_PATTERN, year);
+        if (isYearValid && Integer.parseInt(year)<1900) {
+        	isYearValid=false;
+        }
+        
 
         if (!isDayValid || !isMonthValid || !isYearValid) {
             return false;
@@ -418,31 +424,38 @@ public final class ValidationUtils {
     		return Pattern.matches(NINO_PATTERN,nino);
 	}
     
-//    /**
-//     * This method will check if the value passed does not contain numbers
-//     *
-//     * @param any String
-//     */
-//    public static boolean isAlphaOnly(String value) {
-//    		return Pattern.matches(ALPHA_ONLY_PATTERN,value);
-//	}
-    
     /**
      * This method will check if the value passed does not contain numbers
      *
      * @param any String
      */
-    public static boolean isAlphaOnly(String ...value) {
-    	boolean checkTest = false;
-    	for(String str : value){
-    		checkTest= Pattern.matches(ALPHA_ONLY_PATTERN,str);
-    		if(!checkTest){
-    			break;
-    		}
-    	}
+    public static boolean isAlphaOnly(String value) {
     	
-    	return checkTest;
+    	if (!(value==null) && !value.equals("") ) {
+    		return Pattern.matches(ALPHA_ONLY_PATTERN,value);
+    	} 
+    		return false;
+    		
 	}
+    
+//    /**
+//     * This method will check if the value passed does not contain numbers
+//     *
+//     * @param any String
+//     */
+//    public static boolean isAlphaOnly(String ...value) {
+//    	boolean checkTest = false;
+//    	for(String str : value) {
+//    		if (!str.equals(null) || !str.equals("") ) {
+//    			checkTest= Pattern.matches(ALPHA_ONLY_PATTERN,str);
+//        		if(!checkTest){
+//        			break;
+//        		}
+//    		}
+//    	}
+//    	
+//    	return checkTest;
+//	}
 
     /**
      * Class to represent field-specific data for a field that is to be validate among a group.
