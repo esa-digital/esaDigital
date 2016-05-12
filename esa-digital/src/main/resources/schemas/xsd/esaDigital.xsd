@@ -9,10 +9,11 @@
 	    	<element name="firstName" type="string"></element>
 	    	<element name="otherName" type="string"></element>
 	    	<element name="surname" type="string"></element>
-	    	<element name="dobYear" type="int"></element>
-	    	<element name="dobMonth" type="int"></element>
-	    	<element name="dobDay" type="int"></element>
+	    	<element name="dobYear" type="string"></element>
+	    	<element name="dobMonth" type="string"></element>
+	    	<element name="dobDay" type="string"></element>
 	    	<element name="nino" type="string"></element>
+	    	<element name="gender" type="string"></element>
     	</sequence>
     </complexType>
 
