@@ -41,6 +41,7 @@ public final class ValidationCodes {
     public static final String CLAIMANT_ADDRESS_EMPTY = "claimant.address1.empty";
     public static final String CLAIMANT_TITLE_EMPTY = "claimant.title.empty";
     
+    
     public static final String CLAIMANT_TITLE_ALPHA = "claimant.title.alpha";
     public static final String CLAIMANT_OTHERNAME_ALPHA = "claimant.otherName.alpha";
     public static final String CLAIMANT_FIRSTNAME_ALPHA = "claimant.firstName.alpha";
@@ -50,6 +51,10 @@ public final class ValidationCodes {
     public static final String CLAIMANT_FIRST_NAME_TOO_LONG = "claimant.firstName.greater.than.limit";
     public static final String CLAIMANT_SURNAME_TOO_LONG = "claimant.surname.greater.than.limit";
     public static final String CLAIMANT_MIDDLE_NAME_TOO_LONG = "claimant.middleName.greater.than.limit";
+    public static final String CLAIMANT_NINO_NOTVALID= "claimant.nino.invalid";
+    public static final String CLAIMANT_NINO_EMPTY= "claimant.nino.empty";
+    public static final String CLAIMANT_GENDER_EMPTY= "claimant.gender.empty";
+    
 
 
     public static final String CLAIMANT_ADDRESS1_TOO_LONG = "claimant.address1.greater.than.limit";

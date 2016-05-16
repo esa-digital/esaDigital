@@ -431,31 +431,13 @@ public final class ValidationUtils {
      */
     public static boolean isAlphaOnly(String value) {
     	
-    	if (!(value==null) && !value.equals("") ) {
+    	if (value!=null && !value.equals("") ) {
     		return Pattern.matches(ALPHA_ONLY_PATTERN,value);
     	} 
     		return false;
     		
 	}
     
-//    /**
-//     * This method will check if the value passed does not contain numbers
-//     *
-//     * @param any String
-//     */
-//    public static boolean isAlphaOnly(String ...value) {
-//    	boolean checkTest = false;
-//    	for(String str : value) {
-//    		if (!str.equals(null) || !str.equals("") ) {
-//    			checkTest= Pattern.matches(ALPHA_ONLY_PATTERN,str);
-//        		if(!checkTest){
-//        			break;
-//        		}
-//    		}
-//    	}
-//    	
-//    	return checkTest;
-//	}
 
     /**
      * Class to represent field-specific data for a field that is to be validate among a group.
