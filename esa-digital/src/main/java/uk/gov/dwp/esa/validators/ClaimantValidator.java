@@ -3,13 +3,16 @@ package uk.gov.dwp.esa.validators;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.validation.Errors;
+import org.springframework.validation.Validator;
+
 import uk.gov.dwp.esa.constants.ClaimantConstants;
 import uk.gov.dwp.esa.model.Claimant;
 import uk.gov.dwp.esa.validatorHelpers.ValidationCodes;
 import uk.gov.dwp.esa.validatorHelpers.ValidationError;
 import uk.gov.dwp.esa.validatorHelpers.ValidationUtils;
 
-public class ClaimantValidator {
+public class ClaimantValidator implements Validator {
 
 	private static final int maxLength = 27;
 	/*
@@ -20,7 +23,7 @@ public class ClaimantValidator {
 	 * @ReturnType : List of ValidationError
 	 * @Params : Claimant
 	 */
-	public List<ValidationError> validateClaimant(Claimant claimant){
+	protected List<ValidationError> validateClaimant(Claimant claimant){
 		
 		List<ValidationError> errors = new ArrayList<ValidationError>();
 		
@@ -100,6 +103,21 @@ public class ClaimantValidator {
 		}
 		
 		return errors;
+	}
+	@Override
+	public boolean supports(Class clazz) {
+		return Claimant.class.equals(clazz);
+	}
+	
+	@Override
+	public void validate(Object claimant, Errors errors) {
+		
+		List<ValidationError> validationErrors = this.validateClaimant((Claimant) claimant);
+		
+		for(ValidationError error :validationErrors){
+			errors.rejectValue(error.getFieldId(), error.getMessageCode());
+		}
+		
 	}
 	
 }
