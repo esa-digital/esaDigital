@@ -1,17 +1,24 @@
 package uk.gov.dwp.esa.controllers;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import uk.gov.dwp.esa.model.Claimant;
+import uk.gov.dwp.esa.service.ESAClaimService;
 import uk.gov.dwp.esa.validators.ClaimantValidator;
 
 @Controller
@@ -19,6 +26,9 @@ public class ClaimantController {
 	private static final String CLAIMANT = "Claimant";
 	private static final String PERSONAL_DETAILS = "/personal-details";
 	private static final Logger logger = LogManager.getLogger(ClaimantController.class);
+	
+	@Autowired
+	private ESAClaimService esaClaimService;
 	
 	@RequestMapping(value = PERSONAL_DETAILS, method = RequestMethod.GET)
 	public String home(Model model, HttpServletRequest request) {
@@ -57,8 +67,12 @@ public class ClaimantController {
 			  return PERSONAL_DETAILS;
 		  }
 		  
-		  	HttpSession session = request.getSession();
-	        session.setAttribute(CLAIMANT, claimant);
+	        ResponseEntity<Map> status = esaClaimService.submitClaimDetails(claimant);
+	        HttpStatus httpStatus = status.getStatusCode();
+	        if(httpStatus.equals(HttpStatus.OK)){
+	        	HttpSession session = request.getSession();
+		        session.setAttribute(CLAIMANT, claimant);
+	        }
 		
 		return null;
 		
