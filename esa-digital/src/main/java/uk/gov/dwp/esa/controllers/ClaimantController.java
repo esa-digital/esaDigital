@@ -66,7 +66,7 @@ public class ClaimantController {
 			  logger.debug(error);
 			  return PERSONAL_DETAILS;
 		  }
-		  
+		  	claimant.setToken("RATAN6X84S");
 	        ResponseEntity<Map> status = esaClaimService.submitClaimDetails(claimant);
 	        HttpStatus httpStatus = status.getStatusCode();
 	        if(httpStatus.equals(HttpStatus.OK)){

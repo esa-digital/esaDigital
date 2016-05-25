@@ -34,6 +34,7 @@ public class ESAClaimServiceImpl implements ESAClaimService{
 	
 	private ResponseEntity<Map>  callRestfulServiceByPost(final String url, final String json){
 		RestTemplate restTemplate = new RestTemplate();
-		return restTemplate.postForEntity(url, json, Map.class);
+		ResponseEntity<Map> response = restTemplate.postForEntity(url, json, Map.class);
+		return response;
 	}
 }
