@@ -1,7 +1,9 @@
 package uk.gov.dwp.esa.service;
 
+import org.springframework.http.HttpStatus;
+
 public interface TokenValidationService {
 	
-	String getStatus(String token);
+	HttpStatus getStatus(String token);
 
 }

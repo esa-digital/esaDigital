@@ -22,14 +22,10 @@ import uk.gov.dwp.esa.service.TokenValidationService;
 public class TokenValidationServiceImpl implements TokenValidationService {
 
 	//this needs to change to include MessageSource
-	private static final String TOKEN_SERV_URL = "https://localhost:8082/api/key/";
+	private static final String TOKEN_SERV_URL = "https://localhost:8081/api/match/?key=";
 			
 	@Override
-	public String getStatus(String token) {
-		
-		TokenServiceResponse response = null;
-		ObjectMapper mapper = new ObjectMapper();
-        try {
+	public HttpStatus getStatus(String token) {
         	
 		 if (token == null || token.equals("")) {
 			 throw new HttpClientErrorException(HttpStatus.NOT_FOUND,"token not valid");
@@ -37,26 +33,17 @@ public class TokenValidationServiceImpl implements TokenValidationService {
 
 	        RestTemplate restTemplate = new RestTemplate();
 
-	        //messageSource.getMessage(TOKEN_SERVICE_URL_PROPERTY, null, Locale.ENGLISH);
 	        String tokenServiceUrl = TOKEN_SERV_URL+token;
-	        HttpHeaders headers = new HttpHeaders();
-	        headers.setContentType(MediaType.APPLICATION_JSON);
-	        HttpEntity<String> entity = new HttpEntity<>(headers);
-	        ResponseEntity<String> responseEntity  =  restTemplate.exchange(tokenServiceUrl,HttpMethod.GET,entity,String.class);
-	        if (responseEntity.getStatusCode() == HttpStatus.OK) {
-	        	   response = mapper.readValue(responseEntity.getBody(), TokenServiceResponse.class);
-	        	} else if (responseEntity.getStatusCode() == HttpStatus.UNAUTHORIZED) {
+	        ResponseEntity<HttpStatus> responseEntity  =  restTemplate.getForEntity(tokenServiceUrl, HttpStatus.class);
+	        if (responseEntity.getStatusCode() == HttpStatus.UNAUTHORIZED) {
 	        	  throw new HttpClientErrorException(HttpStatus.NOT_FOUND);
-	        	}
-			} catch (JsonProcessingException e) {
-				throw new HttpClientErrorException(HttpStatus.NOT_FOUND,e.getMessage());
-			} catch (IOException e) {
-
-				throw new HttpClientErrorException(HttpStatus.NOT_FOUND,e.getMessage());
-			}
+	        }
+			
 	       	        
-			return response.getStatus();
+			return responseEntity.getStatusCode();
 
-	}
+	
 
+}
+	
 }
