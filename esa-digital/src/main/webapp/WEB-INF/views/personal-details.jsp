@@ -6,7 +6,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	      <form action="" method="post">
+	      <form action="personal-details" method="post">
 
         <div class="grid-row">
           <div class="column-two-thirds">

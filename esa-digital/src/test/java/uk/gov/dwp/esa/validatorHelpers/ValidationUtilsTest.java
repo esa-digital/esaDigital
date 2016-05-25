@@ -369,7 +369,7 @@ public class ValidationUtilsTest {
 
         Assert.assertEquals(1, errors.size());
         Assert.assertEquals(fieldId, errors.get(0).getFieldId());
-        Assert.assertEquals(code, errors.get(0).getMessageCode());
+        Assert.assertEquals(code, errors.get(0).getErrorMessage());
     }
 
     /**
@@ -426,7 +426,7 @@ public class ValidationUtilsTest {
 
         Assert.assertEquals(1, errors.size());
         Assert.assertEquals(fieldId, errors.get(0).getFieldId());
-        Assert.assertEquals(code, errors.get(0).getMessageCode());
+        Assert.assertEquals(code, errors.get(0).getErrorMessage());
     }
 
     /**

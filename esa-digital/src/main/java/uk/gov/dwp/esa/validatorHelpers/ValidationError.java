@@ -19,21 +19,20 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.NoSuchMessageException;
-
-import uk.gov.dwp.esa.controllers.ClaimantController;
+import org.springframework.stereotype.Component;
 
 /**
  * Represents a validation error on a field. Contains the field ID and a message code
  * 
  * @author ESA
  */
+
 public class ValidationError {
 
     private String fieldId;
-    private String messageCode;
+    private String errorMessage;
     
-    @Autowired
-    MessageSource messageSource;
+    
     
     private static final Logger logger = LogManager.getLogger(ValidationError.class);
 
@@ -45,19 +44,19 @@ public class ValidationError {
     public ValidationError(String fieldId, String messageCode) {
         super();
         this.fieldId = fieldId;
-        String errorMessage ="";
-        try {
-        	 errorMessage = messageSource.getMessage(messageCode, null, Locale.ENGLISH);
-		} catch (NoSuchMessageException e) {
-			logger.error("No validation message was found for :"+messageCode,e.getMessage());
-		}
-       this.messageCode = errorMessage;
+        this.errorMessage = messageCode;
        
     }
         
         
 
-    /**
+    public ValidationError() {
+		super();
+	}
+
+
+
+	/**
      * @return the fieldId
      */
     public String getFieldId() {
@@ -74,15 +73,15 @@ public class ValidationError {
     /**
      * @return the messageCode
      */
-    public String getMessageCode() {
-        return messageCode;
+    public String getErrorMessage() {
+        return errorMessage;
     }
 
     /**
      * @param messageCode the messageCode to set
      */
-    public void setMessageCode(String messageCode) {
-        this.messageCode = messageCode;
+    public void setErrorMessage(String messageCode) {
+        this.errorMessage = messageCode;
     }
 
 }

@@ -72,7 +72,7 @@ public class ClaimantValidatorTest {
 		List<ValidationError> errors =  validator.validateClaimant(claimant);
 		ValidationError ve = new ValidationError(ClaimantConstants.TITLE.value(), ValidationCodes.CLAIMANT_TITLE_TOO_LONG);
 		Assert.assertEquals(1, errors.size());
-		Assert.assertEquals(errors.get(0).getMessageCode(), ve.getMessageCode());
+		Assert.assertEquals(errors.get(0).getErrorMessage(), ve.getErrorMessage());
 		
 	}
 	
@@ -82,7 +82,7 @@ public class ClaimantValidatorTest {
 		List<ValidationError> errors =  validator.validateClaimant(claimant);
 		ValidationError ve = new ValidationError(ClaimantConstants.TITLE.value(), ValidationCodes.CLAIMANT_TITLE_ALPHA);
 		Assert.assertEquals(1, errors.size());
-		Assert.assertEquals(errors.get(0).getMessageCode(), ve.getMessageCode());
+		Assert.assertEquals(errors.get(0).getErrorMessage(), ve.getErrorMessage());
 		
 	}
 	
@@ -92,7 +92,7 @@ public class ClaimantValidatorTest {
 		List<ValidationError> errors =  validator.validateClaimant(claimant);
 		ValidationError ve = new ValidationError(ClaimantConstants.TITLE.value(), ValidationCodes.CLAIMANT_TITLE_ALPHA);
 		Assert.assertEquals(1, errors.size());
-		Assert.assertEquals(errors.get(0).getMessageCode(), ve.getMessageCode());
+		Assert.assertEquals(errors.get(0).getErrorMessage(), ve.getErrorMessage());
 		
 	}
 	
@@ -102,7 +102,7 @@ public class ClaimantValidatorTest {
 		List<ValidationError> errors =  validator.validateClaimant(claimant);
 		ValidationError ve = new ValidationError(ClaimantConstants.TITLE.value(), ValidationCodes.CLAIMANT_TITLE_EMPTY);
 		Assert.assertEquals(1, errors.size());
-		Assert.assertEquals(errors.get(0).getMessageCode(), ve.getMessageCode());
+		Assert.assertEquals(errors.get(0).getErrorMessage(), ve.getErrorMessage());
 		
 	}
 	
@@ -112,7 +112,7 @@ public class ClaimantValidatorTest {
 		List<ValidationError> errors =  validator.validateClaimant(claimant);
 		ValidationError ve = new ValidationError(ClaimantConstants.TITLE.value(), ValidationCodes.CLAIMANT_TITLE_EMPTY);
 		Assert.assertEquals(1, errors.size());
-		Assert.assertEquals(errors.get(0).getMessageCode(), ve.getMessageCode());
+		Assert.assertEquals(errors.get(0).getErrorMessage(), ve.getErrorMessage());
 	}
 	
 	/*
@@ -129,7 +129,7 @@ public class ClaimantValidatorTest {
 		List<ValidationError> errors =  validator.validateClaimant(claimant);
 		ValidationError ve = new ValidationError(ClaimantConstants.FIRST_NAME.value(), ValidationCodes.CLAIMANT_FIRST_NAME_TOO_LONG);
 		Assert.assertEquals(1, errors.size());
-		Assert.assertEquals(errors.get(0).getMessageCode(), ve.getMessageCode());
+		Assert.assertEquals(errors.get(0).getErrorMessage(), ve.getErrorMessage());
 		
 	}
 	
@@ -139,7 +139,7 @@ public class ClaimantValidatorTest {
 		List<ValidationError> errors =  validator.validateClaimant(claimant);
 		ValidationError ve = new ValidationError(ClaimantConstants.FIRST_NAME.value(), ValidationCodes.CLAIMANT_FIRSTNAME_ALPHA);
 		Assert.assertEquals(1, errors.size());
-		Assert.assertEquals(errors.get(0).getMessageCode(), ve.getMessageCode());
+		Assert.assertEquals(errors.get(0).getErrorMessage(), ve.getErrorMessage());
 		
 	}
 	
@@ -149,7 +149,7 @@ public class ClaimantValidatorTest {
 		List<ValidationError> errors =  validator.validateClaimant(claimant);
 		ValidationError ve = new ValidationError(ClaimantConstants.FIRST_NAME.value(), ValidationCodes.CLAIMANT_FIRSTNAME_ALPHA);
 		Assert.assertEquals(1, errors.size());
-		Assert.assertEquals(errors.get(0).getMessageCode(), ve.getMessageCode());
+		Assert.assertEquals(errors.get(0).getErrorMessage(), ve.getErrorMessage());
 		
 	}
 	
@@ -159,7 +159,7 @@ public class ClaimantValidatorTest {
 		List<ValidationError> errors =  validator.validateClaimant(claimant);
 		ValidationError ve = new ValidationError(ClaimantConstants.FIRST_NAME.value(), ValidationCodes.CLAIMANT_FIRSTNAME_EMPTY);
 		Assert.assertEquals(1, errors.size());
-		Assert.assertEquals(errors.get(0).getMessageCode(), ve.getMessageCode());
+		Assert.assertEquals(errors.get(0).getErrorMessage(), ve.getErrorMessage());
 		
 	}
 	
@@ -169,7 +169,7 @@ public class ClaimantValidatorTest {
 		List<ValidationError> errors =  validator.validateClaimant(claimant);
 		ValidationError ve = new ValidationError(ClaimantConstants.FIRST_NAME.value(), ValidationCodes.CLAIMANT_FIRSTNAME_EMPTY);
 		Assert.assertEquals(1, errors.size());
-		Assert.assertEquals(errors.get(0).getMessageCode(), ve.getMessageCode());
+		Assert.assertEquals(errors.get(0).getErrorMessage(), ve.getErrorMessage());
 	}
 	
 	/*
@@ -186,7 +186,7 @@ public class ClaimantValidatorTest {
 		List<ValidationError> errors =  validator.validateClaimant(claimant);
 		ValidationError ve = new ValidationError(ClaimantConstants.SURNAME.value(), ValidationCodes.CLAIMANT_SURNAME_TOO_LONG);
 		Assert.assertEquals(1, errors.size());
-		Assert.assertEquals(errors.get(0).getMessageCode(), ve.getMessageCode());
+		Assert.assertEquals(errors.get(0).getErrorMessage(), ve.getErrorMessage());
 		
 	}
 	
@@ -196,7 +196,7 @@ public class ClaimantValidatorTest {
 		List<ValidationError> errors =  validator.validateClaimant(claimant);
 		ValidationError ve = new ValidationError(ClaimantConstants.SURNAME.value(), ValidationCodes.CLAIMANT_SURNAME_ALPHA);
 		Assert.assertEquals(1, errors.size());
-		Assert.assertEquals(errors.get(0).getMessageCode(), ve.getMessageCode());
+		Assert.assertEquals(errors.get(0).getErrorMessage(), ve.getErrorMessage());
 		
 	}
 	
@@ -206,7 +206,7 @@ public class ClaimantValidatorTest {
 		List<ValidationError> errors =  validator.validateClaimant(claimant);
 		ValidationError ve = new ValidationError(ClaimantConstants.SURNAME.value(), ValidationCodes.CLAIMANT_SURNAME_ALPHA);
 		Assert.assertEquals(1, errors.size());
-		Assert.assertEquals(errors.get(0).getMessageCode(), ve.getMessageCode());
+		Assert.assertEquals(errors.get(0).getErrorMessage(), ve.getErrorMessage());
 		
 	}
 	
@@ -216,7 +216,7 @@ public class ClaimantValidatorTest {
 		List<ValidationError> errors =  validator.validateClaimant(claimant);
 		ValidationError ve = new ValidationError(ClaimantConstants.SURNAME.value(), ValidationCodes.CLAIMANT_SURNAME_EMPTY);
 		Assert.assertEquals(1, errors.size());
-		Assert.assertEquals(errors.get(0).getMessageCode(), ve.getMessageCode());
+		Assert.assertEquals(errors.get(0).getErrorMessage(), ve.getErrorMessage());
 		
 	}
 	
@@ -226,7 +226,7 @@ public class ClaimantValidatorTest {
 		List<ValidationError> errors =  validator.validateClaimant(claimant);
 		ValidationError ve = new ValidationError(ClaimantConstants.SURNAME.value(), ValidationCodes.CLAIMANT_SURNAME_EMPTY);
 		Assert.assertEquals(1, errors.size());
-		Assert.assertEquals(errors.get(0).getMessageCode(), ve.getMessageCode());
+		Assert.assertEquals(errors.get(0).getErrorMessage(), ve.getErrorMessage());
 	}
 	
 	
@@ -261,7 +261,7 @@ public class ClaimantValidatorTest {
 		List<ValidationError> errors =  validator.validateClaimant(claimant);
 		ValidationError ve = new ValidationError(ClaimantConstants.OTHERNAME.value(), ValidationCodes.CLAIMANT_OTHERNAME_ALPHA);
 		Assert.assertEquals(1, errors.size());
-		Assert.assertEquals(errors.get(0).getMessageCode(), ve.getMessageCode());
+		Assert.assertEquals(errors.get(0).getErrorMessage(), ve.getErrorMessage());
 	}
 	
 	@Test
@@ -270,7 +270,7 @@ public class ClaimantValidatorTest {
 		List<ValidationError> errors =  validator.validateClaimant(claimant);
 		ValidationError ve = new ValidationError(ClaimantConstants.OTHERNAME.value(), ValidationCodes.CLAIMANT_MIDDLE_NAME_TOO_LONG);
 		Assert.assertEquals(1, errors.size());
-		Assert.assertEquals(errors.get(0).getMessageCode(), ve.getMessageCode());
+		Assert.assertEquals(errors.get(0).getErrorMessage(), ve.getErrorMessage());
 	}
 	
 	@Test
@@ -279,7 +279,7 @@ public class ClaimantValidatorTest {
 		List<ValidationError> errors =  validator.validateClaimant(claimant);
 		ValidationError ve = new ValidationError(ClaimantConstants.OTHERNAME.value(), ValidationCodes.CLAIMANT_OTHERNAME_ALPHA);
 		Assert.assertEquals(1, errors.size());
-		Assert.assertEquals(errors.get(0).getMessageCode(), ve.getMessageCode());
+		Assert.assertEquals(errors.get(0).getErrorMessage(), ve.getErrorMessage());
 		
 	}
 	
@@ -299,7 +299,7 @@ public class ClaimantValidatorTest {
 		List<ValidationError> errors =  validator.validateClaimant(claimant);
 		ValidationError ve = new ValidationError(ClaimantConstants.DOB.value(), ValidationCodes.CLAIMANT_DOB_INVALID);
 		Assert.assertEquals(1, errors.size());
-		Assert.assertEquals(errors.get(0).getMessageCode(), ve.getMessageCode());
+		Assert.assertEquals(errors.get(0).getErrorMessage(), ve.getErrorMessage());
 		
 	}
 	
@@ -311,7 +311,7 @@ public class ClaimantValidatorTest {
 		List<ValidationError> errors =  validator.validateClaimant(claimant);
 		ValidationError ve = new ValidationError(ClaimantConstants.DOB.value(), ValidationCodes.CLAIMANT_DOB_INVALID);
 		Assert.assertEquals(1, errors.size());
-		Assert.assertEquals(errors.get(0).getMessageCode(), ve.getMessageCode());
+		Assert.assertEquals(errors.get(0).getErrorMessage(), ve.getErrorMessage());
 	}
 	
 	@Test
@@ -322,7 +322,7 @@ public class ClaimantValidatorTest {
 		List<ValidationError> errors =  validator.validateClaimant(claimant);
 		ValidationError ve = new ValidationError(ClaimantConstants.DOB.value(), ValidationCodes.CLAIMANT_DOB_FUTURE);
 		Assert.assertEquals(1, errors.size());
-		Assert.assertEquals(errors.get(0).getMessageCode(), ve.getMessageCode());
+		Assert.assertEquals(errors.get(0).getErrorMessage(), ve.getErrorMessage());
 	}
 	
 	@Test
@@ -333,7 +333,7 @@ public class ClaimantValidatorTest {
 		List<ValidationError> errors =  validator.validateClaimant(claimant);
 		ValidationError ve = new ValidationError(ClaimantConstants.DOB.value(), ValidationCodes.CLAIMANT_DOB_INVALID);
 		Assert.assertEquals(1, errors.size());
-		Assert.assertEquals(errors.get(0).getMessageCode(), ve.getMessageCode());
+		Assert.assertEquals(errors.get(0).getErrorMessage(), ve.getErrorMessage());
 	}
 	
 	@Test
@@ -344,7 +344,7 @@ public class ClaimantValidatorTest {
 		List<ValidationError> errors =  validator.validateClaimant(claimant);
 		ValidationError ve = new ValidationError(ClaimantConstants.DOB.value(), ValidationCodes.CLAIMANT_DOB_UNDER_16);
 		Assert.assertEquals(1, errors.size());
-		Assert.assertEquals(errors.get(0).getMessageCode(), ve.getMessageCode());
+		Assert.assertEquals(errors.get(0).getErrorMessage(), ve.getErrorMessage());
 	}
 	/*
 	 * 
@@ -360,7 +360,7 @@ public class ClaimantValidatorTest {
 		List<ValidationError> errors =  validator.validateClaimant(claimant);
 		ValidationError ve = new ValidationError(ClaimantConstants.NINO.value(), ValidationCodes.CLAIMANT_NINO_EMPTY);
 		Assert.assertEquals(1, errors.size());
-		Assert.assertEquals(errors.get(0).getMessageCode(), ve.getMessageCode());
+		Assert.assertEquals(errors.get(0).getErrorMessage(), ve.getErrorMessage());
 	}
 	
 	@Test
@@ -369,7 +369,7 @@ public class ClaimantValidatorTest {
 		List<ValidationError> errors =  validator.validateClaimant(claimant);
 		ValidationError ve = new ValidationError(ClaimantConstants.NINO.value(), ValidationCodes.CLAIMANT_NINO_NOTVALID);
 		Assert.assertEquals(1, errors.size());
-		Assert.assertEquals(errors.get(0).getMessageCode(), ve.getMessageCode());
+		Assert.assertEquals(errors.get(0).getErrorMessage(), ve.getErrorMessage());
 	}
 	
 	@Test
@@ -378,6 +378,6 @@ public class ClaimantValidatorTest {
 		List<ValidationError> errors =  validator.validateClaimant(claimant);
 		ValidationError ve = new ValidationError(ClaimantConstants.NINO.value(), ValidationCodes.CLAIMANT_NINO_NOTVALID);
 		Assert.assertEquals(1, errors.size());
-		Assert.assertEquals(errors.get(0).getMessageCode(), ve.getMessageCode());
+		Assert.assertEquals(errors.get(0).getErrorMessage(), ve.getErrorMessage());
 	}
 }
