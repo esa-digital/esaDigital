@@ -24,7 +24,18 @@
 	</beans:bean>
 
 	
-	<context:component-scan base-package="uk.gov.dwp.esa.controllers" />
+	<context:component-scan base-package="uk.gov.dwp.esa" />
+	
+	<beans:bean id="messageSource"
+		class="org.springframework.context.support.ResourceBundleMessageSource">
+		<beans:property name="basenames">
+			<beans:list>
+				<beans:value>questions</beans:value>
+				<beans:value>messages</beans:value>
+				<beans:value>applicationOptions</beans:value>
+			</beans:list>
+		</beans:property>
+	</beans:bean>
 	
 
 	

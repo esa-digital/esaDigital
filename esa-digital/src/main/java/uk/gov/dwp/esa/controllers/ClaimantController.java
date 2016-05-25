@@ -15,7 +15,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import uk.gov.dwp.esa.model.Claimant;
 import uk.gov.dwp.esa.service.ESAClaimService;
@@ -56,7 +55,7 @@ public class ClaimantController {
 		  if(error.hasErrors()){
 			  //this will check whether there are any preload errors
 			  //do something -- return to error page
-			  
+			  //currently returning the same page, but should redirect t error page.
 			  return PERSONAL_DETAILS;
 		  }
 		  ClaimantValidator validator = new ClaimantValidator();
@@ -74,6 +73,7 @@ public class ClaimantController {
 		        session.setAttribute(CLAIMANT, claimant);
 	        }
 		
+	        //should redirect to next page.
 		return null;
 		
 	}

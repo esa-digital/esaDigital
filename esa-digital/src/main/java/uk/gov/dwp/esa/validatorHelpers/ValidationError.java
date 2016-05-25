@@ -12,6 +12,16 @@
 
 package uk.gov.dwp.esa.validatorHelpers;
 
+import java.util.Locale;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.NoSuchMessageException;
+
+import uk.gov.dwp.esa.controllers.ClaimantController;
+
 /**
  * Represents a validation error on a field. Contains the field ID and a message code
  * 
@@ -21,6 +31,11 @@ public class ValidationError {
 
     private String fieldId;
     private String messageCode;
+    
+    @Autowired
+    MessageSource messageSource;
+    
+    private static final Logger logger = LogManager.getLogger(ValidationError.class);
 
     /**
      * Constructor
@@ -30,8 +45,17 @@ public class ValidationError {
     public ValidationError(String fieldId, String messageCode) {
         super();
         this.fieldId = fieldId;
-        this.messageCode = messageCode;
+        String errorMessage ="";
+        try {
+        	 errorMessage = messageSource.getMessage(messageCode, null, Locale.ENGLISH);
+		} catch (NoSuchMessageException e) {
+			logger.error("No validation message was found for :"+messageCode,e.getMessage());
+		}
+       this.messageCode = errorMessage;
+       
     }
+        
+        
 
     /**
      * @return the fieldId

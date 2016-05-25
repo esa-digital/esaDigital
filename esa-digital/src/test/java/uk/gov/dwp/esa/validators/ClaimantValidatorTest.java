@@ -14,8 +14,8 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import junit.framework.Assert;
 import uk.gov.dwp.esa.constants.ClaimantConstants;
+import uk.gov.dwp.esa.constants.ValidationCodes;
 import uk.gov.dwp.esa.model.Claimant;
-import uk.gov.dwp.esa.validatorHelpers.ValidationCodes;
 import uk.gov.dwp.esa.validatorHelpers.ValidationError;
 
 @RunWith(MockitoJUnitRunner.class)
