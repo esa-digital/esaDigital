@@ -20,7 +20,7 @@ xmlns:context="http://www.springframework.org/schema/context"
         <custom-filter before="FORM_LOGIN_FILTER" ref="authenticationTokenProcessingFilter"/>  
     </http>
     
-    <beans:bean id="authenticationTokenProcessingFilter" class="uk.gov.dwp.esa.security.AuthenticationTokenProcessingFilter	">  
+    <beans:bean id="authenticationTokenProcessingFilter" class="uk.gov.dwp.esa.security.AuthenticationTokenProcessingFilter">  
         <beans:property name="authenticationManager" ref="authenticationManager" />
     </beans:bean>
 
