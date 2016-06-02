@@ -5,6 +5,9 @@
 ## Development
 
 ### System requirements
+JDk 1.8
+Tomcat 8.0
+Maven 4
 
 ### Build
 

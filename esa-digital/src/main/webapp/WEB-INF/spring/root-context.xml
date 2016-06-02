@@ -1,24 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans:beans xmlns="http://www.springframework.org/schema/security"
-		 xmlns:beans="http://www.springframework.org/schema/beans"
-		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		 xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		 					http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd 
+		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.1.xsd">
 
-<!-- <http> -->
-<!-- 	  <session-management> -->
-<!-- 	    <concurrency-control -->
-<!-- 	       max-sessions="1" -->
-<!-- 	       expired-url="/" /> -->
-<!--   	</session-management> -->
-  	
-<!-- 		<intercept-url pattern="/api/**"  /> -->
-<!-- 		<form-login /> -->
-<!-- 		<logout /> -->
-  	
-<!-- </http> -->
+<context:annotation-config></context:annotation-config>
+<context:component-scan base-package="uk.gov.dwp.esa.security" />
+<context:component-scan base-package="uk.gov.dwp.esa.serviceImpl" />
 
+	<global-method-security pre-post-annotations="enabled" />  
+    
+    <http pattern="/api/dummy" security="none"/>   
+    
 
+    <http pattern="/api/**" entry-point-ref="customAuthenticationEntryPoint" create-session="stateless"> 
+        <csrf disabled="true"/>  
+        <custom-filter before="FORM_LOGIN_FILTER" ref="authenticationTokenProcessingFilter"/>  
+    </http>
+    
+    <beans:bean id="authenticationTokenProcessingFilter" class="uk.gov.dwp.esa.security.AuthenticationTokenProcessingFilter	">  
+        <beans:property name="authenticationManager" ref="authenticationManager" />
+    </beans:bean>
 
-	
+    <authentication-manager alias="authenticationManager">
+        <authentication-provider ref="customAuthenticationProvider" />  
+    </authentication-manager>
+    
+    
+
 </beans:beans>
