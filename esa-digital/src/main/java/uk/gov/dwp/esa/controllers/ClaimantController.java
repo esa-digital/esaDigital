@@ -54,8 +54,8 @@ public class ClaimantController {
 	public String saveClaimantData(Model model,Claimant claimant, BindingResult error,
             HttpServletRequest request){
 		
-		  String sessionId = request.getSession().getId();
-		  logger.debug(sessionId + " Getting personal details form");
+		  String token = (String) request.getSession().getAttribute("token");
+			String[] tokenList = token.split(":");
 		  
 		  if(error.hasErrors()){
 			  //this will check whether there are any preload errors
@@ -70,7 +70,7 @@ public class ClaimantController {
 			  logger.debug(error);
 			  return PERSONAL_DETAILS;
 		  }
-		  	claimant.setToken("RATAN6X84S");
+		  	claimant.setToken(tokenList[1]);
 	        ResponseEntity<Map> status = esaClaimService.submitClaimDetails(claimant);
 	        HttpStatus httpStatus = status.getStatusCode();
 	        if(httpStatus.equals(HttpStatus.OK)){
