@@ -46,6 +46,8 @@ public class AuthenticationTokenProcessingFilter extends GenericFilterBean {
 				SecurityContextHolder.getContext().setAuthentication(authenticationManager.authenticate(authentication));
 			}
 			chain.doFilter(request, response);
+		}else{
+			//TODO: Redirect to page on session invalidation
 		}
 		}catch(Exception e){
 			((HttpServletResponse) response).sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");

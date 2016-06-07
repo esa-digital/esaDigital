@@ -11,12 +11,6 @@ import org.springframework.stereotype.Component;
 
 import uk.gov.dwp.esa.service.TokenValidationService;
 
-/**
- * convenience class to generate a token for testing your requests.
- * Make sure the used secret here matches the on in your application.yml
- *
- * @author pascal alma
- */
 
 @Component
 public class TokenUtils {
