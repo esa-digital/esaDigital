@@ -1,4 +1,4 @@
-<jsp:include page="includes/head.jsp" />
+<jsp:include page="../includes/head.jsp" />
 
 <form action="personal-details" method="post">
 
@@ -57,9 +57,9 @@
       </div>
       
       <div class="column-one-third">
-        <jsp:include page="includes/sidebar-helplines.jsp" />
+        <jsp:include page="../includes/sidebar-helplines.jsp" />
       </div>
   </div>
 </form>
 
-<jsp:include page="includes/footer.jsp" />
+<jsp:include page="../includes/footer.jsp" />

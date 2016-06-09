@@ -16,9 +16,9 @@
         </div>
     </footer>
     <div id="global-app-error" class="app-error hidden"></div>
-    <script src="/assets/javascripts/govuk-template.js"></script>
-    <script src="/assets/javascripts/jquery-1.12.4.min.js"></script>
-    <script src="/assets/javascripts/govuk-validate.js"></script>
+    <script src="assets/javascripts/govuk-template.js"></script>
+    <script src="assets/javascripts/jquery-1.12.4.min.js"></script>
+    <script src="assets/javascripts/govuk-validate.js"></script>
 </body>
 
 </html>
