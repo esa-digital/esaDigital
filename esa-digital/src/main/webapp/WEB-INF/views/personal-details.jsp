@@ -5,7 +5,7 @@
   <div class="grid-row">
       <div class="column-two-thirds">
           
-          <h1 class="heading-xlarge">Personal Details</h1>
+          <h1 class="heading-large">Personal Details</h1>
 
           <div class="form-group" data-validation="required">
               <label class="form-label-bold" for="title">Title</label>
@@ -56,7 +56,9 @@
           <input id="submit" class="button" type="submit" value="Continue">
       </div>
       
-      <div class="column-one-third"></div>
+      <div class="column-one-third">
+        <jsp:include page="includes/sidebar-helplines.jsp" />
+      </div>
   </div>
 </form>
 
