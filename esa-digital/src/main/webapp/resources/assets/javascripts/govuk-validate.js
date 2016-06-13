@@ -147,7 +147,7 @@ GOVUK.getValidationDescriptionElement = function(text, id) {
 
 $(document).ready(function() {
     $('form').on('submit', function(e) {
-        e.preventDefault();
+        
         $('.error-message').remove();
         $('.form-group[data-validation].error').removeClass('error');
         $('.error-summary').addClass('visually-hidden');
