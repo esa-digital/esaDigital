@@ -1,5 +1,7 @@
 package uk.gov.dwp.esa.serviceImpl;
 
+import java.util.Map;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -24,7 +26,7 @@ public class TokenValidationServiceImpl implements TokenValidationService {
 	        RestTemplate restTemplate = new RestTemplate();
 
 	        String tokenServiceUrl = TOKEN_SERV_URL+token;
-	        ResponseEntity<HttpStatus> responseEntity  =  restTemplate.getForEntity(tokenServiceUrl, HttpStatus.class);
+	        ResponseEntity<Map> responseEntity  =  restTemplate.getForEntity(tokenServiceUrl, Map.class);
 	        if (responseEntity.getStatusCode() == HttpStatus.UNAUTHORIZED) {
 	        	  throw new HttpClientErrorException(HttpStatus.NOT_FOUND);
 	        }

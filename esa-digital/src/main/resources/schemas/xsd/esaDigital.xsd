@@ -14,7 +14,7 @@
     		<element name="dobDay" type="string"></element>
     		<element name="nino" type="string"></element>
     		<element name="gender" type="string"></element>
-    		<element name="token" type="string"></element>
+    		
     	</sequence>
     </complexType>
 
@@ -227,6 +227,7 @@
     		<element name="specialRules" type="tns:SpecialRules"></element>
     		<element name="claimDate" type="tns:ClaimDate"></element>
     		<element name="housingBenefit" type="tns:HousingBenefit"></element>
+    		<element name="token" type="string"></element>
     	</sequence>
     </complexType>
 

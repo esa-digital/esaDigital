@@ -15,8 +15,9 @@ xmlns:context="http://www.springframework.org/schema/context"
     <http pattern="/api/dummy" security="none"/>   
     <http pattern="/api/index" security="none"/> 
     
+   
 
-    <http pattern="/api/**" entry-point-ref="customAuthenticationEntryPoint" create-session="stateless"> 
+    <http pattern="/api/**" entry-point-ref="customAuthenticationEntryPoint"> 
         <csrf disabled="true"/>  
         <custom-filter before="FORM_LOGIN_FILTER" ref="authenticationTokenProcessingFilter"/>  
     </http>
