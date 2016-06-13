@@ -204,9 +204,9 @@
 							<sourceRoot>${basedir}/target/generated/src/main/java</sourceRoot>
 							<xsdOptions>
 								<xsdOption>
-									<xsd>${basedir}\src\main\resources\schemas\xsd\esaDigital.xsd</xsd>
+									<xsd>${basedir}/src/main/resources/schemas/xsd/esaDigital.xsd</xsd>
 									<packagename>uk.gov.dwp.esa.model</packagename>
-									<bindingFile>${basedir}\src\main\resources\schemas\xsd\xsdBinding.xjb</bindingFile>
+									<bindingFile>${basedir}/src/main/resources/schemas/xsd/xsdBinding.xjb</bindingFile>
 								</xsdOption>
 							</xsdOptions>
 						</configuration>
