@@ -12,7 +12,7 @@ import uk.gov.dwp.esa.service.TokenValidationService;
 public class TokenValidationServiceImpl implements TokenValidationService {
 
 	//this needs to change to include MessageSource
-	private static final String TOKEN_SERV_URL = "http://localhost:8081/api/match/?key=";
+	private static final String TOKEN_SERV_URL = "http://10.32.20.100:8081/api/match/?key=";
 			
 	@Override
 	public HttpStatus getStatus(String token) {

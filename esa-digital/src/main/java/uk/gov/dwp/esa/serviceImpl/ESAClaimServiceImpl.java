@@ -18,7 +18,7 @@ public class ESAClaimServiceImpl implements ESAClaimService{
 	
 	
 	
-	private String claimURl = "http://localhost:8081/api/Submit";
+	private String claimURl = "http://10.32.20.100:8081/api/Submit";
 
 	@Override
 	public ResponseEntity<Map> submitClaimDetails(Claimant claimant) {

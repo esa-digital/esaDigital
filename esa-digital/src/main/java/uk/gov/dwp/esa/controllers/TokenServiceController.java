@@ -45,6 +45,13 @@ public class TokenServiceController {
 		return TOKEN_SERVICE;
 	}
 	
+	@RequestMapping(value = "/index", method = RequestMethod.GET)
+	public String getIndex(HttpServletRequest request) {
+       
+
+		return "index";
+	}
+	
 	@RequestMapping(value = TOKEN_SERVICE, method = RequestMethod.POST)
 	public String validateToken(HttpServletRequest request){
 		
