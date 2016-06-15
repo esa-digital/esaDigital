@@ -513,8 +513,8 @@ public class ValidationUtilsTest {
     	testStrings.add("abc");
     	testStrings.add("abc abc");
     	testStrings.add("abc abc ");
-    	testStrings.add("abc, abc");
-    	testStrings.add("abc'd");
+    	testStrings.add("abc abc");
+    	testStrings.add("abc d");
     	
     	
     	for(String str : testStrings){
@@ -529,14 +529,170 @@ public class ValidationUtilsTest {
     	testStrings.add("abc1");
     	testStrings.add("abc@");
     	testStrings.add("1abc");
-    	testStrings.add("a1bc");
+    	testStrings.add("a1b'c");
     	testStrings.add("");
     	testStrings.add(null);
     	 
-    	
     	for(String str : testStrings){
     		Assert.assertFalse(ValidationUtils.isAlphaOnly(str));
     	}
     }
     
+	@Test
+	public void isStringValidAddressTest() {
+
+		List<String> testStrings = new ArrayList<String>();
+		testStrings.add("abc");
+		testStrings.add("abc abc");
+		testStrings.add("123 456 ");
+		testStrings.add("abc 123 ");
+		testStrings.add("abc, 123");
+		testStrings.add("abc'd");
+		testStrings.add("2\3 Duncan's Street"); // This one fails.
+
+		for (String str : testStrings) {
+			Assert.assertTrue(ValidationUtils.isValidAddress(str));
+		}
+	}
+
+	@Test
+	public void isStringNotValidAddressTest() {
+
+		List<String> testStrings = new ArrayList<String>();
+		testStrings.add("abc!");
+		testStrings.add("ab1c@");
+		testStrings.add("1abc?");
+		testStrings.add("a123 bc+");
+		testStrings.add("");
+		testStrings.add(null);
+
+		for (String str : testStrings) {
+			Assert.assertFalse(ValidationUtils.isValidAddress(str));
+		}
+	}
+
+	@Test
+	public void isStringTelephoneOnlyTest() {
+		List<String> testStrings = new ArrayList<String>();
+		testStrings.add("01");
+		testStrings.add("+44 0134567");
+		testStrings.add("0115 2891759");
+		testStrings.add("01152891759");
+
+		for (String str : testStrings) {
+			Assert.assertTrue(ValidationUtils.isTelephoneOnly(str));
+		} 
+	}
+
+	@Test
+	public void isStringNotTelephoneTest() {
+		List<String> testStrings = new ArrayList<String>();
+		testStrings.add("?01");
+		testStrings.add("-44 0134567");
+		testStrings.add("0!15 2891759");
+		testStrings.add("Plus44 1152891759");
+		testStrings.add("");
+		testStrings.add(null);
+
+		for (String str : testStrings) {
+			Assert.assertFalse(ValidationUtils.isTelephoneOnly(str));
+		}
+	}
+	
+	@Test
+	public void isAlphaNumericOnlyTest() {
+		List<String> testStrings = new ArrayList<String>();
+		testStrings.add("01");
+		testStrings.add("A1B1");
+		testStrings.add("CDE");
+		testStrings.add("w3e4d5g");
+
+		for (String str : testStrings) {
+			Assert.assertTrue(ValidationUtils.isAlphaNumericOnly(str));
+		} 
+	}
+	
+	@Test
+	public void isNotAlphaNumericOnlyTest() {
+		List<String> testStrings = new ArrayList<String>();
+		testStrings.add("01 01");
+		testStrings.add("A1-B1");
+		testStrings.add("CDE!");
+		testStrings.add("w3 e4 d5 g");
+		testStrings.add("1,2");
+		testStrings.add("A1/B2");
+		testStrings.add("");
+		testStrings.add(null);
+
+		for (String str : testStrings) {
+			Assert.assertFalse(ValidationUtils.isAlphaNumericOnly(str));
+		} 
+	}
+	
+	@Test
+	public void isValidNameTest() {
+		List<String> testStrings = new ArrayList<String>();
+		testStrings.add("Mr Jones");
+		testStrings.add("Mr A.H. Smith");
+		testStrings.add("Miss A Roger's");
+		testStrings.add("A Jones-Green");
+		testStrings.add("Mrs J,A White");
+		
+
+		for (String str : testStrings) {
+			Assert.assertTrue(ValidationUtils.isValidName(str));
+		} 
+	}
+	
+	@Test
+	public void isNotValidNameTest() {
+		List<String> testStrings = new ArrayList<String>();
+		testStrings.add("Mr Jones!");
+		testStrings.add("Miss Smith the 1st");
+		testStrings.add("Mr A/H Green");
+		testStrings.add("123");
+		testStrings.add("Mr & Mrs");
+		testStrings.add("Mr Jones @");
+		testStrings.add("");
+		testStrings.add(null);
+
+		for (String str : testStrings) {
+			Assert.assertFalse(ValidationUtils.isValidName(str));
+		} 
+	}
+	
+	@Test
+	public void isValidPostcode() {
+		List<String> testStrings = new ArrayList<String>();
+		testStrings.add("S10 3DP");
+		testStrings.add("LS1 5QJ");
+		testStrings.add("W1S 3QQ");
+		testStrings.add("WS11 5DJ");
+		testStrings.add("S1 1AB");
+		
+
+		for (String str : testStrings) {
+			Assert.assertTrue(ValidationUtils.isValidPostcode(str));
+		} 
+	}
+	
+	@Test
+	public void isNotValidPostcode() {
+		List<String> testStrings = new ArrayList<String>();
+		testStrings.add("S101 3DP");
+		testStrings.add("LSS 5QJ");
+		testStrings.add("W11S 3QQ");
+		testStrings.add("WST1 5DJ");
+		testStrings.add("S 1AB");
+		testStrings.add("S1  1AB");
+		testStrings.add("ABC");
+		testStrings.add("123");
+		testStrings.add("");
+		testStrings.add(null);
+		
+		for (String str : testStrings) {
+			Assert.assertFalse(ValidationUtils.isValidPostcode(str));
+		} 
+	}
+	
 }
