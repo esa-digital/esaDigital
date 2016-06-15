@@ -36,7 +36,7 @@ public class AuthenticationTokenProcessingFilter extends GenericFilterBean {
 		HttpServletRequest httpServletRequest = (HttpServletRequest) request;
 		HttpSession session = httpServletRequest.getSession(false);
 		
-		try{
+
 		if(session != null){
 			String sessionId = session.getId();
 			String token = (String) session.getAttribute(TOKEN_SESSION_ATTRIBUTE);
@@ -54,9 +54,6 @@ public class AuthenticationTokenProcessingFilter extends GenericFilterBean {
 		
 		}else{
 			//TODO: Redirect to page on session invalidation
-		}
-		}catch(Exception e){
-			((HttpServletResponse) response).sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
 		}
 	}
 

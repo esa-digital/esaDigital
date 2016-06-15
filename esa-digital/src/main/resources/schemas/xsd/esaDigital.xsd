@@ -26,8 +26,7 @@
     		<element name="addressLine4" type="string"></element>
     		<element name="postCode" type="string"></element>
     		<element name="phoneNumber" type="int"></element>
-    		<element name="messageYN" type="boolean"></element>
-    		<element name="mobile" type="int"></element>
+    		<element name="otherNumber" type="int"></element>
     		<element name="email" type="string"></element>
     	</sequence>
     </complexType>

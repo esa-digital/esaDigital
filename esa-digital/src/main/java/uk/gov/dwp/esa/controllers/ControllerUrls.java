@@ -8,5 +8,9 @@ public final class ControllerUrls {
 	
 	protected static final String BANK_DETAILS_FORM = "/bank-details";
 	
+	protected static final String CONTACT_DETAILS = "/contact-details";
+	
+	protected static final String ALTERNATIVE_FORMATS = "/alternative-formats";
+	
 
 }
