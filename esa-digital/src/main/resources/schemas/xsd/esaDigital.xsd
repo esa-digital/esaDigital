@@ -25,8 +25,8 @@
     		<element name="addressLine3" type="string"></element>
     		<element name="addressLine4" type="string"></element>
     		<element name="postCode" type="string"></element>
-    		<element name="phoneNumber" type="int"></element>
-    		<element name="otherNumber" type="int"></element>
+    		<element name="phoneNumber" type="string"></element>
+    		<element name="otherNumber" type="string"></element>
     		<element name="email" type="string"></element>
     	</sequence>
     </complexType>

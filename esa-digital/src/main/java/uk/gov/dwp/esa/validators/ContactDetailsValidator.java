@@ -21,7 +21,13 @@ import uk.gov.dwp.esa.validatorHelpers.ValidationUtils;
 @Component
 public class ContactDetailsValidator implements Validator {
 
-	private static final int maxLength = 27;
+	private static final int maxLengthAddressLine = 27;
+
+	private static final int maxLengthPostcode = 8;
+
+	private static final int maxLenghtPhone = 20;
+
+	private static final int maxLenghtEmail = 50;
 
 	@Autowired
 	private MessageSource messageSource;
@@ -51,13 +57,13 @@ public class ContactDetailsValidator implements Validator {
 					messageSource.getMessage(ValidationCodes.CONTACT_DETAILS_ADDRESS1_EMPTY, null, Locale.ENGLISH));
 			errors.add(addressLine1Validation);
 		} else {
-			if (ValidationUtils.isStringLengthOver(contactDetails.getAddressLine1(), maxLength)) {
+			if (ValidationUtils.isStringLengthOver(contactDetails.getAddressLine1(), maxLengthAddressLine)) {
 				errors.add(new ValidationError(ContactDetailsConstants.ADDRESSLINE1.value(), messageSource
 						.getMessage(ValidationCodes.CONTACT_DETAILS_ADDRESS1_TOO_LONG, null, Locale.ENGLISH)));
 			}
 			// Checks if title is alpha only
 			if (!ValidationUtils.isAlphaOnly(contactDetails.getAddressLine1())) {
-				errors.add(new ValidationError(ClaimantConstants.TITLE.value(),
+				errors.add(new ValidationError(ContactDetailsConstants.ADDRESSLINE1.value(),
 						messageSource.getMessage(ValidationCodes.CLAIMANT_TITLE_ALPHA, null, Locale.ENGLISH)));
 			}
 		}
@@ -67,14 +73,95 @@ public class ContactDetailsValidator implements Validator {
 					messageSource.getMessage(ValidationCodes.CONTACT_DETAILS_ADDRESS2_EMPTY, null, Locale.ENGLISH));
 			errors.add(addressLine1Validation);
 		} else {
-			if (ValidationUtils.isStringLengthOver(contactDetails.getAddressLine2(), maxLength)) {
+			if (ValidationUtils.isStringLengthOver(contactDetails.getAddressLine2(), maxLengthAddressLine)) {
 				errors.add(new ValidationError(ContactDetailsConstants.ADDRESSLINE2.value(), messageSource
 						.getMessage(ValidationCodes.CONTACT_DETAILS_ADDRESS2_TOO_LONG, null, Locale.ENGLISH)));
 			}
 			// Checks if title is alpha only
 			if (!ValidationUtils.isAlphaOnly(contactDetails.getAddressLine2())) {
-				errors.add(new ValidationError(ClaimantConstants.TITLE.value(),
+				errors.add(new ValidationError(ContactDetailsConstants.ADDRESSLINE2.value(),
 						messageSource.getMessage(ValidationCodes.CLAIMANT_TITLE_ALPHA, null, Locale.ENGLISH)));
+			}
+		}
+
+		if (!ValidationUtils.isEmpty(contactDetails.getAddressLine3())) {
+
+			if (ValidationUtils.isStringLengthOver(contactDetails.getAddressLine3(), maxLengthAddressLine)) {
+				errors.add(new ValidationError(ContactDetailsConstants.ADDRESSLINE3.value(), messageSource
+						.getMessage(ValidationCodes.CONTACT_DETAILS_ADDRESS3_TOO_LONG, null, Locale.ENGLISH)));
+			}
+			// Checks if title is alpha only
+			if (!ValidationUtils.isAlphaOnly(contactDetails.getAddressLine3())) {
+				errors.add(new ValidationError(ContactDetailsConstants.ADDRESSLINE3.value(),
+						messageSource.getMessage(ValidationCodes.CLAIMANT_TITLE_ALPHA, null, Locale.ENGLISH)));
+			}
+		}
+
+		if (!ValidationUtils.isEmpty(contactDetails.getAddressLine4())) {
+
+			if (ValidationUtils.isStringLengthOver(contactDetails.getAddressLine4(), maxLengthAddressLine)) {
+				errors.add(new ValidationError(ContactDetailsConstants.ADDRESSLINE4.value(), messageSource
+						.getMessage(ValidationCodes.CONTACT_DETAILS_ADDRESS4_TOO_LONG, null, Locale.ENGLISH)));
+			}
+			// Checks if title is alpha only
+			if (!ValidationUtils.isAlphaOnly(contactDetails.getAddressLine3())) {
+				errors.add(new ValidationError(ContactDetailsConstants.ADDRESSLINE4.value(),
+						messageSource.getMessage(ValidationCodes.CLAIMANT_TITLE_ALPHA, null, Locale.ENGLISH)));
+			}
+		}
+
+		if (ValidationUtils.isEmpty(contactDetails.getPostCode())) {
+			ValidationError postcodeValidation = new ValidationError(ContactDetailsConstants.POSTCODE.value(),
+					messageSource.getMessage(ValidationCodes.CONTACT_DETAILS_POSTCODE_EMPTY, null, Locale.ENGLISH));
+			errors.add(postcodeValidation);
+		} else {
+			if (ValidationUtils.isStringLengthOver(contactDetails.getPostCode(), maxLengthPostcode)) {
+				errors.add(new ValidationError(ContactDetailsConstants.POSTCODE.value(),
+						messageSource.getMessage(ValidationCodes.CONTACT_DETAILS_POSTCODE4_TOO_LONG, null, Locale.ENGLISH)));
+			}
+			// Checks if title is alpha only
+			if (!ValidationUtils.isAlphaOnly(contactDetails.getPostCode())) {
+				errors.add(new ValidationError(ContactDetailsConstants.POSTCODE.value(),
+						messageSource.getMessage(ValidationCodes.CLAIMANT_TITLE_ALPHA, null, Locale.ENGLISH)));
+			}
+		}
+
+		if (!ValidationUtils.isEmpty(contactDetails.getPhoneNumber())) {
+
+			if (ValidationUtils.isStringLengthOver(contactDetails.getPhoneNumber(), maxLenghtPhone)) {
+				errors.add(new ValidationError(ContactDetailsConstants.PHONENUMBER.value(),
+						messageSource.getMessage(ValidationCodes.CONTACT_DETAILS_PHONENUMBER_TOO_LONG, null, Locale.ENGLISH)));
+			}
+			// Checks if title is alpha only
+			if (!ValidationUtils.isAlphaOnly(contactDetails.getPhoneNumber())) {
+				errors.add(new ValidationError(ContactDetailsConstants.PHONENUMBER.value(),
+						messageSource.getMessage(ValidationCodes.CLAIMANT_TITLE_ALPHA, null, Locale.ENGLISH)));
+			}
+		}
+
+		if (!ValidationUtils.isEmpty(contactDetails.getOtherNumber())) {
+
+			if (ValidationUtils.isStringLengthOver(contactDetails.getOtherNumber(), maxLenghtPhone)) {
+				errors.add(new ValidationError(ContactDetailsConstants.OTHERNUMBER.value(),
+						messageSource.getMessage(ValidationCodes.CONTACT_DETAILS_OTHERNUMBER_TOO_LONG, null, Locale.ENGLISH)));
+			}
+			// Checks if title is alpha only
+			if (!ValidationUtils.isAlphaOnly(contactDetails.getOtherNumber())) {
+				errors.add(new ValidationError(ContactDetailsConstants.OTHERNUMBER.value(),
+						messageSource.getMessage(ValidationCodes.CLAIMANT_TITLE_ALPHA, null, Locale.ENGLISH)));
+			}
+		}
+
+		if (!ValidationUtils.isEmpty(contactDetails.getEmail())) {
+
+			if (ValidationUtils.isStringLengthOver(contactDetails.getEmail(), maxLenghtEmail)) {
+				errors.add(new ValidationError(ContactDetailsConstants.EMAIL.value(),
+						messageSource.getMessage(ValidationCodes.CONTACT_EMAIL_TOO_LONG, null, Locale.ENGLISH)));
+			}
+			// Checks if title is alpha only
+			if (!ValidationUtils.isEmailValid(contactDetails.getEmail())) {
+				errors.add(new ValidationError(ContactDetailsConstants.EMAIL.value(),
+						messageSource.getMessage(ValidationCodes.CONTACT_EMAIL_INVALID, null, Locale.ENGLISH)));
 			}
 		}
 
@@ -83,7 +170,7 @@ public class ContactDetailsValidator implements Validator {
 
 	@Override
 	public boolean supports(Class clazz) {
-		return Claimant.class.equals(clazz);
+		return ContactDetails.class.equals(clazz);
 	}
 
 	@Override

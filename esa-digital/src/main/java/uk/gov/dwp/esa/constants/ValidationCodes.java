@@ -166,8 +166,14 @@ public final class ValidationCodes {
     
     public static final String CONTACT_DETAILS_ADDRESS1_EMPTY = "contactdetails.address1.empty";
     public static final String CONTACT_DETAILS_ADDRESS2_EMPTY = "contactdetails.address2.empty";
+    public static final String CONTACT_DETAILS_POSTCODE_EMPTY = "contactdetails.postcode.address2.empty";
     public static final String CONTACT_DETAILS_ADDRESS1_TOO_LONG = "contactdetails.address1.greater.than.limit";
     public static final String CONTACT_DETAILS_ADDRESS2_TOO_LONG = "contactdetails.address2.greater.than.limit";
+    public static final String CONTACT_DETAILS_ADDRESS3_TOO_LONG = "contactdetails.address3.greater.than.limit";
+    public static final String CONTACT_DETAILS_ADDRESS4_TOO_LONG = "contactdetails.address4.greater.than.limit";
+    public static final String CONTACT_DETAILS_POSTCODE4_TOO_LONG = "contactdetails.postcode.greater.than.limit";
+    public static final String CONTACT_DETAILS_PHONENUMBER_TOO_LONG = "contactdetails.phonenumber.greater.than.limit";
+    public static final String CONTACT_DETAILS_OTHERNUMBER_TOO_LONG = "contactdetails.othernumber.greater.than.limit";
 	
     public static final String DOCTOR_NAME_EMPTY = "gpDetails.doctor.name.empty";
     public static final String DOCTOR_NAME_TOO_LONG = "gpDetails.doctor.name.too.long";
