@@ -163,5 +163,11 @@ public final class ValidationCodes {
     
     public static final String FEEDBACK_TYPE_EMPTY = "feedback.feedbackType.cannot.be.empty";
     public static final String FEEDBACK_SUGGESTION_TOO_LONG = "feedback.suggestion.greater.than.limit";
+    
+    public static final String CONTACT_DETAILS_ADDRESS1_EMPTY = "contactdetails.address1.empty";
+    public static final String CONTACT_DETAILS_ADDRESS2_EMPTY = "contactdetails.address2.empty";
+    public static final String CONTACT_DETAILS_ADDRESS1_TOO_LONG = "contactdetails.address1.greater.than.limit";
+    public static final String CONTACT_DETAILS_ADDRESS2_TOO_LONG = "contactdetails.address2.greater.than.limit";
+    
 
 }

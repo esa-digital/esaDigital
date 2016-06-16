@@ -14,7 +14,7 @@
     		<element name="dobDay" type="string"></element>
     		<element name="nino" type="string"></element>
     		<element name="gender" type="string"></element>
-    		<element name="token" type="string"></element>
+    		
     	</sequence>
     </complexType>
 
@@ -26,8 +26,7 @@
     		<element name="addressLine4" type="string"></element>
     		<element name="postCode" type="string"></element>
     		<element name="phoneNumber" type="int"></element>
-    		<element name="messageYN" type="boolean"></element>
-    		<element name="mobile" type="int"></element>
+    		<element name="otherNumber" type="int"></element>
     		<element name="email" type="string"></element>
     	</sequence>
     </complexType>
@@ -227,6 +226,7 @@
     		<element name="specialRules" type="tns:SpecialRules"></element>
     		<element name="claimDate" type="tns:ClaimDate"></element>
     		<element name="housingBenefit" type="tns:HousingBenefit"></element>
+    		<element name="token" type="string"></element>
     	</sequence>
     </complexType>
 

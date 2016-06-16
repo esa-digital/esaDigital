@@ -13,41 +13,43 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import uk.gov.dwp.esa.model.Claimant;
+import uk.gov.dwp.esa.model.ContactDetails;
 import uk.gov.dwp.esa.validators.ClaimantValidator;
+import uk.gov.dwp.esa.validators.ContactDetailsValidator;
 
 @Controller
-public class ClaimantController {
+public class ContactDetailsController {
 
-	private static final Logger logger = LogManager.getLogger(ClaimantController.class);
-	protected static final String CLAIMANT_DETAILS = "ClaimantDetails";
-	private String NEXT_FORM = "/api" + ControllerUrls.GP_DETAILS_FORM;
-	private static String PERSONAL_DETAILS_FORM = "personal-details";
+	private static final Logger logger = LogManager.getLogger(ContactDetailsController.class);
+	protected static final String CONTACT_DETAILS = "ContactDetails";
+	private String NEXT_FORM = "/api" + ControllerUrls.ALTERNATIVE_FORMATS;
+	private static String CONTACT_DETAILS_FORM = "contact-details";
 	
 		
 	@Autowired
-	private ClaimantValidator claimantValidator;
+	private ContactDetailsValidator contactDetailsValidator;
 	
 		
-	@RequestMapping(value = ControllerUrls.PERSONAL_DETAILS_FORM, method = RequestMethod.GET)
-	public String getPersonalDetailsForm(Model model, HttpServletRequest request) {
+	@RequestMapping(value = ControllerUrls.CONTACT_DETAILS, method = RequestMethod.GET)
+	public String getcontactDetailsForm(Model model, HttpServletRequest request) {
 		
 		HttpSession session = request.getSession();
 		String sessionId = session.getId();
 		
         logger.debug(sessionId + " Getting personal details form");
         
-        Claimant claimant = (Claimant) session.getAttribute(CLAIMANT_DETAILS);
-        if(claimant==null){
-        	claimant =  new Claimant();
+        ContactDetails contactDetails = (ContactDetails) session.getAttribute(CONTACT_DETAILS);
+        if(contactDetails==null){
+        	 contactDetails=  new ContactDetails();
         }else{
-        	model.addAttribute(CLAIMANT_DETAILS,claimant);
+        	model.addAttribute(CONTACT_DETAILS,contactDetails);
         }
         
-		return PERSONAL_DETAILS_FORM;
+		return CONTACT_DETAILS_FORM;
 	}
 	
-	@RequestMapping(value = ControllerUrls.PERSONAL_DETAILS_FORM, method = RequestMethod.POST)
-	public String saveClaimantData(Model model,Claimant claimant, BindingResult error,HttpServletRequest request){
+	@RequestMapping(value = ControllerUrls.CONTACT_DETAILS, method = RequestMethod.POST)
+	public String saveContactDetailsData(Model model,ContactDetails contactDetails, BindingResult error,HttpServletRequest request){
 		
 		HttpSession session = request.getSession();
 		String sessionId = session.getId();
@@ -58,17 +60,17 @@ public class ClaimantController {
 			  //this will check whether there are any preload errors
 			  //do something -- return to error page
 			  //currently returning the same page, but should redirect to error page.
-			  return PERSONAL_DETAILS_FORM;
+			  return CONTACT_DETAILS_FORM;
 		  }
 		  
-		  claimantValidator.validate(claimant, error);
+		  contactDetailsValidator.validate(contactDetails, error);
 		  
 		  if(error.hasErrors()){
-			  model.addAttribute(CLAIMANT_DETAILS, claimant);
+			  model.addAttribute(CONTACT_DETAILS, contactDetails);
 			  logger.debug(error);
-			  return PERSONAL_DETAILS_FORM;
+			  return CONTACT_DETAILS_FORM;
 		  }
-		  session.setAttribute(CLAIMANT_DETAILS, claimant);
+		  session.setAttribute(CONTACT_DETAILS, contactDetails);
 		  
 		  logger.debug(sessionId + "Saved Claimant Details");
 		return "redirect:" + NEXT_FORM;

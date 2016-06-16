@@ -25,7 +25,7 @@ public class TokenServiceController {
 
 	private static final String TOKEN_REQUEST_PARAMETER = "key";
 
-	private static final String TOKEN_SESSION_ATTRIBUTE = "token";
+	protected static final String TOKEN_SESSION_ATTRIBUTE = "token";
 	
 	@RequestMapping(value = TOKEN_SERVICE, method = RequestMethod.GET)
 	public String getTokenService(HttpServletRequest request) {
@@ -43,6 +43,13 @@ public class TokenServiceController {
         }
 
 		return TOKEN_SERVICE;
+	}
+	
+	@RequestMapping(value = "/index", method = RequestMethod.GET)
+	public String getIndex(HttpServletRequest request) {
+       
+
+		return "index";
 	}
 	
 	@RequestMapping(value = TOKEN_SERVICE, method = RequestMethod.POST)
