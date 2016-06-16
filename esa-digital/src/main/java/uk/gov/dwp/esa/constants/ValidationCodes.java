@@ -168,6 +168,33 @@ public final class ValidationCodes {
     public static final String CONTACT_DETAILS_ADDRESS2_EMPTY = "contactdetails.address2.empty";
     public static final String CONTACT_DETAILS_ADDRESS1_TOO_LONG = "contactdetails.address1.greater.than.limit";
     public static final String CONTACT_DETAILS_ADDRESS2_TOO_LONG = "contactdetails.address2.greater.than.limit";
+	
+    public static final String DOCTOR_NAME_EMPTY = "gpDetails.doctor.name.empty";
+    public static final String DOCTOR_NAME_TOO_LONG = "gpDetails.doctor.name.too.long";
+	public static final String DOCTOR_NAME_ALPHA = "gpDetails.doctor.name.alpha";
     
-
+    public static final String DOCTOR_ADDRESS_LINE1_EMPTY = "gpDetails.doctor.address1.empty";
+    public static final String DOCTOR_ADDRESS_LINE1_TOO_LONG = "gpDetails.doctor.address1.too.long";
+    public static final String DOCTOR_ADDRESS_LINE1_ALPHANUMERIC = "gpDetails.doctor.address1.alphanumeric";
+    
+	public static final String DOCTOR_ADDRESS_LINE2_EMPTY = "gpDetails.doctor.address2.empty";
+	public static final String DOCTOR_ADDRESS_LINE2_TOO_LONG = "gpDetails.doctor.address2.too.long";
+	public static final String DOCTOR_ADDRESS_LINE2_ALPHANUMERIC = "gpDetails.doctor.address2.alphanumeric";
+	
+	public static final String DOCTOR_ADDRESS_LINE3_TOO_LONG = "gpDetails.doctor.address3.too.long" ;
+	public static final String DOCTOR_ADDRESS_LINE3_ALPHANUMERIC = "gpDetails.doctor.address3.alphanumeric";
+	
+	public static final String DOCTOR_ADDRESS_LINE4_TOO_LONG = "gpDetails.doctor.address4.too.long" ;
+	public static final String DOCTOR_ADDRESS_LINE4_ALPHANUMERIC = "gpDetails.doctor.address4.alphanumeric";
+	
+	
+	public static final String DOCTOR_POSTCODE_EMPTY = "gpDetails.doctor.postcode.empty";
+	public static final String DOCTOR_POSTCODE_TOO_LONG = "gpDetails.doctor.postcode.too.long";
+	public static final String DOCTOR_POSTCODE_ALPHANUMERIC = "gpDetails.doctor.postcode.alphanumeric";
+	
+	
+    public static final String DOCTOR_TELEPHONE_EMPTY = "gpDetails.doctor.telephone.empty";
+    public static final String DOCTOR_TELEPHONE_TOO_LONG = "gpDetails.doctor.telephone.too.long";
+	public static final String DOCTOR_TELEPHONE_NUMERIC = "gpDetails.doctor.telephone.numeric";
+    
 }
