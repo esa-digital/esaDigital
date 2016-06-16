@@ -174,6 +174,10 @@ public final class ValidationCodes {
     public static final String CONTACT_DETAILS_POSTCODE4_TOO_LONG = "contactdetails.postcode.greater.than.limit";
     public static final String CONTACT_DETAILS_PHONENUMBER_TOO_LONG = "contactdetails.phonenumber.greater.than.limit";
     public static final String CONTACT_DETAILS_OTHERNUMBER_TOO_LONG = "contactdetails.othernumber.greater.than.limit";
+    public static final String CONTACT_DETAILS_ADDRESS_LINE1_ALPHANUMERIC = "contactdetails.address1.alphanumeric";
+    public static final String CONTACT_DETAILS_ADDRESS_LINE2_ALPHANUMERIC = "contactdetails.address2.alphanumeric";
+    public static final String CONTACT_DETAILS_ADDRESS_LINE3_ALPHANUMERIC = "contactdetails.address3.alphanumeric";
+    public static final String CONTACT_DETAILS_ADDRESS_LINE4_ALPHANUMERIC = "contactdetails.address4.alphanumeric";
 	
     public static final String DOCTOR_NAME_EMPTY = "gpDetails.doctor.name.empty";
     public static final String DOCTOR_NAME_TOO_LONG = "gpDetails.doctor.name.too.long";

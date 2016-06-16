@@ -62,9 +62,9 @@ public class ContactDetailsValidator implements Validator {
 						.getMessage(ValidationCodes.CONTACT_DETAILS_ADDRESS1_TOO_LONG, null, Locale.ENGLISH)));
 			}
 			// Checks if title is alpha only
-			if (!ValidationUtils.isAlphaOnly(contactDetails.getAddressLine1())) {
-				errors.add(new ValidationError(ContactDetailsConstants.ADDRESSLINE1.value(),
-						messageSource.getMessage(ValidationCodes.CLAIMANT_TITLE_ALPHA, null, Locale.ENGLISH)));
+			if (!ValidationUtils.isValidAddress(contactDetails.getAddressLine1())) {
+				errors.add(new ValidationError(ContactDetailsConstants.ADDRESSLINE1.value(), messageSource
+						.getMessage(ValidationCodes.CONTACT_DETAILS_ADDRESS_LINE1_ALPHANUMERIC, null, Locale.ENGLISH)));
 			}
 		}
 
@@ -75,10 +75,10 @@ public class ContactDetailsValidator implements Validator {
 		} else {
 			if (ValidationUtils.isStringLengthOver(contactDetails.getAddressLine2(), maxLengthAddressLine)) {
 				errors.add(new ValidationError(ContactDetailsConstants.ADDRESSLINE2.value(), messageSource
-						.getMessage(ValidationCodes.CONTACT_DETAILS_ADDRESS2_TOO_LONG, null, Locale.ENGLISH)));
+						.getMessage(ValidationCodes.CONTACT_DETAILS_ADDRESS_LINE2_ALPHANUMERIC, null, Locale.ENGLISH)));
 			}
 			// Checks if title is alpha only
-			if (!ValidationUtils.isAlphaOnly(contactDetails.getAddressLine2())) {
+			if (!ValidationUtils.isValidAddress(contactDetails.getAddressLine2())) {
 				errors.add(new ValidationError(ContactDetailsConstants.ADDRESSLINE2.value(),
 						messageSource.getMessage(ValidationCodes.CLAIMANT_TITLE_ALPHA, null, Locale.ENGLISH)));
 			}
@@ -91,9 +91,9 @@ public class ContactDetailsValidator implements Validator {
 						.getMessage(ValidationCodes.CONTACT_DETAILS_ADDRESS3_TOO_LONG, null, Locale.ENGLISH)));
 			}
 			// Checks if title is alpha only
-			if (!ValidationUtils.isAlphaOnly(contactDetails.getAddressLine3())) {
-				errors.add(new ValidationError(ContactDetailsConstants.ADDRESSLINE3.value(),
-						messageSource.getMessage(ValidationCodes.CLAIMANT_TITLE_ALPHA, null, Locale.ENGLISH)));
+			if (!ValidationUtils.isValidAddress(contactDetails.getAddressLine3())) {
+				errors.add(new ValidationError(ContactDetailsConstants.ADDRESSLINE3.value(), messageSource
+						.getMessage(ValidationCodes.CONTACT_DETAILS_ADDRESS_LINE3_ALPHANUMERIC, null, Locale.ENGLISH)));
 			}
 		}
 
@@ -104,9 +104,9 @@ public class ContactDetailsValidator implements Validator {
 						.getMessage(ValidationCodes.CONTACT_DETAILS_ADDRESS4_TOO_LONG, null, Locale.ENGLISH)));
 			}
 			// Checks if title is alpha only
-			if (!ValidationUtils.isAlphaOnly(contactDetails.getAddressLine3())) {
-				errors.add(new ValidationError(ContactDetailsConstants.ADDRESSLINE4.value(),
-						messageSource.getMessage(ValidationCodes.CLAIMANT_TITLE_ALPHA, null, Locale.ENGLISH)));
+			if (!ValidationUtils.isValidAddress(contactDetails.getAddressLine3())) {
+				errors.add(new ValidationError(ContactDetailsConstants.ADDRESSLINE4.value(), messageSource
+						.getMessage(ValidationCodes.CONTACT_DETAILS_ADDRESS_LINE4_ALPHANUMERIC, null, Locale.ENGLISH)));
 			}
 		}
 
@@ -116,8 +116,8 @@ public class ContactDetailsValidator implements Validator {
 			errors.add(postcodeValidation);
 		} else {
 			if (ValidationUtils.isStringLengthOver(contactDetails.getPostCode(), maxLengthPostcode)) {
-				errors.add(new ValidationError(ContactDetailsConstants.POSTCODE.value(),
-						messageSource.getMessage(ValidationCodes.CONTACT_DETAILS_POSTCODE4_TOO_LONG, null, Locale.ENGLISH)));
+				errors.add(new ValidationError(ContactDetailsConstants.POSTCODE.value(), messageSource
+						.getMessage(ValidationCodes.CONTACT_DETAILS_POSTCODE4_TOO_LONG, null, Locale.ENGLISH)));
 			}
 			// Checks if title is alpha only
 			if (!ValidationUtils.isAlphaOnly(contactDetails.getPostCode())) {
@@ -129,8 +129,8 @@ public class ContactDetailsValidator implements Validator {
 		if (!ValidationUtils.isEmpty(contactDetails.getPhoneNumber())) {
 
 			if (ValidationUtils.isStringLengthOver(contactDetails.getPhoneNumber(), maxLenghtPhone)) {
-				errors.add(new ValidationError(ContactDetailsConstants.PHONENUMBER.value(),
-						messageSource.getMessage(ValidationCodes.CONTACT_DETAILS_PHONENUMBER_TOO_LONG, null, Locale.ENGLISH)));
+				errors.add(new ValidationError(ContactDetailsConstants.PHONENUMBER.value(), messageSource
+						.getMessage(ValidationCodes.CONTACT_DETAILS_PHONENUMBER_TOO_LONG, null, Locale.ENGLISH)));
 			}
 			// Checks if title is alpha only
 			if (!ValidationUtils.isAlphaOnly(contactDetails.getPhoneNumber())) {
@@ -142,8 +142,8 @@ public class ContactDetailsValidator implements Validator {
 		if (!ValidationUtils.isEmpty(contactDetails.getOtherNumber())) {
 
 			if (ValidationUtils.isStringLengthOver(contactDetails.getOtherNumber(), maxLenghtPhone)) {
-				errors.add(new ValidationError(ContactDetailsConstants.OTHERNUMBER.value(),
-						messageSource.getMessage(ValidationCodes.CONTACT_DETAILS_OTHERNUMBER_TOO_LONG, null, Locale.ENGLISH)));
+				errors.add(new ValidationError(ContactDetailsConstants.OTHERNUMBER.value(), messageSource
+						.getMessage(ValidationCodes.CONTACT_DETAILS_OTHERNUMBER_TOO_LONG, null, Locale.ENGLISH)));
 			}
 			// Checks if title is alpha only
 			if (!ValidationUtils.isAlphaOnly(contactDetails.getOtherNumber())) {
