@@ -8,8 +8,11 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import uk.gov.dwp.esa.service.TokenValidationService;
 
@@ -23,25 +26,31 @@ public class TokenServiceController {
 	private static final String TOKEN_SERVICE = "/dummy";
 	private static final Logger logger = LogManager.getLogger(TokenServiceController.class);
 
-	private static final String TOKEN_REQUEST_PARAMETER = "key";
-
 	protected static final String TOKEN_SESSION_ATTRIBUTE = "token";
 	
-	@RequestMapping(value = TOKEN_SERVICE, method = RequestMethod.GET)
+	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String getTokenService(HttpServletRequest request) {
-        String sessionId = request.getSession().getId();
-        logger.debug(sessionId + " Returning disclaimer form");
-
-        // Retrieve the one-time token from the request
-        String tokenValue = request.getParameter(TOKEN_REQUEST_PARAMETER);
-        logger.debug(sessionId + " Token provided : " + tokenValue);
-
-        // Store the one-time token in the session for checking later
-        if (null != tokenValue) {
-        	tokenValue = sessionId+":"+tokenValue;
-            request.getSession().setAttribute(TOKEN_SESSION_ATTRIBUTE, tokenValue);
-        }
-
+		//check if token is already there 
+		//check the session id with the session id in the token
+		//if token is alreay there then check the page completed in the array.
+		//redirect to the last completed page
+		//else check f session is new, then 
+		HttpSession session = request.getSession(false);
+		//String sessionToken = (String) session.getAttribute(TOKEN_SESSION_ATTRIBUTE); 
+		if(session!=null){
+			String sessionId = session.getId();
+			String sessionToken = (String) session.getAttribute(TOKEN_SESSION_ATTRIBUTE); 
+			if(sessionToken!=null){
+				//error page
+				//redirect to 
+				 String[] tokens = sessionToken.split(":");
+				 if(sessionId.equals(tokens[1])){
+					 //check array and redirect to that page
+					 return "/personal-details";
+				 }
+			}
+		}
+		
 		return TOKEN_SERVICE;
 	}
 	
@@ -53,26 +62,20 @@ public class TokenServiceController {
 	}
 	
 	@RequestMapping(value = TOKEN_SERVICE, method = RequestMethod.POST)
-	public String validateToken(HttpServletRequest request){
+	public String validateToken(HttpServletRequest request,String token){
 		
-		HttpSession session = request.getSession(false);
+		HttpSession session = request.getSession();
 		String sessionId = session.getId();
-		
-		  logger.debug(sessionId + " Getting DUMMY form");
-		  String sessionAttribute = (String) session.getAttribute(TOKEN_SESSION_ATTRIBUTE);
-		  String[] tokenList = sessionAttribute.split(":");
-		  if(!tokenList[0].equals("") && tokenList[0].equals(sessionId)){
-			  HttpStatus status= service.getStatus(tokenList[1]);
-					  //service.getStatus("MADHA7K6J5");
-				if(status == HttpStatus.OK){
-					return "/personal-details";
-				}
-		  }else{
-			  logger.debug(sessionId + " invalid");
-		  }
-
-		//here we should return null
+		if(session!=null && token!=null &&!token.isEmpty()){
+			 logger.debug(sessionId + " Getting DUMMY form");
+			 	String tokenValue = sessionId+":"+token;
+			 	session.setAttribute(TOKEN_SESSION_ATTRIBUTE, tokenValue); 
+	            return "/personal-details";
+	            //this should chnage to start your application
+		}
+		 
 		return null;
+		//this should return error 
 		
 	}
 
