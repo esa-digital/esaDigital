@@ -45,7 +45,7 @@ public class TokenServiceController {
 				//redirect to 
 				 String[] tokens = sessionToken.split(":");
 				 if(sessionId.equals(tokens[1])){
-					 //check array and redirect to that page
+					 //check array and redirect to that pageR
 					 return "/personal-details";
 				 }
 			}
