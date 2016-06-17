@@ -25,9 +25,8 @@
     		<element name="addressLine3" type="string"></element>
     		<element name="addressLine4" type="string"></element>
     		<element name="postCode" type="string"></element>
-    		<element name="phoneNumber" type="int"></element>
-    		<element name="messageYN" type="boolean"></element>
-    		<element name="mobile" type="int"></element>
+    		<element name="phoneNumber" type="string"></element>
+    		<element name="otherNumber" type="string"></element>
     		<element name="email" type="string"></element>
     	</sequence>
     </complexType>
@@ -116,7 +115,7 @@
 			<element name="docAddLine3" type="string"></element>
 			<element name="docAddLine4" type="string"></element>
 			<element name="docPostCode" type="string"></element>
-			<element name="docTelNumber" type="int"></element>
+			<element name="docTelNumber" type="string"></element>
 		</sequence>
 	</complexType>
 

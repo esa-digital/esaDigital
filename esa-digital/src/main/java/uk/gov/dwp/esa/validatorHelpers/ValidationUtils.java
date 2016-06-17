@@ -41,7 +41,14 @@ public final class ValidationUtils {
     public static final int MAX_FIELD_CLOSED_QUESTION = 1000;
     public static final int MAX_FIELD_OPEN_QUESTION = 10000;
     public static final String NINO_PATTERN="^(?!BG|GB|NK|KN|TN|NT|ZZ)[ABCEGHJ-PRSTW-Z][ABCEGHJ-NPRSTW-Z]\\d{6}[A-D]$";
-    public static final String ALPHA_ONLY_PATTERN ="^[a-zA-Z\\s-',]*$";
+    public static final String ALPHA_ONLY_PATTERN ="^[a-zA-Z\\s]*$";
+    public static final String ALPHANUMERIC_ONLY_PATTERN ="^[a-zA-Z0-9]*$";
+    public static final String ADDRESS_PATTERN ="^[a-zA-Z0-9\\s-'\\/,]*$";
+    public static final String TELEPHONE_PATTERN ="^(?:[+]?(?:0|[0-9\\s]*))$";
+    public static final String NAME_PATTERN = "^[a-zA-Z\\s-',.]*$";
+    //Post-code pattern found from here: http://stackoverflow.com/questions/164979/uk-postcode-regex-comprehensive
+    public static final String POSTCODE_PATTERN = "^(GIR ?0AA|[A-PR-UWYZ]([0-9]{1,2}|([A-HK-Y][0-9]([0-9ABEHMNPRV-Y])?)|[0-9][A-HJKPS-UW]) ?[0-9][ABD-HJLNP-UW-Z]{2})$";
+    
 
     public static final String TOP_OF_PAGE_ERRORS_KEY = "topOfPageErrors";
 
@@ -438,45 +445,119 @@ public final class ValidationUtils {
     		
 	}
     
+	/**
+	 * This method will check if the value passed contains only letters,
+	 * numbers, spaces (and certain characters)
+	 *
+	 * @param any
+	 *            String
+	 */
+	public static boolean isValidAddress(String address) {
 
-    /**
-     * Class to represent field-specific data for a field that is to be validate among a group.
-     * The class encapsulates the value to be validated and the message to log if that value
-     * fails the validation. Other attributes are not modeled, as the treatment of a group of
-     * fields as a single unit of validation assumes that every other aspect is common across the
-     * fields.
-     */
-    public static class FieldInfo {
+		if (address != null && !address.equals("")) {
+			return Pattern.matches(ADDRESS_PATTERN, address);
+		}
+		return false;
 
-        private final String fieldValueToCheck;
-        private final String logMessage;
+	}
 
-        /**
-         *
-         * @param fieldValueToCheck the field value to validate for this field
-         * @param logMessage the message to log if this field's value fails validation
-         */
-        public FieldInfo(String fieldValueToCheck, String logMessage) {
-            this.fieldValueToCheck = fieldValueToCheck;
-            this.logMessage = logMessage;
-        }
+	/**
+	 * Class to represent field-specific data for a field that is to be validate
+	 * among a group. The class encapsulates the value to be validated and the
+	 * message to log if that value fails the validation. Other attributes are
+	 * not modeled, as the treatment of a group of fields as a single unit of
+	 * validation assumes that every other aspect is common across the fields.
+	 */
+	public static class FieldInfo {
 
-        /**
-         * Get the FieldValueToCheck for this field
-         *
-         * @return
-         */
-        public String getFieldValueToCheck() {
-            return fieldValueToCheck;
-        }
+		private final String fieldValueToCheck;
+		private final String logMessage;
 
-        /**
-         * Get the logMessage to log if this field's value fails validation
-         *
-         * @return
-         */
-        public String getLogMessage() {
-            return logMessage;
-        }
-    }
+		/**
+		 *
+		 * @param fieldValueToCheck
+		 *            the field value to validate for this field
+		 * @param logMessage
+		 *            the message to log if this field's value fails validation
+		 */
+		public FieldInfo(String fieldValueToCheck, String logMessage) {
+			this.fieldValueToCheck = fieldValueToCheck;
+			this.logMessage = logMessage;
+		}
+
+		/**
+		 * Get the FieldValueToCheck for this field
+		 *
+		 * @return
+		 */
+		public String getFieldValueToCheck() {
+			return fieldValueToCheck;
+		}
+
+		/**
+		 * Get the logMessage to log if this field's value fails validation
+		 *
+		 * @return
+		 */
+		public String getLogMessage() {
+			return logMessage;
+		}
+	}
+
+	public static boolean isTelephoneOnly(String value) {
+		if (value != null && !value.equals("")) {
+			return Pattern.matches(TELEPHONE_PATTERN, value);
+		}
+		return false;
+	}
+
+	/**
+	 * This method will check if the value passed contains only letters and
+	 * numbers. (NO spaces OR special characters)
+	 *
+	 * @param any
+	 *            String
+	 */
+	public static boolean isAlphaNumericOnly(String value) {
+
+		if (value != null && !value.equals("")) {
+			return Pattern.matches(ALPHANUMERIC_ONLY_PATTERN, value);
+		}
+		return false;
+
+	}
+
+	/**
+	 * This method will check if the value passed contains only letters, spaces
+	 * and certain special characters
+	 * 
+	 *
+	 * @param any
+	 *            String
+	 */
+	public static boolean isValidName(String name) {
+
+		if (name != null && !name.equals("")) {
+			return Pattern.matches(NAME_PATTERN, name);
+		}
+		return false;
+
+	}
+
+	/**
+	 * This method will check if the value passed contains only valid postcode
+	 * characters, with one space also allowed.
+	 * 
+	 *
+	 * @param any
+	 *            String
+	 */
+	public static boolean isValidPostcode(String postcode) {
+
+		if (postcode != null && !postcode.equals("")) {
+			return Pattern.matches(POSTCODE_PATTERN, postcode);
+		}
+		return false;
+
+	}
 }

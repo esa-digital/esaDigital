@@ -20,7 +20,8 @@ import uk.gov.dwp.esa.model.Claim;
 import uk.gov.dwp.esa.model.Claimant;
 import uk.gov.dwp.esa.model.GPDetails;
 import uk.gov.dwp.esa.service.ESAClaimService;
-import uk.gov.dwp.esa.validators.GPValidator;
+import uk.gov.dwp.esa.util.ControllerUrls;
+import uk.gov.dwp.esa.validators.GpDetailsValidator;
 
 @Controller
 public class GPController {
@@ -33,7 +34,7 @@ public class GPController {
 	private ESAClaimService esaClaimService;
 
 	@Autowired
-	private GPValidator gpValidator;
+	private GpDetailsValidator gpValidator;
 
 	@RequestMapping(value = ControllerUrls.GP_DETAILS_FORM, method = RequestMethod.GET)
 	public String getGPDetailsForm(Model model, HttpServletRequest request) {
