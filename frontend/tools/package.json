@@ -1,0 +1,15 @@
+{
+  "name": "grunt-freemarker-viewer",
+  "version": "1.0.0",
+  "description": "tool for compiling freemarker templates in isolation",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "dwp",
+  "license": "ISC",
+  "devDependencies": {
+    "grunt": "~0.4.2",
+    "grunt-freemarker": "^0.1.7"
+  }
+}

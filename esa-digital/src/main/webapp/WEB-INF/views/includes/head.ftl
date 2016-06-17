@@ -9,7 +9,7 @@
     <title>GOV.UK - The best place to find government services and information</title>
     <!--[if gt IE 8]><!-->
     <link href="assets/stylesheets/govuk-template.css" media="screen" rel="stylesheet" />
-    <link href="assets/stylesheets/main.css" media="screen" rel="stylesheet" />
+    <link href="assets/stylesheets/style.css" media="screen" rel="stylesheet" />
     <!--<![endif]-->
     <!--[if IE 6]>
     <link href="assets/stylesheets/govuk-template-ie6.css" media="screen" rel="stylesheet" />
@@ -64,33 +64,7 @@
         </div>
     </header>
     <div id="global-header-bar"></div>
-    <style>
-    /*********************
-	Helpline number
-	**********************/
-	#ad-helpline {
-	  border-top: 3px solid #28A197 ;
-	  margin-top: 54px;
-	  padding-top: 5px;
-	}
-	
-	#ad-helpline p {
-	  margin-bottom: 10px;
-	}
-	
-	#ad-helpline h3 {
-	  margin: 10px 0;
-	}
-	
-	@media (max-width: 640px) {
-	  #ad-helpline {
-	    float: left;
-	    margin-top: 0;
-	  }
-	}
-    </style>
     
-
     <main id="content" role="main">
 
         <div class="phase-banner-beta">

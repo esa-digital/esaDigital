@@ -22,17 +22,16 @@
 	<resources mapping="/**" location="/resources/assets" />
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
-		in the /WEB-INF/views directory -->
+		in the /WEB-INF/views directory 
 	<beans:bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
-	</beans:bean>
+	</beans:bean>  -->
 
 	<beans:bean id="freemarkerConfig"
 		class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
-		<beans:property name="templateLoaderPath" value="/WEB-INF/views">
-		</beans:property>
+		<beans:property name="templateLoaderPath" value="/WEB-INF/views"></beans:property>
 	</beans:bean>
 
 	<!-- View resolvers can also be configured with ResourceBundles or XML files. 

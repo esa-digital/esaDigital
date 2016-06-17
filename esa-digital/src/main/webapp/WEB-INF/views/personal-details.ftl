@@ -1,4 +1,4 @@
-<jsp:include page="../includes/head.jsp" />
+<#include "includes/head.ftl"> 
 
   <div class="grid-row">
       <div class="column-two-thirds">
@@ -8,23 +8,23 @@
 
               <div class="form-group" data-validation="required maxLength27 alpha">
                   <label class="form-label-bold" for="title">Title</label>
-                  <input class="form-control" type="text" name="title" id="title" value="${Claimant.title}">
+                  <input class="form-control" type="text" name="title" id="title" value="<#if (Claimant.title)??>${Claimant.title}<#else>""</#if>">
               </div>
               
 
               <div class="form-group" data-validation="required maxLength27 alpha">
                   <label class="form-label-bold" for="firstName">First name</label>
-                  <input class="form-control" type="text" name="firstName" id="forename" value="${Claimant.firstName}">
+                  <input class="form-control" type="text" name="firstName" id="forename" value="<#if (Claimant.firstName)??>${Claimant.firstName}<#else>""</#if>">
               </div>
               
               <div class="form-group" data-validation="maxLength27 alpha">
                   <label class="form-label-bold" for="otherName">Middle names(s) <span class="form-hint">(optional)</span></label>
-                  <input class="form-control" type="text" name="otherName" id="otherName" value="${Claimant.otherName}">
+                  <input class="form-control" type="text" name="otherName" id="otherName" value="<#if (Claimant.otherName)??>${Claimant.otherName}<#else>""</#if>">
               </div>
               
               <div class="form-group" data-validation="required maxLength27 alpha">
                   <label class="form-label-bold" for="surname">Surname</label>
-                  <input class="form-control" type="text" name="surname" id="surname" value="${Claimant.surname}">
+                  <input class="form-control" type="text" name="surname" id="surname" value="<#if (Claimant.surname)??>${Claimant.surname}<#else>""</#if>">
               </div>
               
               <div class="form-group" id="dob">
@@ -35,15 +35,15 @@
                       <div class="form-date" name="formDate">
                           <div class="form-group form-group-day">
                               <label for="dob-day">Day</label>
-                              <input class="form-control" id="dob-day" name="dobDay" type="number" pattern="[0-9]*" min="0" max="31" aria-describedby="dob-hint" value="${Claimant.dobDay}">
+                              <input class="form-control" id="dob-day" name="dobDay" type="number" pattern="[0-9]*" min="0" max="31" aria-describedby="dob-hint" value="<#if (Claimant.dobDay)??>${Claimant.dobDay}<#else>""</#if>">
                           </div>
                           <div class="form-group form-group-month">
                               <label for="dob-month">Month</label>
-                              <input class="form-control" id="dob-month" name="dobMonth" type="number" pattern="[0-9]*" min="0" max="12" value="${Claimant.dobMonth}">
+                              <input class="form-control" id="dob-month" name="dobMonth" type="number" pattern="[0-9]*" min="0" max="12" value="<#if (Claimant.dobMonth)??>${Claimant.dobMonth}<#else>""</#if>">
                           </div>
                           <div class="form-group form-group-year">
                               <label for="dob-year">Year</label>
-                              <input class="form-control" id="dob-year" name="dobYear" type="number" pattern="[0-9]*" min="0" max="2016" value="${Claimant.dobYear}">
+                              <input class="form-control" id="dob-year" name="dobYear" type="number" pattern="[0-9]*" min="0" max="2016" value="<#if (Claimant.dobYear)??>${Claimant.dobYear}<#else>""</#if>">
                           </div>
                       </div>
                   </fieldset>
@@ -51,7 +51,7 @@
               
               <div class="form-group" data-validation="required nino">
                   <label class="form-label-bold" for="nino" id="nino">National Insurance number</label>
-                  <input class="form-control" type="text" name="nino" id="nino" value="${Claimant.nino}">
+                  <input class="form-control" type="text" name="nino" id="nino" value="<#if (Claimant.nino)??>${Claimant.nino}<#else>""</#if>">
               </div>
               
               <input id="submit" class="button" type="submit" value="Continue">
@@ -60,8 +60,8 @@
       </div>
       
       <div class="column-one-third">
-        <jsp:include page="../includes/sidebar-helplines.jsp" />
+        <#include "includes/sidebar-helplines.ftl"> 
       </div>
   </div>
 
-<jsp:include page="../includes/footer.jsp" />
+<#include "includes/footer.ftl"> 
