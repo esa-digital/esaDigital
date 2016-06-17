@@ -23,7 +23,7 @@ Vagrant.configure(2) do |config|
   # the path on the host to the actual folder. The second argument is
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
-  config.vm.synced_folder "./esa-digital/", "/vagrant"
+  config.vm.synced_folder "./", "/vagrant"
 
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
@@ -44,22 +44,24 @@ Vagrant.configure(2) do |config|
 sudo -i
 yum -y update
 
+# Useful development utilities (not required for production)
+yum -y install net-tools screen
+
 # Install nginx
+# This is the public-facing proxy that simply routes requests to the ESA Java
+# app running in Tomcat (:8080)
 yum -y install epel-release
 yum -y install nginx
 systemctl enable nginx
+systemctl start nginx
 
 # Install Tomcat
-# The YUM repo contains v7, but we want v8.
-# Here we also setup an "admin" user (pw "admin") to manage the server from GUIs
-yum -y install java-1.8.0-openjdk
-cd /opt
-wget http://www.us.apache.org/dist/tomcat/tomcat-8/v8.0.35/bin/apache-tomcat-8.0.35.tar.gz
-tar xzf apache-tomcat-8.0.35.tar.gz
-echo "export CATALINA_HOME="/opt/apache-tomcat-8.0.35"" >> ~/.bashrc
-source ~/.bashrc
-cd /opt/apache-tomcat-8.0.35
-cp conf/tomcat-users.xml conf/tomcat-users.xml.backup
+# The CentOS 7 repo has Tomcat v7 at time of writing.
+# Installing admin webapps for dev purposes only.
+yum -y install tomcat tomcat-webapps
+yum -y install tomcat-admin-webapps
+cd /etc/tomcat
+cp tomcat-users.xml tomcat-users.xml.backup
 echo "<?xml version='1.0' encoding='utf-8'?>
 <tomcat-users xmlns='http://tomcat.apache.org/xml'
               xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
@@ -70,8 +72,9 @@ echo "<?xml version='1.0' encoding='utf-8'?>
 <role rolename='admin-gui' />
 <user username='admin' password='admin' roles='manager-gui,admin-gui' />
 </tomcat-users>
-" > conf/tomcat-users.xml
-./bin/startup.sh
+" > tomcat-users.xml
+systemctl enable tomcat
+systemctl start tomcat
 
 # Allow HTTP(S) through firewall
 # Opening Tomcat port (8080) for dev purposes, but production would not open it
@@ -80,7 +83,16 @@ firewall-cmd --permanent --zone=public --add-service=https
 firewall-cmd --permanent --zone=public --add-port=8080/tcp
 firewall-cmd --reload
 
-# Configure nginx to upstream requests to Tomcat
+# Configure nginx
+# - Runs on HTTPS (make dhparam 4096 bit on production)
+# - Upstream requests from :80 route to Tomcat :8080
+cd /etc/ssl/certs
+./make-dummy-cert esa-selfsigned.pem
+openssl dhparam -out dhparam.pem 1024
+cd /etc/nginx
+cp nginx.conf nginx.conf.backup
+cp /vagrant/provisioning/nginx.conf nginx.conf
+systemctl restart nginx
 
 SHELL
 end
