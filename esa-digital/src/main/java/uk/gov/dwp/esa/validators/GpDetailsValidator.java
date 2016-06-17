@@ -120,14 +120,10 @@ public class GpDetailsValidator implements Validator {
 					messageSource.getMessage(ValidationCodes.DOCTOR_POSTCODE_EMPTY, null, Locale.ENGLISH));
 			errors.add(docPostCodeValidation);
 		} else {
-			if (ValidationUtils.isStringLengthOver(gpDetails.getDocPostCode(), maxLengthPostCode)) {
-				errors.add(new ValidationError(GpDetailsConstants.DOCTOR_POSTCODE.value(),
-						messageSource.getMessage(ValidationCodes.DOCTOR_POSTCODE_TOO_LONG, null, Locale.ENGLISH)));
-			}
-
+			//isValidPostcode covers both postcode validity and length. I.e., if the postcode is too long - it will show as invalid, hence a separate error message for this is not required.
 			if (!ValidationUtils.isValidPostcode(gpDetails.getDocPostCode())) {
 				errors.add(new ValidationError(GpDetailsConstants.DOCTOR_POSTCODE.value(),
-						messageSource.getMessage(ValidationCodes.DOCTOR_POSTCODE_ALPHANUMERIC, null, Locale.ENGLISH)));
+						messageSource.getMessage(ValidationCodes.DOCTOR_POSTCODE_INVALID, null, Locale.ENGLISH)));
 			}
 		}
 				
