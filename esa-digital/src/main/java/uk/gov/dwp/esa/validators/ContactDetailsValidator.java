@@ -10,10 +10,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-import uk.gov.dwp.esa.constants.ClaimantConstants;
 import uk.gov.dwp.esa.constants.ContactDetailsConstants;
 import uk.gov.dwp.esa.constants.ValidationCodes;
-import uk.gov.dwp.esa.model.Claimant;
 import uk.gov.dwp.esa.model.ContactDetails;
 import uk.gov.dwp.esa.validatorHelpers.ValidationError;
 import uk.gov.dwp.esa.validatorHelpers.ValidationUtils;
@@ -104,7 +102,7 @@ public class ContactDetailsValidator implements Validator {
 						.getMessage(ValidationCodes.CONTACT_DETAILS_ADDRESS4_TOO_LONG, null, Locale.ENGLISH)));
 			}
 			// Checks if title is alpha only
-			if (!ValidationUtils.isValidAddress(contactDetails.getAddressLine3())) {
+			if (!ValidationUtils.isValidAddress(contactDetails.getAddressLine4())) {
 				errors.add(new ValidationError(ContactDetailsConstants.ADDRESSLINE4.value(), messageSource
 						.getMessage(ValidationCodes.CONTACT_DETAILS_ADDRESS_LINE4_ALPHANUMERIC, null, Locale.ENGLISH)));
 			}
@@ -120,7 +118,7 @@ public class ContactDetailsValidator implements Validator {
 						.getMessage(ValidationCodes.CONTACT_DETAILS_POSTCODE4_TOO_LONG, null, Locale.ENGLISH)));
 			}
 			// Checks if title is alpha only
-			if (!ValidationUtils.isAlphaOnly(contactDetails.getPostCode())) {
+			if (!ValidationUtils.isValidPostcode(contactDetails.getPostCode())) {
 				errors.add(new ValidationError(ContactDetailsConstants.POSTCODE.value(),
 						messageSource.getMessage(ValidationCodes.CLAIMANT_TITLE_ALPHA, null, Locale.ENGLISH)));
 			}
@@ -133,7 +131,7 @@ public class ContactDetailsValidator implements Validator {
 						.getMessage(ValidationCodes.CONTACT_DETAILS_PHONENUMBER_TOO_LONG, null, Locale.ENGLISH)));
 			}
 			// Checks if title is alpha only
-			if (!ValidationUtils.isAlphaOnly(contactDetails.getPhoneNumber())) {
+			if (!ValidationUtils.isTelephoneOnly(contactDetails.getPhoneNumber())) {
 				errors.add(new ValidationError(ContactDetailsConstants.PHONENUMBER.value(),
 						messageSource.getMessage(ValidationCodes.CLAIMANT_TITLE_ALPHA, null, Locale.ENGLISH)));
 			}
@@ -146,7 +144,7 @@ public class ContactDetailsValidator implements Validator {
 						.getMessage(ValidationCodes.CONTACT_DETAILS_OTHERNUMBER_TOO_LONG, null, Locale.ENGLISH)));
 			}
 			// Checks if title is alpha only
-			if (!ValidationUtils.isAlphaOnly(contactDetails.getOtherNumber())) {
+			if (!ValidationUtils.isTelephoneOnly(contactDetails.getOtherNumber())) {
 				errors.add(new ValidationError(ContactDetailsConstants.OTHERNUMBER.value(),
 						messageSource.getMessage(ValidationCodes.CLAIMANT_TITLE_ALPHA, null, Locale.ENGLISH)));
 			}
