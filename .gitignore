@@ -1,3 +1,6 @@
 .metadata/
 .DS_Store
+node_modules/
+esa-digital/src/main/webapp/resources/assets/stylesheets/style.css
+frontend/tools/output/**/*.DS_Store
 .vagrant/

@@ -1,4 +1,4 @@
-</main>
+ </main>
 
     <footer class="group js-footer" id="footer" role="contentinfo">
         <div class="footer-wrapper">
@@ -10,7 +10,7 @@
                     </div>
                 </div>
                 <div class="copyright">
-                    <a href="http://www.nationalarchives.gov.uk/information-management/re-using-public-sector-information/copyright-and-re-use/crown-copyright/">© Crown copyright</a>
+                    <a href="http://www.nationalarchives.gov.uk/information-management/re-using-public-sector-information/copyright-and-re-use/crown-copyright/">&copy; Crown copyright</a>
                 </div>
             </div>
         </div>
