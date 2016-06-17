@@ -200,7 +200,7 @@ public final class ValidationCodes {
 	
 	public static final String DOCTOR_POSTCODE_EMPTY = "gpDetails.doctor.postcode.empty";
 	public static final String DOCTOR_POSTCODE_TOO_LONG = "gpDetails.doctor.postcode.too.long";
-	public static final String DOCTOR_POSTCODE_ALPHANUMERIC = "gpDetails.doctor.postcode.alphanumeric";
+	public static final String DOCTOR_POSTCODE_INVALID = "gpDetails.doctor.postcode.invalid";
 	
 	
     public static final String DOCTOR_TELEPHONE_EMPTY = "gpDetails.doctor.telephone.empty";
