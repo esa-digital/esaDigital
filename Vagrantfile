@@ -84,7 +84,7 @@ firewall-cmd --permanent --zone=public --add-port=8080/tcp
 firewall-cmd --reload
 
 # Configure nginx
-# - Runs on HTTPS (make dhparam 4096 bit on production)
+# - Runs on HTTPS (make dhparam 4096 bit)
 # - Upstream requests from :80 route to Tomcat :8080
 cd /etc/ssl/certs
 ./make-dummy-cert esa-selfsigned.pem
@@ -93,6 +93,9 @@ cd /etc/nginx
 cp nginx.conf nginx.conf.backup
 cp /vagrant/provisioning/nginx.conf nginx.conf
 systemctl restart nginx
+
+# Tool for watching changes on WAR build asset
+chmod u+x /vagrant/tools/watch
 
 SHELL
 end
