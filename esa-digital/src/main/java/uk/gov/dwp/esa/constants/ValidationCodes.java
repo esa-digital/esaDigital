@@ -107,7 +107,7 @@ public final class ValidationCodes {
     public static final String COMPANY_NAME_TOO_LONG = "company.name.greater.than.limit";
     public static final String COMPANY_ADDRESS_TOO_LONG = "company.address.greater.than.limit";
     public static final String COMPANY_POSTCODE_TOO_LONG = "company.postcode.greater.than.limit";
-    
+    public static final String COMPANY_POSTCODE_INVALID = "company.postcode.invalid";
     public static final String WORK_CURRENT_ROLE_DURATION_EMPTY = "work.current.role.duration.cannot.be.empty";
     public static final String WORK_START_DATE_INVALID = "work.startDate.invalid";
     public static final String WORK_DAYS_PER_WEEK_EMPTY = "work.daysPerWeek.cannot.be.empty";
@@ -167,6 +167,8 @@ public final class ValidationCodes {
     public static final String CONTACT_DETAILS_ADDRESS1_EMPTY = "contactdetails.address1.empty";
     public static final String CONTACT_DETAILS_ADDRESS2_EMPTY = "contactdetails.address2.empty";
     public static final String CONTACT_DETAILS_POSTCODE_EMPTY = "contactdetails.postcode.address2.empty";
+    public static final String CONTACT_DETAILS_POSTCODE_TOO_LONG = "contactdetails.postcode.too.long";
+    
     public static final String CONTACT_DETAILS_ADDRESS1_TOO_LONG = "contactdetails.address1.greater.than.limit";
     public static final String CONTACT_DETAILS_ADDRESS2_TOO_LONG = "contactdetails.address2.greater.than.limit";
     public static final String CONTACT_DETAILS_ADDRESS3_TOO_LONG = "contactdetails.address3.greater.than.limit";
@@ -178,33 +180,96 @@ public final class ValidationCodes {
     public static final String CONTACT_DETAILS_ADDRESS_LINE2_ALPHANUMERIC = "contactdetails.address2.alphanumeric";
     public static final String CONTACT_DETAILS_ADDRESS_LINE3_ALPHANUMERIC = "contactdetails.address3.alphanumeric";
     public static final String CONTACT_DETAILS_ADDRESS_LINE4_ALPHANUMERIC = "contactdetails.address4.alphanumeric";
+    public static final String CONTACT_DETAILS_PHONENUMBER_INVALID = "contactdetails.phonenumber.invalid";
+    public static final String CONTACT_DETAILS_OTHERNUMBER_INVALID = "contactdetails.phonenumber.invalid";
 	
     public static final String DOCTOR_NAME_EMPTY = "gpDetails.doctor.name.empty";
     public static final String DOCTOR_NAME_TOO_LONG = "gpDetails.doctor.name.too.long";
+
 	public static final String DOCTOR_NAME_ALPHA = "gpDetails.doctor.name.alpha";
-    
-    public static final String DOCTOR_ADDRESS_LINE1_EMPTY = "gpDetails.doctor.address1.empty";
-    public static final String DOCTOR_ADDRESS_LINE1_TOO_LONG = "gpDetails.doctor.address1.too.long";
-    public static final String DOCTOR_ADDRESS_LINE1_ALPHANUMERIC = "gpDetails.doctor.address1.alphanumeric";
-    
+
+	public static final String DOCTOR_ADDRESS_LINE1_EMPTY = "gpDetails.doctor.address1.empty";
+	public static final String DOCTOR_ADDRESS_LINE1_TOO_LONG = "gpDetails.doctor.address1.too.long";
+	public static final String DOCTOR_ADDRESS_LINE1_ALPHANUMERIC = "gpDetails.doctor.address1.alphanumeric";
+
 	public static final String DOCTOR_ADDRESS_LINE2_EMPTY = "gpDetails.doctor.address2.empty";
 	public static final String DOCTOR_ADDRESS_LINE2_TOO_LONG = "gpDetails.doctor.address2.too.long";
 	public static final String DOCTOR_ADDRESS_LINE2_ALPHANUMERIC = "gpDetails.doctor.address2.alphanumeric";
-	
+
 	public static final String DOCTOR_ADDRESS_LINE3_TOO_LONG = "gpDetails.doctor.address3.too.long" ;
 	public static final String DOCTOR_ADDRESS_LINE3_ALPHANUMERIC = "gpDetails.doctor.address3.alphanumeric";
-	
+
 	public static final String DOCTOR_ADDRESS_LINE4_TOO_LONG = "gpDetails.doctor.address4.too.long" ;
 	public static final String DOCTOR_ADDRESS_LINE4_ALPHANUMERIC = "gpDetails.doctor.address4.alphanumeric";
-	
-	
+
+
 	public static final String DOCTOR_POSTCODE_EMPTY = "gpDetails.doctor.postcode.empty";
 	public static final String DOCTOR_POSTCODE_TOO_LONG = "gpDetails.doctor.postcode.too.long";
 	public static final String DOCTOR_POSTCODE_INVALID = "gpDetails.doctor.postcode.invalid";
-	
-	
-    public static final String DOCTOR_TELEPHONE_EMPTY = "gpDetails.doctor.telephone.empty";
-    public static final String DOCTOR_TELEPHONE_TOO_LONG = "gpDetails.doctor.telephone.too.long";
+	public static final String DOCTOR_POSTCODE_ALPHANUMERIC = "gpDetails.doctor.postcode.alphanumeric";
+
+
+	public static final String DOCTOR_TELEPHONE_EMPTY = "gpDetails.doctor.telephone.empty";
+	public static final String DOCTOR_TELEPHONE_TOO_LONG = "gpDetails.doctor.telephone.too.long";
 	public static final String DOCTOR_TELEPHONE_NUMERIC = "gpDetails.doctor.telephone.numeric";
-    
+
+	public static final String HELPDETAILS_PERSONNAME_EMPTY = "helpdetails.personname.empty";
+	public static final String HELPDETAILS_PERSONNAME_TOO_LONG = "helpdetails.personname.greater.than.limit";
+	public static final String HELPDETAILS_PERSONNAME_ALPHA = "helpdetails.personname.alpha";
+	public static final String HELPDETAILS_PERSONRELATION_EMPTY = "helpdetails.personrelation.empty";
+	public static final String HELPDETAILS_PERSONRELATION_TOO_LONG = "helpdetails.personrelation.greater.than.limit";
+	public static final String HELPDETAILS_PERSONRELATION_ALPHA = "helpdetails.personrelation.alpha";
+	public static final String HELPDETAILS_REASONFORHELP_EMPTY = "helpdetails.reasonforhelp.empty";
+	public static final String HELPDETAILS_REASONFORHELP_TOO_LONG = "helpdetails.reasonforhelp.greater.than.limit";
+	public static final String HELPDETAILS_REASONFORHELP_ALPHA = "helpdetails.reasonforhelp.alpha";
+	public static final String HELPDETAILS_FIRSTNAME_EMPTY = "helpdetails.firstName.empty";
+	public static final String HELPDETAILS_SURNAME_EMPTY = "helpdetails.surname.empty";
+	public static final String HELPDETAILS_DOB_INVALID = "helpdetails.dob.invalid";
+	public static final String HELPDETAILS_DOB_FUTURE = "helpdetails.dob.future";
+	public static final String HELPDETAILS_ADDRESS_EMPTY = "helpdetails.address1.empty";
+	public static final String HELPDETAILS_TITLE_EMPTY = "helpdetails.title.empty";
+	public static final String HELPDETAILS_POSTCODE_EMPTY = "helpdetails.postcode.empty";
+	public static final String HELPDETAILS_POSTCODE_INVALID = "helpdetails.postcode.invalid";
+
+
+	public static final String HELPDETAILS_TITLE_ALPHA = "helpdetails.title.alpha";
+	public static final String HELPDETAILS_OTHERNAME_ALPHA_WITH_HYPHEN = "helpdetails.otherName.alpha";
+	public static final String HELPDETAILS_FIRSTNAME_ALPHA_WITH_HYPHEN = "helpdetails.firstName.alpha";
+	public static final String HELPDETAILS_SURNAME_ALPHA_WITH_HYPHEN = "helpdetails.surname.alpha";
+
+	public static final String HELPDETAILS_FIRST_NAME_TOO_LONG = "helpdetails.firstName.greater.than.limit";
+	public static final String HELPDETAILS_SURNAME_TOO_LONG = "helpdetails.surname.greater.than.limit";
+	public static final String HELPDETAILS_OTHERNAME_TOO_LONG = "helpdetails.otherName.greater.than.limit";
+	public static final String HELPDETAILS_NINO_NOTVALID= "helpdetails.nino.invalid";
+	public static final String HELPDETAILS_NINO_EMPTY= "helpdetails.nino.empty";
+	public static final String HELPDETAILS_ADDRESS1_TOO_LONG = "helpdetails.address1.greater.than.limit";
+	public static final String HELPDETAILS_POSTCODE_TOO_LONG = "helpdetails.postcode.greater.than.limit";
+	public static final String HELPDETAILS_TITLE_TOO_LONG = "helpdetails.title.greater.than.limit";
+	
+	public static final String HELPDETAILS_TELEPHONE_TOO_LONG = "helpdetails.telephone.too.long";
+	public static final String HELPDETAILS_TELEPHONE_NUMERIC = "helpdetails.telephone.numeric";
+	
+	public static final String HELPDETAILS_ADDRESS_LINE_ALPHA = "helpdetails.address.alpha";
+	public static final String HELPDETAILS_ADDRESS_LINE1_EMPTY = "helpdetails.address1.empty";
+	public static final String HELPDETAILS_ADDRESS_LINE1_TOO_LONG = "helpdetails.address1.too.long";
+
+	public static final String HELPDETAILS_ADDRESS_LINE2_EMPTY = "helpdetails.address2.empty";
+	public static final String HELPDETAILS_ADDRESS_LINE2_TOO_LONG = "helpdetails.address2.too.long";
+	public static final String HELPDETAILS_ADDRESS_LINE3_TOO_LONG = "helpdetails.address3.too.long" ;
+	public static final String HELPDETAILS_ADDRESS_LINE4_TOO_LONG = "helpdetails.address4.too.long" ;
+	
+	public static final String BANKDETAILS_ACCOUNTHOLDER_EMPTY = "bankdetails.accountholder.empty";
+	public static final String BANKDETAILS_ACCOUNTHOLDER_TOO_LONG = "bankdetails.accountholder.greater.than.limit";
+	public static final String BANKDETAILS_ACCOUNTHOLDER_ALPHA = "bankdetails.accountholder.alpha";
+	public static final String BANKDETAILS_SORTCODE_EMPTY = "bankdetails.sortcode.empty";
+	public static final String BANKDETAILS_SORTCODE_TOO_LONG = "bankdetails.sortcode.greater.than.limit";
+	public static final String BANKDETAILS_SORTCODE_NUMERIC = "bankdetails.sortcode.numeric";
+	public static final String BANKDETAILS_ACCNUMBER_BUILDINGNUMBER_EMPTY = "bankdetails.accbuilding.empty";
+	public static final String BANKDETAILS_ACCNUMBER_TOO_LONG = "bankdetails.accountNumber.greater.than.limit";
+	public static final String BANKDETAILS_BUILDINGNUMBER_TOO_LONG = "bankdetails.buildingNumber.greater.than.limit";
+	public static final String BANKDETAILS_ACCNUMBER_NUMERIC = "bankdetails.accountNumber.numeric";
+	public static final String BANKDETAILS_BUILDINGNUMBER_ALPHA = "bankdetails.buildingNumber.alpha";
+
+
+
 }
