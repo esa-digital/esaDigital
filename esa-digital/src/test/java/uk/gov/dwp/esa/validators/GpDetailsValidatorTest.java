@@ -48,10 +48,18 @@ public class GpDetailsValidatorTest {
 	@Test
 	public void testGpDetailsValidation() {
 		List<ValidationError> errors =  gpDetailsValidator.validateGPDetails(gpDetails);
+		
 		Assert.assertEquals(0, errors.size());
+		
+		
 	}
 	
-	
+	@Test
+	public void testGpDetailsValidationWhenGpDetailsNull() {
+		List<ValidationError> errors =  gpDetailsValidator.validateGPDetails(null);
+		//checks all 5 mandatory fields and they all should be errors.
+		Assert.assertEquals(5, errors.size());
+	}
 	
 	// JUNITS FOR GP NAME:
 
@@ -348,23 +356,14 @@ public class GpDetailsValidatorTest {
 		Assert.assertEquals(1, errors.size());
 		Assert.assertEquals(errors.get(0).getErrorMessage(),ve.getErrorMessage());
 	}
-	
-//	@Test
-//	public void testGpPostCodeMoreThan8Chars() {
-//		when(gpDetails.getDocPostCode()).thenReturn("LS10  5DQ");
-//		when(source.getMessage(ValidationCodes.DOCTOR_POSTCODE_TOO_LONG, null, Locale.ENGLISH)).thenReturn("dummy19");
-//		List<ValidationError> errors = gpDetailsValidator.validateGPDetails(gpDetails);
-//		ValidationError ve = new ValidationError(GpDetailsConstants.DOCTOR_POSTCODE.value(),source.getMessage(ValidationCodes.DOCTOR_POSTCODE_TOO_LONG,null,Locale.ENGLISH));
-//		Assert.assertEquals(1, errors.size());
-//		Assert.assertEquals(errors.get(0).getErrorMessage(),ve.getErrorMessage());
-//	}
+
 	
 	@Test
-	public void testGpPostCodeIsNotAlphaNumeric() {
+	public void testGpPostCodeIsNotValid() {
 		when(gpDetails.getDocPostCode()).thenReturn("LS! 3DP");
-		when(source.getMessage(ValidationCodes.DOCTOR_POSTCODE_ALPHANUMERIC, null, Locale.ENGLISH)).thenReturn("dummy20");
+		when(source.getMessage(ValidationCodes.DOCTOR_POSTCODE_INVALID, null, Locale.ENGLISH)).thenReturn("dummy20");
 		List<ValidationError> errors = gpDetailsValidator.validateGPDetails(gpDetails);
-		ValidationError ve = new ValidationError(GpDetailsConstants.DOCTOR_POSTCODE.value(),source.getMessage(ValidationCodes.DOCTOR_POSTCODE_ALPHANUMERIC,null,Locale.ENGLISH));
+		ValidationError ve = new ValidationError(GpDetailsConstants.DOCTOR_POSTCODE.value(),source.getMessage(ValidationCodes.DOCTOR_POSTCODE_INVALID,null,Locale.ENGLISH));
 		Assert.assertEquals(1, errors.size());
 		Assert.assertEquals(errors.get(0).getErrorMessage(),ve.getErrorMessage());
 	}

@@ -636,7 +636,7 @@ public class ValidationUtilsTest {
 		testStrings.add("Mr A.H. Smith");
 		testStrings.add("Miss A Roger's");
 		testStrings.add("A Jones-Green");
-		testStrings.add("Mrs J,A White");
+		testStrings.add("Mrs JA White");
 		
 
 		for (String str : testStrings) {

@@ -7,7 +7,7 @@
 </head>
 <body>
 	<form action="dummy" method="post">
-	<input class="text" type="text" name="token" value="${token}">
+	<input class="text" type="text" name="token" value="${token!""}">
 	<input class="button" type="submit" value="Continue"></form>
 	 
 </body>
