@@ -11,4 +11,8 @@ public final class ControllerUrls {
 	public static final String CONTACT_DETAILS = "/contact-details";
 	
 	public static final String ALTERNATIVE_FORMATS = "/alternative-formats";
+	
+	public static final String HELP_DETAILS_FORM = "/help-details";
+	
+	
 }

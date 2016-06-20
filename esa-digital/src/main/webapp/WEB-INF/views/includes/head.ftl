@@ -71,11 +71,3 @@
                 <span>This is a new service - your <a href="#">feedback</a> will help us to improve it.</span>
             </p>
         </div>
-        
-        <div class="error-summary visually-hidden" role="group" aria-labelledby="error-summary-heading-example-1" tabindex="-1">
-            
-            <h1 class="heading-medium error-summary-heading" id="error-summary-heading-example-1">Message to alert the user to a problem goes here</h1>
-            <p>Optional description of the errors and how to correct them</p>
-            
-            <ul class="error-summary-list"></ul>
-        </div>

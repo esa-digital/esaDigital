@@ -6,6 +6,7 @@ import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
@@ -15,6 +16,7 @@ import uk.gov.dwp.esa.model.HelpDetails;
 import uk.gov.dwp.esa.validatorHelpers.ValidationError;
 import uk.gov.dwp.esa.validatorHelpers.ValidationUtils;
 
+@Component
 public class HelpDetailsValidator implements Validator{
 
 	private static final int maxLengthCommon = 27;
