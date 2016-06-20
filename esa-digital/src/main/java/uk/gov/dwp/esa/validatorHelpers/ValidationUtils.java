@@ -30,6 +30,7 @@ import org.apache.logging.log4j.Logger;
 
 public final class ValidationUtils {
 
+
 	private static final String DATE_SEPERATOR = "/";
 	private static final String DIGITS_4_PATTERN = "\\d{4}";
 	private static final String DIGITS_1_TO_2_PATTERN = "\\d{1,2}";
@@ -40,15 +41,18 @@ public final class ValidationUtils {
 	private static final String DATE_FORMAT_2 = "dd/MMM/yyyy";
 	public static final int MAX_FIELD_CLOSED_QUESTION = 1000;
 	public static final int MAX_FIELD_OPEN_QUESTION = 10000;
-	public static final String NINO_PATTERN = "^(?!BG|GB|NK|KN|TN|NT|ZZ)[ABCEGHJ-PRSTW-Z][ABCEGHJ-NPRSTW-Z]\\d{6}[A-D]$";
-	public static final String ALPHA_ONLY_PATTERN = "^[a-zA-Z\\s]*$";
-	public static final String ALPHANUMERIC_ONLY_PATTERN = "^[a-zA-Z0-9]*$";
-	public static final String ADDRESS_PATTERN = "^[a-zA-Z0-9\\s-'\\/,]*$";
-	public static final String TELEPHONE_PATTERN = "^(?:[+]?(?:0|[0-9\\s]*))$";
-	public static final String NAME_PATTERN = "^[a-zA-Z\\s-'.]*$";
-	// Post-code pattern found from here:
-	// http://stackoverflow.com/questions/164979/uk-postcode-regex-comprehensive
+	public static final String NINO_PATTERN="^(?!BG|GB|NK|KN|TN|NT|ZZ)[ABCEGHJ-PRSTW-Z][ABCEGHJ-NPRSTW-Z]\\d{6}[A-D]$";
+	public static final String ALPHA_ONLY_PATTERN ="^[a-zA-Z\\s]*$";
+	public static final String ALPHA_ONLY_PATTERN_WITH_HYPHEN ="^[a-zA-Z-]*$";
+	public static final String ALPHANUMERIC_ONLY_PATTERN ="^[a-zA-Z0-9]*$";
+	public static final String ADDRESS_PATTERN ="^[a-zA-Z0-9\\s-'\\/,]*$";
+	public static final String TELEPHONE_PATTERN ="^(?:[+]?(?:0|[0-9\\s]*))$";
+
+	public static final String NAME_PATTERN = "^[a-zA-Z\\s-',.]*$";
+	public static final String NUMERIC_ONLY_PATTERN ="^[0-9]*$";
+	//Post-code pattern found from here: http://stackoverflow.com/questions/164979/uk-postcode-regex-comprehensive
 	public static final String POSTCODE_PATTERN = "^(GIR ?0AA|[A-PR-UWYZ]([0-9]{1,2}|([A-HK-Y][0-9]([0-9ABEHMNPRV-Y])?)|[0-9][A-HJKPS-UW]) ?[0-9][ABD-HJLNP-UW-Z]{2})$";
+
 
 	public static final String TOP_OF_PAGE_ERRORS_KEY = "topOfPageErrors";
 
@@ -56,21 +60,21 @@ public final class ValidationUtils {
 	private static final Logger logger = LogManager.getLogger(ValidationUtils.class);
 
 	/**
-	 * This class is a collection of static methods. This private constructor
-	 * ensures that it is not instantiated by mistake
+	 * This class is a collection of static methods. This private 
+	 * constructor ensures that it is not instantiated by mistake 
 	 */
 	private ValidationUtils() {
 	}
 
 	/**
-	 * Replaces all instances of angle brackets in the text with the html
-	 * entities. This is so they are rendered correctly when displayed as html
+	 * Replaces all instances of angle brackets in the text with the html entities. This is so they
+	 * are rendered correctly when displayed as html
 	 * 
 	 * @param text
 	 * @return the String text with square brackets replaced
 	 */
 	public static String replaceAngleBracketsWithHtmlEntity(String text) {
-		if (text == null) {
+		if (text == null){
 			return null;
 		}
 		String textToReturn = text.replaceAll("<", "&lt;");
@@ -85,7 +89,7 @@ public final class ValidationUtils {
 	 * @return true if string is null or empty
 	 */
 	public static boolean isEmpty(String string) {
-		if (string == null || "".equals(string)) {
+		if (string == null || "".equals(string)){
 			return true;
 		}
 		return false;
@@ -94,20 +98,20 @@ public final class ValidationUtils {
 	/**
 	 * Checks if the string length is greater than maxLength
 	 * 
-	 * @param string
-	 *            maxLength
+	 * @param string maxLength
 	 * @return true if string is greater than maxLength
 	 */
 	public static boolean isStringLengthOver(String string, int maxLength) {
-		if (string == null) {
+		if (string==null){
 			return false;
 		}
 
-		if (string.length() > maxLength) {
+		if (string.length() > maxLength){
 			return true;
 		}
 		return false;
 	}
+
 
 	/**
 	 * Returns true if the string dateToValidate is a valid date
@@ -173,8 +177,8 @@ public final class ValidationUtils {
 			isMonthValid = Pattern.matches(SEPT_PATTERN, month);
 			if (isMonthValid) {
 				month = "sep";// This is changed to "sep" here so that the next
-								// step which check the date validity will pass
-								// validation as "sept" is not recognised
+				// step which check the date validity will pass
+				// validation as "sept" is not recognised
 			}
 		}
 		// We need to check if the date is pre 1900
@@ -215,8 +219,8 @@ public final class ValidationUtils {
 			// if not valid, it will throw ParseException
 			if ("sept".equalsIgnoreCase(month)) {
 				month = "sep"; // This is changed to "sep" here so that the next
-								// step which check the date validity will pass
-								// validation as "sept" is not recognised
+				// step which check the date validity will pass
+				// validation as "sept" is not recognised
 			}
 			Date date = sdf.parse(day + DATE_SEPERATOR + month + DATE_SEPERATOR + year);
 
@@ -417,7 +421,7 @@ public final class ValidationUtils {
 				logger.error(logMessage);
 				errors.add(new ValidationError(fieldIdentifier, validationCode));
 				break; // If we've found the validation error we don't need to
-						// check any further
+				// check any further
 			}
 		}
 	}
@@ -444,6 +448,35 @@ public final class ValidationUtils {
 		if (value != null && !value.equals("")) {
 			return Pattern.matches(ALPHA_ONLY_PATTERN, value);
 		}
+		return false;
+
+	}
+
+
+	/**
+	 * This method will check if the value contains alphabets and spaces
+	 *
+	 * @param any String
+	 */
+	public static boolean isAlphaOnlyWithHyphen(String value) {
+
+		if (value!=null && !value.equals("") ) {
+			return Pattern.matches(ALPHA_ONLY_PATTERN_WITH_HYPHEN,value);
+		} 
+		return false;
+
+	}
+
+	/**
+	 * This method will check if the value passed does not contain numbers
+	 *
+	 * @param any String
+	 */
+	public static boolean isNumericOnly(String value) {
+
+		if (value!=null && !value.equals("") ) {
+			return Pattern.matches(NUMERIC_ONLY_PATTERN,value);
+		} 
 		return false;
 
 	}

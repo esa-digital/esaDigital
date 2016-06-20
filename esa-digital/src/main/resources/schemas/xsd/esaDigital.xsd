@@ -31,14 +31,53 @@
     	</sequence>
     </complexType>
 
-    <complexType name="ThirdParty">
+     <complexType name="HelpDetails">
     <sequence>
-    	<element name="helpWithApp" type="boolean"></element>
-    	<element name="repPersonName" type="string"></element>
-    	<element name="repRelation" type="string"></element>
-    	<element name="repComment" type="string"></element>
+    	<element name="fillingByYourself" type="boolean"></element>
+    	<element name="gettingHelp" type="boolean"></element>
+    	<element name="thirdPartyDetails" type="tns:GettingHelp" maxOccurs="1" minOccurs="0"></element>
+    	<element name="applyingOnBehalfOfSomeoneElse" type="boolean"></element>	
+    	<element name="onBehalfOfSomeoneElseOptions" type="tns:BehalfOptions" maxOccurs="1" minOccurs="0"></element>	
     </sequence>
     </complexType>
+    
+    <complexType name="GettingHelp">
+		<sequence>
+			<element name="personName" type="string"></element>
+			<element name="personRelation" type="string"></element>
+			<element name="reasonForHelp" type="string"></element>
+		</sequence>
+	</complexType>
+	
+	<complexType name="BehalfOptions">
+		<sequence>
+			<element name="registeredPowerAttorney" type="boolean"></element>
+			<element name="yourDeputy" type="boolean"></element>
+			<element name="registeredAppointee" type="boolean"></element>
+			<element name="cannotManageAffairs" type="boolean"></element>
+			<element name="other" type="boolean"></element>
+			<element name="behalfType" type="tns:BehalfType" maxOccurs="1" minOccurs="0"></element>	
+		</sequence>
+	</complexType>
+	
+	<complexType name="BehalfType">
+		<sequence>
+			<element name="title" type="string"></element>
+    		<element name="firstName" type="string"></element>
+    		<element name="otherName" type="string"></element>
+    		<element name="surname" type="string"></element>
+    		<element name="dobYear" type="string"></element>
+    		<element name="dobMonth" type="string"></element>
+    		<element name="dobDay" type="string"></element>
+    		<element name="nino" type="string"></element>
+    		<element name="addLine1" type="string"></element>
+			<element name="addLine2" type="string"></element>
+			<element name="addLine3" type="string"></element>
+			<element name="addLine4" type="string"></element>
+			<element name="postCode" type="string"></element>
+			<element name="telNumber" type="string"></element>
+		</sequence>
+	</complexType>
 
     <complexType name="Employment">
 	    <sequence>
@@ -145,9 +184,9 @@
 		<sequence>
 			<element name="acctHolderName" type="string"></element>
 			<element name="bankName" type="string"></element>
-			<element name="sortCode" type="int"></element>
-			<element name="accountNumber" type="int"></element>
-			<element name="buildingSociety" type="int"></element>
+			<element name="sortCode" type="string"></element>
+			<element name="accountNumber" type="string"></element>
+			<element name="buildingSociety" type="string"></element>
 		</sequence>
 	</complexType>
 
@@ -211,7 +250,7 @@
     		<element name="working16HrsPerWeekYN" type="boolean"></element>
     		<element name="contactPrefType" type="string"></element>
     		<element name="contactPrefYN" type="boolean"></element>
-    		<element name="thirdParty" type="tns:ThirdParty"></element>
+    		<element name="thirdParty" type="tns:HelpDetails"></element>
     		<element name="claimant" type="tns:Claimant"></element>
     		<element name="contactDetails" type="tns:ContactDetails"></element>
     		<element name="employment" type="tns:Employment"></element>
