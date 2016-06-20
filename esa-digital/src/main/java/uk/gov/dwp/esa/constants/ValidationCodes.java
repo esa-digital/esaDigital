@@ -107,7 +107,7 @@ public final class ValidationCodes {
     public static final String COMPANY_NAME_TOO_LONG = "company.name.greater.than.limit";
     public static final String COMPANY_ADDRESS_TOO_LONG = "company.address.greater.than.limit";
     public static final String COMPANY_POSTCODE_TOO_LONG = "company.postcode.greater.than.limit";
-    
+    public static final String COMPANY_POSTCODE_INVALID = "company.postcode.invalid";
     public static final String WORK_CURRENT_ROLE_DURATION_EMPTY = "work.current.role.duration.cannot.be.empty";
     public static final String WORK_START_DATE_INVALID = "work.startDate.invalid";
     public static final String WORK_DAYS_PER_WEEK_EMPTY = "work.daysPerWeek.cannot.be.empty";

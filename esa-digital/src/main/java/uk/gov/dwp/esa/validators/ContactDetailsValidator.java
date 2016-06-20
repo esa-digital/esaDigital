@@ -120,7 +120,7 @@ public class ContactDetailsValidator implements Validator {
 			// Checks if title is alpha only
 			if (!ValidationUtils.isValidPostcode(contactDetails.getPostCode())) {
 				errors.add(new ValidationError(ContactDetailsConstants.POSTCODE.value(),
-						messageSource.getMessage(ValidationCodes.CLAIMANT_TITLE_ALPHA, null, Locale.ENGLISH)));
+						messageSource.getMessage(ValidationCodes.COMPANY_POSTCODE_INVALID, null, Locale.ENGLISH)));
 			}
 		}
 
