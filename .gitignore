@@ -1,5 +1,4 @@
 .metadata/
 .DS_Store
-node_modules/
 esa-digital/src/main/webapp/resources/assets/stylesheets/style.css
-frontend/tools/output/**/*
+esa-digital/src/main/webapp/WEB-INF/views/json/
