@@ -257,5 +257,19 @@ public final class ValidationCodes {
 	public static final String HELPDETAILS_ADDRESS_LINE2_TOO_LONG = "helpdetails.address2.too.long";
 	public static final String HELPDETAILS_ADDRESS_LINE3_TOO_LONG = "helpdetails.address3.too.long" ;
 	public static final String HELPDETAILS_ADDRESS_LINE4_TOO_LONG = "helpdetails.address4.too.long" ;
+	
+	public static final String BANKDETAILS_ACCOUNTHOLDER_EMPTY = "bankdetails.accountholder.empty";
+	public static final String BANKDETAILS_ACCOUNTHOLDER_TOO_LONG = "bankdetails.accountholder.greater.than.limit";
+	public static final String BANKDETAILS_ACCOUNTHOLDER_ALPHA = "bankdetails.accountholder.alpha";
+	public static final String BANKDETAILS_SORTCODE_EMPTY = "bankdetails.sortcode.empty";
+	public static final String BANKDETAILS_SORTCODE_TOO_LONG = "bankdetails.sortcode.greater.than.limit";
+	public static final String BANKDETAILS_SORTCODE_NUMERIC = "bankdetails.sortcode.numeric";
+	public static final String BANKDETAILS_ACCNUMBER_BUILDINGNUMBER_EMPTY = "bankdetails.accbuilding.empty";
+	public static final String BANKDETAILS_ACCNUMBER_TOO_LONG = "bankdetails.accountNumber.greater.than.limit";
+	public static final String BANKDETAILS_BUILDINGNUMBER_TOO_LONG = "bankdetails.buildingNumber.greater.than.limit";
+	public static final String BANKDETAILS_ACCNUMBER_NUMERIC = "bankdetails.accountNumber.numeric";
+	public static final String BANKDETAILS_BUILDINGNUMBER_ALPHA = "bankdetails.buildingNumber.alpha";
+
+
 
 }
