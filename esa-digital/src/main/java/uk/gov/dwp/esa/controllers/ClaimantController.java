@@ -48,9 +48,12 @@ public class ClaimantController {
         logger.debug(sessionId + " Getting personal details form");
         
         Claimant claimant = (Claimant) session.getAttribute(CLAIMANT_DETAILS);
-        
-        model.addAttribute(CLAIMANT_DETAILS,claimant);
-        
+        if(claimant==null){
+        	claimant =  new Claimant();
+        }else{
+        	model.addAttribute(CLAIMANT_DETAILS,claimant);
+        }
+                
 		return PERSONAL_DETAILS_FORM;
 	}
 	
