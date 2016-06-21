@@ -50,10 +50,10 @@ public class ClaimantController {
         Claimant claimant = (Claimant) session.getAttribute(CLAIMANT_DETAILS);
         if(claimant==null){
         	claimant =  new Claimant();
-        }else{
-        	model.addAttribute(CLAIMANT_DETAILS,claimant);
         }
-                
+        
+        model.addAttribute(CLAIMANT_DETAILS,claimant);
+          
 		return PERSONAL_DETAILS_FORM;
 	}
 	
