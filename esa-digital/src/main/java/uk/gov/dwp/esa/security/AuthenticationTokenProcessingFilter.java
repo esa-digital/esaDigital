@@ -8,6 +8,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpServletResponseWrapper;
 import javax.servlet.http.HttpSession;
 
 import org.apache.logging.log4j.LogManager;
@@ -16,8 +17,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.web.filter.GenericFilterBean;
-
-import uk.gov.dwp.esa.controllers.TokenServiceController;
 
 
 public class AuthenticationTokenProcessingFilter extends GenericFilterBean {
@@ -35,12 +34,13 @@ public class AuthenticationTokenProcessingFilter extends GenericFilterBean {
 
 		HttpServletRequest httpServletRequest = (HttpServletRequest) request;
 		HttpSession session = httpServletRequest.getSession(false);
-		
+
 
 		if(session != null){
 			String sessionId = session.getId();
 			String token = (String) session.getAttribute(TOKEN_SESSION_ATTRIBUTE);
 			String[] tokenList = token.split(":");
+
 			if (!tokenList[0].equals("") && tokenList[0].equals(sessionId)) {
 				// validate the token
 
@@ -51,7 +51,7 @@ public class AuthenticationTokenProcessingFilter extends GenericFilterBean {
 				SecurityContextHolder.getContext().setAuthentication(authenticationManager.authenticate(authentication));
 			}
 			chain.doFilter(request, response);
-		
+
 		}else{
 			//TODO: Redirect to page on session invalidation
 		}

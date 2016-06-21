@@ -6,13 +6,9 @@ import javax.servlet.http.HttpSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import uk.gov.dwp.esa.service.TokenValidationService;
 
@@ -56,8 +52,6 @@ public class TokenServiceController {
 	
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String getIndex(HttpServletRequest request) {
-       
-
 		return "index";
 	}
 	
@@ -70,7 +64,7 @@ public class TokenServiceController {
 			 logger.debug(sessionId + " Getting DUMMY form");
 			 	String tokenValue = sessionId+":"+token;
 			 	session.setAttribute(TOKEN_SESSION_ATTRIBUTE, tokenValue); 
-	            return "/personal-details";
+	            return "redirect:/api/personal-details";
 	            //this should chnage to start your application
 		}
 		 
