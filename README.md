@@ -21,6 +21,7 @@ Build project in Eclipse (Right-click project > Run As ... > Maven install)
 ### Run
 
 ```
+vagrant up
 vagrant ssh
 sudo -i
 systemctl stop tomcat
