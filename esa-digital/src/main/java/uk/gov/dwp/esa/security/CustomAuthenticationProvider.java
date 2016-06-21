@@ -11,9 +11,9 @@ import org.springframework.stereotype.Component;
 public class CustomAuthenticationProvider extends AbstractUserDetailsAuthenticationProvider{
 
 	@Autowired
-	private TokenUtils tokenUtils;
+	private TokenValidator tokenUtils;
 
-	public void setTokenUtils(TokenUtils tokenUtils) {
+	public void setTokenUtils(TokenValidator tokenUtils) {
 		this.tokenUtils = tokenUtils;
 	}
 

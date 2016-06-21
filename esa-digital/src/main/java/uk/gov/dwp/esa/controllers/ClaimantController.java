@@ -48,11 +48,8 @@ public class ClaimantController {
         logger.debug(sessionId + " Getting personal details form");
         
         Claimant claimant = (Claimant) session.getAttribute(CLAIMANT_DETAILS);
-        if(claimant==null){
-        	claimant =  new Claimant();
-        }else{
-        	model.addAttribute(CLAIMANT_DETAILS,claimant);
-        }
+        
+        model.addAttribute(CLAIMANT_DETAILS,claimant);
         
 		return PERSONAL_DETAILS_FORM;
 	}
@@ -60,7 +57,7 @@ public class ClaimantController {
 	@RequestMapping(value = ControllerUrls.PERSONAL_DETAILS_FORM, method = RequestMethod.POST)
 	public String saveClaimantData(Model model,Claimant claimant, BindingResult error,HttpServletRequest request){
 		
-		HttpSession session = request.getSession();
+		HttpSession session = request.getSession(false);
 		String sessionId = session.getId();
 		
 		logger.debug(sessionId + "Saving Claimant Details");

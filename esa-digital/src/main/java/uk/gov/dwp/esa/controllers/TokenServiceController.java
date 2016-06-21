@@ -40,9 +40,9 @@ public class TokenServiceController {
 				//error page
 				//redirect to 
 				 String[] tokens = sessionToken.split(":");
-				 if(sessionId.equals(tokens[1])){
+				 if(sessionId.equals(tokens[0])){
 					 //check array and redirect to that pageR
-					 return "/personal-details";
+					 return "redirect:/api/personal-details";
 				 }
 			}
 		}
@@ -65,7 +65,7 @@ public class TokenServiceController {
 			 	String tokenValue = sessionId+":"+token;
 			 	session.setAttribute(TOKEN_SESSION_ATTRIBUTE, tokenValue); 
 	            return "redirect:/api/personal-details";
-	            //this should chnage to start your application
+	            //this should change to start your application
 		}
 		 
 		return null;

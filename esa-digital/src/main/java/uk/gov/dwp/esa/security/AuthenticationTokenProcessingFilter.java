@@ -8,7 +8,6 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpServletResponseWrapper;
 import javax.servlet.http.HttpSession;
 
 import org.apache.logging.log4j.LogManager;
@@ -35,26 +34,32 @@ public class AuthenticationTokenProcessingFilter extends GenericFilterBean {
 		HttpServletRequest httpServletRequest = (HttpServletRequest) request;
 		HttpSession session = httpServletRequest.getSession(false);
 
+		try{
+			if(session != null){
+				String sessionId = session.getId();
+				String token = (String) session.getAttribute(TOKEN_SESSION_ATTRIBUTE);
+				String[] tokenList = token.split(":");
 
-		if(session != null){
-			String sessionId = session.getId();
-			String token = (String) session.getAttribute(TOKEN_SESSION_ATTRIBUTE);
-			String[] tokenList = token.split(":");
+				if (!tokenList[0].equals("") && tokenList[0].equals(sessionId)) {
+					// validate the token
 
-			if (!tokenList[0].equals("") && tokenList[0].equals(sessionId)) {
-				// validate the token
+					// build an Authentication object with the user's info
+					CustomAuthenticationToken authentication = new CustomAuthenticationToken(token);
+					authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails((HttpServletRequest) request));
+					// set the authentication into the SecurityContext
+					logger.info("Authenticating user");
+					SecurityContextHolder.getContext().setAuthentication(authenticationManager.authenticate(authentication));
+				}
+				chain.doFilter(request, response);
 
-				// build an Authentication object with the user's info
-				CustomAuthenticationToken authentication = new CustomAuthenticationToken(token);
-				authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails((HttpServletRequest) request));
-				// set the authentication into the SecurityContext
-				SecurityContextHolder.getContext().setAuthentication(authenticationManager.authenticate(authentication));
+			}else{
+				((HttpServletResponse) response).sendRedirect("/");
 			}
-			chain.doFilter(request, response);
-
-		}else{
-			//TODO: Redirect to page on session invalidation
-		}
+			}catch(Exception e){
+				logger.error("Unauthorized Access");
+				session.invalidate();
+				((HttpServletResponse) response).sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
+			}
 	}
 
 	public void setAuthenticationManager(AuthenticationManager authenticationManager) {
