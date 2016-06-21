@@ -241,6 +241,14 @@
 			<element name="dLAPIPYN" type="boolean"></element>
 		</sequence>
 	</complexType>
+	
+	<complexType name="AlternativeFormat">
+		<sequence>
+			<element name="alternativeFormatYN" type="string"></element>
+			<element name="alternateFormatType" type="string"></element>
+			<element name="alternateFormatOther" type="string"></element>
+		</sequence>
+	</complexType>
 
 	
     <complexType name="Claim">
@@ -265,6 +273,7 @@
     		<element name="specialRules" type="tns:SpecialRules"></element>
     		<element name="claimDate" type="tns:ClaimDate"></element>
     		<element name="housingBenefit" type="tns:HousingBenefit"></element>
+    		<element name="alternativeFormat" type= "tns:AlternativeFormat"></element>
     		<element name="token" type="string"></element>
     	</sequence>
     </complexType>

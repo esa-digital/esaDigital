@@ -14,26 +14,36 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import uk.gov.dwp.esa.model.Claimant;
 import uk.gov.dwp.esa.util.ControllerUrls;
+import uk.gov.dwp.esa.util.GenericModelParser;
 import uk.gov.dwp.esa.validators.ClaimantValidator;
 
 @Controller
 public class ClaimantController {
 
 	private static final Logger logger = LogManager.getLogger(ClaimantController.class);
-	protected static final String CLAIMANT_DETAILS = "ClaimantDetails";
-	private String NEXT_FORM = "/api" + ControllerUrls.GP_DETAILS_FORM;
+	protected static final String CLAIMANT_DETAILS = "Claimant";
+	private String NEXT_FORM = "/api" + ControllerUrls.CONTACT_DETAILS;
 	private static String PERSONAL_DETAILS_FORM = "personal-details";
 	
 		
 	@Autowired
 	private ClaimantValidator claimantValidator;
 	
+	@Autowired
+	private GenericModelParser generator;
+	
+	//private static final String PROPERTY_FILE="C:\\Users\\e.ratnakar.shetty\\git\\esaDigital\\esa-digital\\src\\main\\resources\\messages.properties";
+	private static final String PROPERTY_FILE="C:\\GitRepos\\esaDigital\\esa-digital\\src\\main\\resources\\messages.properties";
+	
 		
 	@RequestMapping(value = ControllerUrls.PERSONAL_DETAILS_FORM, method = RequestMethod.GET)
 	public String getPersonalDetailsForm(Model model, HttpServletRequest request) {
 		
-		HttpSession session = request.getSession();
+		HttpSession session = request.getSession(false);
 		String sessionId = session.getId();
+				
+		generator.setLocation(PROPERTY_FILE);
+		generator.parseModel(model);
 		
         logger.debug(sessionId + " Getting personal details form");
         

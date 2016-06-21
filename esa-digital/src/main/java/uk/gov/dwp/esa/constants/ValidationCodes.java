@@ -272,4 +272,10 @@ public final class ValidationCodes {
 
 
 
+	
+	public static final String ALTERNATE_FORMAT_EMPTY = "alternateFormat.alternativeFormatYN.empty";
+	public static final String ALTERNATE_FORMAT_TYPE_EMPTY = "alternateFormat.alternateFormatType.empty";
+	public static final String ALTERNATE_FORMAT_OTHER_EMPTY = "alternateFormat.alternateFormatOther.empty";
+	public static final String ALTERNATE_FORMAT_OTHER_TOO_LONG = "alternateFormat.alternateFormatOther.too.long";
+    
 }
