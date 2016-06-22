@@ -16,10 +16,8 @@ import org.springframework.context.MessageSource;
 
 import junit.framework.Assert;
 import uk.gov.dwp.esa.constants.AlternateFormatsConstants;
-import uk.gov.dwp.esa.constants.GpDetailsConstants;
 import uk.gov.dwp.esa.constants.ValidationCodes;
 import uk.gov.dwp.esa.model.AlternativeFormat;
-import uk.gov.dwp.esa.model.GPDetails;
 import uk.gov.dwp.esa.validatorHelpers.ValidationError;
 
 @RunWith(MockitoJUnitRunner.class)
