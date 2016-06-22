@@ -46,6 +46,7 @@ public final class ValidationUtils {
 	public static final String ALPHA_ONLY_PATTERN_WITH_HYPHEN ="^[a-zA-Z-]*$";
 	public static final String ALPHANUMERIC_ONLY_PATTERN ="^[a-zA-Z0-9]*$";
 	public static final String ADDRESS_PATTERN = "^[A-Za-zÀ-ƶ\\s0-9()&£€\"\'!\\-_:;\\.,/\\\\?@]*$";
+	public static final String FREETEXT_PATTERN = "^[A-Za-zÀ-ƶ\\s0-9()&£€\"\'!\\-_:;\\.,/\\\\?@]*$";
 	public static final String TELEPHONE_PATTERN ="^[0][0-9]+(\\s[0-9]*){0,2}$";
 	public static final String NAME_PATTERN = "^(?!.*(\'\'|--|\\.\\.|'-|'\\.|-'|-\\.|\\.-|\\.'|  | '| \\.|- | -))[A-Za-z-.'\\s]+$";
 	public static final String NUMERIC_ONLY_PATTERN ="^[0-9]*$";
@@ -494,6 +495,21 @@ public final class ValidationUtils {
 		}
 		return false;
 
+	}
+	
+	/**
+	 * This method will check if the value passed contains only letters,
+	 * numbers, spaces (and certain characters)
+	 *
+	 * @param any
+	 *            String
+	 */
+	public static boolean isValidFreeText(String value) {
+
+		if (value != null && !value.equals("")) {
+			return Pattern.matches(FREETEXT_PATTERN, value);
+		}
+		return false;
 	}
 
 	/**
