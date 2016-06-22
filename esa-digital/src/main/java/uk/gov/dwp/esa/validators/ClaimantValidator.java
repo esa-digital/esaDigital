@@ -2,10 +2,7 @@ package uk.gov.dwp.esa.validators;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
@@ -20,9 +17,7 @@ import uk.gov.dwp.esa.validatorHelpers.ValidationUtils;
 public class ClaimantValidator implements Validator {
 
 	private static final int maxLength = 27;
-	
-	@Autowired
-    private MessageSource messageSource;
+
 	/*
 	 * This method is used to validate the basic claimant properties 
 	 * gathered from front end.
