@@ -16,3 +16,5 @@ Maven 4
 ### Test
 
 ### Frontend Stuff
+
+The frontend tools are placed inside the frontend/ folder.  There is an additional readme inside this folder.  Refer to that for more information.
