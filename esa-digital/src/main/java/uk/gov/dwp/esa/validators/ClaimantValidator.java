@@ -55,7 +55,7 @@ public class ClaimantValidator implements Validator {
 			
 		
 		if(ValidationUtils.isEmpty(claimant.getFirstName())){
-			ValidationError firstNameValidation = new ValidationError(ClaimantConstants.FIRST_NAME.value(), ValidationCodes.CLAIMANT_FIRSTNAME_EMPTY));
+			ValidationError firstNameValidation = new ValidationError(ClaimantConstants.FIRST_NAME.value(), ValidationCodes.CLAIMANT_FIRSTNAME_EMPTY);
 			errors.add(firstNameValidation );
 		}else{
 			if(ValidationUtils.isStringLengthOver(claimant.getFirstName(), maxLength )){
@@ -78,7 +78,7 @@ public class ClaimantValidator implements Validator {
 			}
 			
 			if(!ValidationUtils.isAlphaOnly(claimant.getSurname())){
-				errors.add(new ValidationError(ClaimantConstants.SURNAME.value(), ValidationCodes.CLAIMANT_SURNAME_ALPHA);
+				errors.add(new ValidationError(ClaimantConstants.SURNAME.value(), ValidationCodes.CLAIMANT_SURNAME_ALPHA));
 			}
 			
 		}
