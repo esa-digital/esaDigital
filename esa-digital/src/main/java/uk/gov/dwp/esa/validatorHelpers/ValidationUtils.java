@@ -45,10 +45,9 @@ public final class ValidationUtils {
 	public static final String ALPHA_ONLY_PATTERN ="^[a-zA-Z\\s]*$";
 	public static final String ALPHA_ONLY_PATTERN_WITH_HYPHEN ="^[a-zA-Z-]*$";
 	public static final String ALPHANUMERIC_ONLY_PATTERN ="^[a-zA-Z0-9]*$";
-	public static final String ADDRESS_PATTERN ="^[a-zA-Z0-9\\s-'\\/,]*$";
-	public static final String TELEPHONE_PATTERN ="^(?:[+]?(?:0|[0-9\\s]*))$";
-
-	public static final String NAME_PATTERN = "^[a-zA-Z\\s-',.]*$";
+	public static final String ADDRESS_PATTERN = "^[A-Za-zÀ-ƶ\\s0-9()&£€\"\'!\\-_:;\\.,/\\\\?@]*$";
+	public static final String TELEPHONE_PATTERN ="^[0][0-9]+(\\s[0-9]*){0,2}$";
+	public static final String NAME_PATTERN = "^(?!.*(\'\'|--|\\.\\.|'-|'\\.|-'|-\\.|\\.-|\\.'|  | '| \\.|- | -))[A-Za-z-.'\\s]+$";
 	public static final String NUMERIC_ONLY_PATTERN ="^[0-9]*$";
 	//Post-code pattern found from here: http://stackoverflow.com/questions/164979/uk-postcode-regex-comprehensive
 	public static final String POSTCODE_PATTERN = "^(GIR ?0AA|[A-PR-UWYZ]([0-9]{1,2}|([A-HK-Y][0-9]([0-9ABEHMNPRV-Y])?)|[0-9][A-HJKPS-UW]) ?[0-9][ABD-HJLNP-UW-Z]{2})$";

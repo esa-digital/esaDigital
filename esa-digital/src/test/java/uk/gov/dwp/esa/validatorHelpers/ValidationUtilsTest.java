@@ -548,7 +548,12 @@ public class ValidationUtilsTest {
 		testStrings.add("abc 123 ");
 		testStrings.add("abc, 123");
 		testStrings.add("abc'd");
-		//testStrings.add("2\3 Duncan's Street"); // This one fails.
+		testStrings.add("À-ƶ0-9!@");
+		testStrings.add("£€'!-_:;.,?\\@");		
+		testStrings.add("abc!");
+		testStrings.add("ab1c@");
+		testStrings.add("1abc?");
+		testStrings.add("2\\3 Duncan's Street"); // This one fails.
 
 		for (String str : testStrings) {
 			Assert.assertTrue(ValidationUtils.isValidAddress(str));
@@ -559,12 +564,12 @@ public class ValidationUtilsTest {
 	public void isStringNotValidAddressTest() {
 
 		List<String> testStrings = new ArrayList<String>();
-		testStrings.add("abc!");
-		testStrings.add("ab1c@");
-		testStrings.add("1abc?");
 		testStrings.add("a123 bc+");
 		testStrings.add("");
 		testStrings.add(null);
+		testStrings.add("$*");
+		testStrings.add("->fgh");
+		testStrings.add("^^?");
 
 		for (String str : testStrings) {
 			Assert.assertFalse(ValidationUtils.isValidAddress(str));
@@ -575,7 +580,7 @@ public class ValidationUtilsTest {
 	public void isStringTelephoneOnlyTest() {
 		List<String> testStrings = new ArrayList<String>();
 		testStrings.add("01");
-		testStrings.add("+44 0134567");
+		testStrings.add("00 44 0134567");
 		testStrings.add("0115 2891759");
 		testStrings.add("01152891759");
 
@@ -590,6 +595,9 @@ public class ValidationUtilsTest {
 		testStrings.add("?01");
 		testStrings.add("-44 0134567");
 		testStrings.add("0!15 2891759");
+		testStrings.add("0115 289 17 59");
+		testStrings.add("+44 02891759");
+		testStrings.add("114 02891759");
 		testStrings.add("Plus44 1152891759");
 		testStrings.add("");
 		testStrings.add(null);
@@ -652,7 +660,10 @@ public class ValidationUtilsTest {
 		testStrings.add("Mr A/H Green");
 		testStrings.add("123");
 		testStrings.add("Mr & Mrs");
+		testStrings.add("Mr A.H., Smith");
 		testStrings.add("Mr Jones @");
+		testStrings.add("  ");
+		testStrings.add("..");
 		testStrings.add("");
 		testStrings.add(null);
 
