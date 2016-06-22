@@ -43,7 +43,7 @@ public class GpDetailsValidator implements Validator {
 		}
 		
 		//check mandatory fields
-		//This is a title validation - checks if empty. If not empty, checks length (!>27)
+		//This is a name validation - checks if empty. If not empty, checks length (!>27)
 		if(ValidationUtils.isEmpty(gpDetails.getDoctorName())){
 			ValidationError doctorNameValidation = new ValidationError(GpDetailsConstants.DOCTOR_NAME.value(), messageSource.getMessage(ValidationCodes.DOCTOR_NAME_EMPTY,null,Locale.ENGLISH));
 			errors.add(doctorNameValidation);
@@ -53,9 +53,9 @@ public class GpDetailsValidator implements Validator {
 			if(ValidationUtils.isStringLengthOver(gpDetails.getDoctorName(), maxLength)){
 				errors.add(new ValidationError(GpDetailsConstants.DOCTOR_NAME.value(), messageSource.getMessage(ValidationCodes.DOCTOR_NAME_TOO_LONG,null,Locale.ENGLISH)));
 			}
-			// Checks if title is alpha only
-			if(!ValidationUtils.isAlphaOnly(gpDetails.getDoctorName())){
-				errors.add(new ValidationError(GpDetailsConstants.DOCTOR_NAME.value(), messageSource.getMessage(ValidationCodes.DOCTOR_NAME_ALPHA,null,Locale.ENGLISH)));
+			// Checks if name is alpha only
+			if(!ValidationUtils.isValidName(gpDetails.getDoctorName())){
+				errors.add(new ValidationError(GpDetailsConstants.DOCTOR_NAME.value(), messageSource.getMessage(ValidationCodes.DOCTOR_NAME_INVALIDCHARS,null,Locale.ENGLISH)));
 			}
 		}
 	
@@ -70,7 +70,7 @@ public class GpDetailsValidator implements Validator {
 			}
 						
 			if(!ValidationUtils.isValidAddress(gpDetails.getDocAddLine1())){
-				errors.add(new ValidationError(GpDetailsConstants.DOCTOR_ADDRESS_LINE1.value(), messageSource.getMessage(ValidationCodes.DOCTOR_ADDRESS_LINE1_ALPHANUMERIC,null,Locale.ENGLISH)));
+				errors.add(new ValidationError(GpDetailsConstants.DOCTOR_ADDRESS_LINE1.value(), messageSource.getMessage(ValidationCodes.DOCTOR_ADDRESS_LINE1_INVALIDCHARS,null,Locale.ENGLISH)));
 			}
 		}
 			
@@ -84,7 +84,7 @@ public class GpDetailsValidator implements Validator {
 			}
 						
 			if(!ValidationUtils.isValidAddress(gpDetails.getDocAddLine2())){
-				errors.add(new ValidationError(GpDetailsConstants.DOCTOR_ADDRESS_LINE2.value(), messageSource.getMessage(ValidationCodes.DOCTOR_ADDRESS_LINE2_ALPHANUMERIC,null,Locale.ENGLISH)));
+				errors.add(new ValidationError(GpDetailsConstants.DOCTOR_ADDRESS_LINE2.value(), messageSource.getMessage(ValidationCodes.DOCTOR_ADDRESS_LINE2_INVALIDCHARS,null,Locale.ENGLISH)));
 			}
 		}
 			
@@ -97,7 +97,7 @@ public class GpDetailsValidator implements Validator {
 
 			if (!ValidationUtils.isValidAddress(gpDetails.getDocAddLine3())) {
 				errors.add(new ValidationError(GpDetailsConstants.DOCTOR_ADDRESS_LINE3.value(), messageSource
-						.getMessage(ValidationCodes.DOCTOR_ADDRESS_LINE3_ALPHANUMERIC, null, Locale.ENGLISH)));
+						.getMessage(ValidationCodes.DOCTOR_ADDRESS_LINE3_INVALIDCHARS, null, Locale.ENGLISH)));
 			}
 		}
 			
@@ -109,7 +109,7 @@ public class GpDetailsValidator implements Validator {
 
 			if (!ValidationUtils.isValidAddress(gpDetails.getDocAddLine4())) {
 				errors.add(new ValidationError(GpDetailsConstants.DOCTOR_ADDRESS_LINE4.value(), messageSource
-						.getMessage(ValidationCodes.DOCTOR_ADDRESS_LINE4_ALPHANUMERIC, null, Locale.ENGLISH)));
+						.getMessage(ValidationCodes.DOCTOR_ADDRESS_LINE4_INVALIDCHARS, null, Locale.ENGLISH)));
 			}
 		}
 			
