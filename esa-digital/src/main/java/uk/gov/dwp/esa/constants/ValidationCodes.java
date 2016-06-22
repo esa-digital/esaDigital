@@ -243,7 +243,6 @@ public final class ValidationCodes {
 	public static final String HELPDETAILS_NINO_NOTVALID= "helpdetails.nino.invalid";
 	public static final String HELPDETAILS_NINO_EMPTY= "helpdetails.nino.empty";
 	public static final String HELPDETAILS_ADDRESS1_TOO_LONG = "helpdetails.address1.greater.than.limit";
-	public static final String HELPDETAILS_POSTCODE_TOO_LONG = "helpdetails.postcode.greater.than.limit";
 	public static final String HELPDETAILS_TITLE_TOO_LONG = "helpdetails.title.greater.than.limit";
 	
 	public static final String HELPDETAILS_TELEPHONE_TOO_LONG = "helpdetails.telephone.too.long";
