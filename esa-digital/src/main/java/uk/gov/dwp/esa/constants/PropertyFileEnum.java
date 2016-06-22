@@ -2,7 +2,7 @@ package uk.gov.dwp.esa.constants;
 
 public enum PropertyFileEnum {
 
-	CLAIMANT_PROPERTY("C:\\GitRepos\\esaDigital\\esa-digital\\src\\main\\resources\\messages.properties");
+	CLAIMANT_PROPERTY("personal-details.properties");
 	
 private String value;
 	

@@ -40,8 +40,8 @@ public class ClaimantController {
 		HttpSession session = request.getSession(false);
 		String sessionId = session.getId();
 				
-//		generator.setLocation(PropertyFileEnum.CLAIMANT_PROPERTY.value());
-//		generator.parseModel(model);
+		generator.setLocation(PropertyFileEnum.CLAIMANT_PROPERTY.value());
+		generator.parseModel(model);
 		
         logger.debug(sessionId + " Getting personal details form");
         
