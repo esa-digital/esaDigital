@@ -42,7 +42,7 @@ public class GpDetailsValidatorTest {
 		when(gpDetails.getDocAddLine3()).thenReturn("");
 		when(gpDetails.getDocAddLine4()).thenReturn("");
 		when(gpDetails.getDocPostCode()).thenReturn("LS7 5DQ");
-		when(gpDetails.getDocTelNumber()).thenReturn("+44 0115 3721032");	
+		when(gpDetails.getDocTelNumber()).thenReturn("0115 3721032");	
 	}
 	
 	@Test
@@ -128,7 +128,7 @@ public class GpDetailsValidatorTest {
 	}
 	
 	@Test
-	public void testGpNameAlphaNoSpecialCharactersValidation() {
+	public void testGpNameAlphaPlusCertainSpecialCharactersValidation() {
 		when(gpDetails.getDoctorName()).thenReturn("abc!@?%");
 		when(source.getMessage(ValidationCodes.DOCTOR_NAME_ALPHA,null,Locale.ENGLISH)).thenReturn("dummy4");
 		List<ValidationError> errors =  gpDetailsValidator.validateGPDetails(gpDetails);
@@ -184,8 +184,8 @@ public class GpDetailsValidatorTest {
 	}
 	
 	@Test
-	public void testGpAddressLine1NotAlphaNumeric() {
-		when(gpDetails.getDocAddLine1()).thenReturn("123ABC!@?");
+	public void testGpAddressLine1InvalidSpecialCharacters() {
+		when(gpDetails.getDocAddLine1()).thenReturn("123ABC$%*");
 		when(source.getMessage(ValidationCodes.DOCTOR_ADDRESS_LINE1_ALPHANUMERIC, null,Locale.ENGLISH)).thenReturn("dummy8");
 		List<ValidationError> errors = gpDetailsValidator.validateGPDetails(gpDetails);
 		ValidationError ve = new ValidationError(GpDetailsConstants.DOCTOR_ADDRESS_LINE1.value(), source.getMessage(ValidationCodes.DOCTOR_ADDRESS_LINE1_ALPHANUMERIC,null,Locale.ENGLISH));
@@ -230,8 +230,8 @@ public class GpDetailsValidatorTest {
 	}
 	
 	@Test
-	public void testGpAddressLine2NotAlphaNumeric() {
-		when(gpDetails.getDocAddLine2()).thenReturn("123ABC!@?");
+	public void testGpAddressLine2NotValidSpecialCharacters() {
+		when(gpDetails.getDocAddLine2()).thenReturn("123ABC$%*");
 		when(source.getMessage(ValidationCodes.DOCTOR_ADDRESS_LINE2_ALPHANUMERIC, null,Locale.ENGLISH)).thenReturn("dummy12");
 		List<ValidationError> errors = gpDetailsValidator.validateGPDetails(gpDetails);
 		ValidationError ve = new ValidationError(GpDetailsConstants.DOCTOR_ADDRESS_LINE2.value(), source.getMessage(ValidationCodes.DOCTOR_ADDRESS_LINE2_ALPHANUMERIC,null,Locale.ENGLISH));
@@ -272,8 +272,8 @@ public class GpDetailsValidatorTest {
 	}
 	
 	@Test
-	public void testGpAddressLine3NotAlphaNumeric() {
-		when(gpDetails.getDocAddLine3()).thenReturn("ABC123!@£");
+	public void testGpAddressLine3NotValidSpecialCharacters() {
+		when(gpDetails.getDocAddLine3()).thenReturn("ABC123$%*");
 		when(source.getMessage(ValidationCodes.DOCTOR_ADDRESS_LINE3_ALPHANUMERIC, null, Locale.ENGLISH)).thenReturn("dummy14");
 		List<ValidationError> errors = gpDetailsValidator.validateGPDetails(gpDetails);
 		ValidationError ve = new ValidationError(GpDetailsConstants.DOCTOR_ADDRESS_LINE3.value(),source.getMessage(ValidationCodes.DOCTOR_ADDRESS_LINE3_ALPHANUMERIC,null,Locale.ENGLISH));
@@ -314,8 +314,8 @@ public class GpDetailsValidatorTest {
 	}
 	
 	@Test
-	public void testGpAddressLine4NotAlphaNumeric() {
-		when(gpDetails.getDocAddLine4()).thenReturn("ABC123!@£");
+	public void testGpAddressLine4NotValidSpecialCharacters() {
+		when(gpDetails.getDocAddLine4()).thenReturn("ABC123%*$");
 		when(source.getMessage(ValidationCodes.DOCTOR_ADDRESS_LINE4_ALPHANUMERIC, null, Locale.ENGLISH)).thenReturn("dummy16");
 		List<ValidationError> errors = gpDetailsValidator.validateGPDetails(gpDetails);
 		ValidationError ve = new ValidationError(GpDetailsConstants.DOCTOR_ADDRESS_LINE4.value(),source.getMessage(ValidationCodes.DOCTOR_ADDRESS_LINE4_ALPHANUMERIC,null,Locale.ENGLISH));
@@ -404,7 +404,7 @@ public class GpDetailsValidatorTest {
 	
 	@Test
 	public void testGpTelNumberIsOver20Chars(){
-		when(gpDetails.getDocTelNumber()).thenReturn("123456789012345678901");
+		when(gpDetails.getDocTelNumber()).thenReturn("012345678901234567890");
 		when(source.getMessage(ValidationCodes.DOCTOR_TELEPHONE_TOO_LONG, null, Locale.ENGLISH)).thenReturn("dummy23");
 		List<ValidationError> errors = gpDetailsValidator.validateGPDetails(gpDetails);
 		ValidationError ve = new ValidationError(GpDetailsConstants.DOCTOR_TEL_NUMBER.value(),source.getMessage(ValidationCodes.DOCTOR_TELEPHONE_TOO_LONG, null, Locale.ENGLISH));
