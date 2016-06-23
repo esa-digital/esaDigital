@@ -237,7 +237,7 @@ public final class ValidationCodes {
 	public static final String HELPDETAILS_TITLE_TOO_LONG = "helpdetails.title.greater.than.limit";
 	
 	public static final String HELPDETAILS_TELEPHONE_TOO_LONG = "helpdetails.telephone.too.long";
-	public static final String HELPDETAILS_TELEPHONE_NUMERIC = "helpdetails.telephone.numeric";
+	public static final String HELPDETAILS_TELEPHONE_INVALID = "helpdetails.telephone.invalid";
 	
 	public static final String HELPDETAILS_ADDRESS_LINE_ALPHA = "helpdetails.address.alpha";
 	public static final String HELPDETAILS_ADDRESS_LINE1_EMPTY = "helpdetails.address1.empty";
@@ -258,7 +258,7 @@ public final class ValidationCodes {
 	public static final String BANKDETAILS_ACCNUMBER_TOO_LONG = "bankdetails.accountNumber.greater.than.limit";
 	public static final String BANKDETAILS_BUILDINGNUMBER_TOO_LONG = "bankdetails.buildingNumber.greater.than.limit";
 	public static final String BANKDETAILS_ACCNUMBER_NUMERIC = "bankdetails.accountNumber.numeric";
-	public static final String BANKDETAILS_BUILDINGNUMBER_ALPHA = "bankdetails.buildingNumber.alpha";
+	public static final String BANKDETAILS_BUILDINGNUMBER_INVALID = "bankdetails.buildingNumber.invalid";
 
 	public static final String ALTERNATE_FORMAT_EMPTY = "alternateFormat.alternativeFormatYN.empty";
 	public static final String ALTERNATE_FORMAT_TYPE_EMPTY = "alternateFormat.alternateFormatType.empty";
