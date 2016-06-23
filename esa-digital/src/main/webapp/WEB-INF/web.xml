@@ -73,10 +73,11 @@
 			<param-value>true</param-value>
 		</init-param>
 	</filter>
-	<filter-mapping>
+	<!-- Temporarily disabling CORS to get Vagrant boxes to work -->
+	<!--<filter-mapping>
 		<filter-name>CorsFilter</filter-name>
 		<url-pattern>/api/*</url-pattern>
-	</filter-mapping>
+	</filter-mapping>-->
 
 
 	<distributable />
