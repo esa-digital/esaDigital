@@ -48,9 +48,10 @@ public class GPController {
 
 		if (gpDetails == null) {
 			gpDetails = new GPDetails();
-		} else {
-			model.addAttribute(GP_DETAILS, gpDetails);
 		}
+		
+		model.addAttribute(gpDetails);
+		
 		return GP_DETAILS_FORM;
 
 	}
@@ -74,7 +75,7 @@ public class GPController {
 		gpValidator.validate(gpDetails, error);
 
 		if (error.hasErrors()) {
-			model.addAttribute(GP_DETAILS, gpDetails);
+			model.addAttribute(gpDetails);
 			logger.debug(error);
 			return GP_DETAILS_FORM;
 		}

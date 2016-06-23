@@ -73,7 +73,7 @@ public class ClaimantController {
 		  claimantValidator.validate(claimant, error);
 		  
 		  if(error.hasErrors()){
-			  model.addAttribute(CLAIMANT_DETAILS, claimant);
+			  model.addAttribute(claimant);
 			  logger.debug(error);
 			  return PERSONAL_DETAILS_FORM;
 		  }
