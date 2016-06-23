@@ -575,6 +575,44 @@ public class ValidationUtilsTest {
 			Assert.assertFalse(ValidationUtils.isValidAddress(str));
 		}
 	}
+	
+	@Test
+	public void isStringValidFreetextTest() {
+
+		List<String> testStrings = new ArrayList<String>();
+		testStrings.add("abc");
+		testStrings.add("abc abc");
+		testStrings.add("123 456 ");
+		testStrings.add("abc 123 ");
+		testStrings.add("abc, 123");
+		testStrings.add("abc'd");
+		testStrings.add("À-ƶ0-9!@");
+		testStrings.add("£€'!-_:;.,?\\@");		
+		testStrings.add("abc!");
+		testStrings.add("ab1c@");
+		testStrings.add("1abc?");
+		testStrings.add("2\\3 Duncan's Street"); // This one fails.
+
+		for (String str : testStrings) {
+			Assert.assertTrue(ValidationUtils.isValidFreeText(str));
+		}
+	}
+
+	@Test
+	public void isStringNotValidFreetext() {
+
+		List<String> testStrings = new ArrayList<String>();
+		testStrings.add("a123 bc+");
+		testStrings.add("");
+		testStrings.add(null);
+		testStrings.add("$*");
+		testStrings.add("->fgh");
+		testStrings.add("^^?");
+
+		for (String str : testStrings) {
+			Assert.assertFalse(ValidationUtils.isValidFreeText(str));
+		}
+	}
 
 	@Test
 	public void isStringTelephoneOnlyTest() {
