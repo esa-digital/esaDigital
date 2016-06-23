@@ -744,4 +744,89 @@ public class ValidationUtilsTest {
 		} 
 	}
 	
+	@Test
+	public void isValidTitleTest() {
+		List<String> testStrings = new ArrayList<String>();
+		testStrings.add("Mr");
+		testStrings.add("Mr A.H");
+		testStrings.add("Miss");
+		testStrings.add("Doctor");
+		testStrings.add("Sir");
+		
+
+		for (String str : testStrings) {
+			Assert.assertTrue(ValidationUtils.isValidTitle(str));
+		} 
+	}
+	
+	@Test
+	public void isNotValidTitleTest() {
+		List<String> testStrings = new ArrayList<String>();
+		testStrings.add("Mr!");
+		testStrings.add("M1ss");
+		testStrings.add("Mr A/H");
+		testStrings.add("123");
+		testStrings.add("Mr & Mrs");
+		testStrings.add("Mr.,");
+		testStrings.add("Mrs @");
+		testStrings.add("  ");
+		testStrings.add("..");
+		testStrings.add("");
+		testStrings.add(null);
+
+		for (String str : testStrings) {
+			Assert.assertFalse(ValidationUtils.isValidTitle(str));
+		} 
+	}
+	
+	@Test
+	public void isValidAlphaOnlyWithHyphenTest(){
+		List<String> testStrings = new ArrayList<String>();
+		testStrings.add("Abc");
+		testStrings.add("Ab-Cd");
+	
+	for (String str : testStrings) {
+		Assert.assertTrue(ValidationUtils.isAlphaOnlyWithHyphen(str));
+	} 
+	}
+	
+	@Test
+	public void isNotValidAlphaOnlyWithHyphenTest(){
+		List<String> testStrings = new ArrayList<String>();
+		testStrings.add("Abc1");
+		testStrings.add("Ab Cd");
+		testStrings.add("A!");
+		testStrings.add("");
+		testStrings.add(null);
+	
+	for (String str : testStrings) {
+		Assert.assertFalse(ValidationUtils.isAlphaOnlyWithHyphen(str));
+	} 
+	}
+	
+	@Test
+	public void isValidNumericOnlyTest(){
+		List<String> testStrings = new ArrayList<String>();
+		testStrings.add("1");
+		testStrings.add("2");
+	
+	for (String str : testStrings) {
+		Assert.assertTrue(ValidationUtils.isNumericOnly(str));
+	} 
+	}
+	
+	@Test
+	public void isNotValidNumericOnlyTest(){
+		List<String> testStrings = new ArrayList<String>();
+		testStrings.add("A1");
+		testStrings.add("1-2");
+		testStrings.add("1 2 3");
+		testStrings.add("");
+		testStrings.add(null);
+	
+	for (String str : testStrings) {
+		Assert.assertFalse(ValidationUtils.isNumericOnly(str));
+	} 
+	}
+	
 }

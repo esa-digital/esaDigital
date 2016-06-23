@@ -43,5 +43,6 @@ To quit watching press `Ctrl+\`. To exit the screen session press `Ctrl+A` then 
 
 ### Deploy
 
+### Frontend Stuff
 
-
+The frontend tools are placed inside the frontend/ folder.  There is an additional readme inside this folder.  Refer to that for more information.

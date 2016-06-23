@@ -42,9 +42,9 @@ public class ClaimantValidator implements Validator {
 			if(ValidationUtils.isStringLengthOver(claimant.getTitle(), maxLength )){
 				errors.add(new ValidationError(ClaimantConstants.TITLE.value(), ValidationCodes.CLAIMANT_TITLE_TOO_LONG));
 			}
-			// Checks if title is alpha only
-			if(!ValidationUtils.isAlphaOnly(claimant.getTitle())){
-				errors.add(new ValidationError(ClaimantConstants.TITLE.value(), ValidationCodes.CLAIMANT_TITLE_ALPHA));
+			// Checks if title is using valid characters
+			if(!ValidationUtils.isValidTitle(claimant.getTitle())){
+				errors.add(new ValidationError(ClaimantConstants.TITLE.value(), ValidationCodes.CLAIMANT_TITLE_INVALID));
 			}
 		}
 			
@@ -57,8 +57,8 @@ public class ClaimantValidator implements Validator {
 				errors.add(new ValidationError(ClaimantConstants.FIRST_NAME.value(), ValidationCodes.CLAIMANT_FIRST_NAME_TOO_LONG));
 			}
 						
-			if(!ValidationUtils.isAlphaOnly(claimant.getFirstName())){
-				errors.add(new ValidationError(ClaimantConstants.FIRST_NAME.value(), ValidationCodes.CLAIMANT_FIRSTNAME_ALPHA));
+			if(!ValidationUtils.isValidName(claimant.getFirstName())){
+				errors.add(new ValidationError(ClaimantConstants.FIRST_NAME.value(), ValidationCodes.CLAIMANT_FIRSTNAME_INVALID));
 			}
 			
 			
@@ -72,8 +72,8 @@ public class ClaimantValidator implements Validator {
 				errors.add(new ValidationError(ClaimantConstants.SURNAME.value(), ValidationCodes.CLAIMANT_SURNAME_TOO_LONG));
 			}
 			
-			if(!ValidationUtils.isAlphaOnly(claimant.getSurname())){
-				errors.add(new ValidationError(ClaimantConstants.SURNAME.value(), ValidationCodes.CLAIMANT_SURNAME_ALPHA));
+			if(!ValidationUtils.isValidName(claimant.getSurname())){
+				errors.add(new ValidationError(ClaimantConstants.SURNAME.value(), ValidationCodes.CLAIMANT_SURNAME_INVALID));
 			}
 			
 		}
@@ -84,8 +84,8 @@ public class ClaimantValidator implements Validator {
 				errors.add(new ValidationError(ClaimantConstants.OTHERNAME.value(), ValidationCodes.CLAIMANT_MIDDLE_NAME_TOO_LONG));
 			}
 
-			if(!ValidationUtils.isAlphaOnly(claimant.getOtherName())){
-				errors.add(new ValidationError(ClaimantConstants.OTHERNAME.value(), ValidationCodes.CLAIMANT_OTHERNAME_ALPHA));
+			if(!ValidationUtils.isValidName(claimant.getOtherName())){
+				errors.add(new ValidationError(ClaimantConstants.OTHERNAME.value(), ValidationCodes.CLAIMANT_OTHERNAME_INVALID));
 			}
 		}
 
