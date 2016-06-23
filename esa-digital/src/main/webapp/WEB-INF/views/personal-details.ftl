@@ -4,7 +4,7 @@
 
       <div class="column-two-thirds">
       
-          <form action="personal-details" method="post">
+          <form action="personal-details" method="post" autocomplete="off">
               
               <@errors.errorSummary fields=["claimant.title","claimant.firstName","claimant.otherName","claimant.surname","claimant.dobDay","claimant.dobMonth","claimant.dobYear","claimant.nino"] />
               
