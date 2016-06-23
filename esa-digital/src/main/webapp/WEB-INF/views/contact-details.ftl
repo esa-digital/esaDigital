@@ -52,15 +52,10 @@
             <input type="text" class="form-control" id="phone2">
           </div>
 
+		  <@components.inputText path="ContactDetails.email" name="email" content="Email" value="${(ContactDetails.email)!}" hint="(optional)" />
+          
+          <@components.submit value="Continue" />
 
-          <div class="form-group">
-            <label class="form-label-bold" for="email" value="<#if (ContactDetails.email)??>${ContactDetails.email}<#else>""</#if>">Email <span class="form-hint">(optional)</span></label>
-            <input type="text" class="form-control" id="email">
-          </div>
-
-          <div class="form-group">
-            <input type="submit" class="button" value="Continue">
-          </div>
         </form>
       </div>
       
