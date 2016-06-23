@@ -1,5 +1,4 @@
 <#include "includes/head.ftl"> 
- <#import "/spring.ftl" as spring/>
 
   <div class="grid-row">
 
@@ -7,40 +6,21 @@
       
           <form action="personal-details" method="post">
               
+              <@errors.errorSummary fields=["claimant.title","claimant.firstName","claimant.otherName","claimant.surname","claimant.dobDay","claimant.dobMonth","claimant.dobYear","claimant.nino"] />
+              
               <h1 class="heading-large">Personal Details</h1>
-				
-
-<#macro showErrorAtw path >
-     <#if htmlEscape?exists>
-       <#assign status = springMacroRequestContext.getBindStatus(path, htmlEscape)>
-   <#else>
-       <#assign status = springMacroRequestContext.getBindStatus(path)>
-   </#if>
-   <#if status.error >
-          <#list status.errorMessages as error>
-            <span class="error-message">
-                ${error}
-            </span>
-        </#list>
-   </#if>
-</#macro>
-
-				
-			<@showErrorAtw 'claimant.title' />
-			
-				
-				
-              <@components.inputText name="title" content="Title" value="${(Claimant.title)!}" />
+				      
+              <@components.inputText path="claimant.title" name="title" content="Title" value="${(claimant.title)!}" />
               
-              <@components.inputText name="firstName" content="First name" value="${(Claimant.firstName)!}" />
+              <@components.inputText path="claimant.firstName" name="firstName" content="First name" value="${(claimant.firstName)!}" />
 
-              <@components.inputText name="otherName" content="Middle names(s)" value="${(Claimant.otherName)!}" hint="(optional)" />              
+              <@components.inputText path="claimant.otherName" name="otherName" content="Middle names(s)" value="${(claimant.otherName)!}" hint="(optional)" />              
                           
-              <@components.inputText name="surname" content="Surname" value="${(Claimant.surname)!}" />              
+              <@components.inputText path="claimant.surname" name="surname" content="Surname" value="${(claimant.surname)!}" />              
 
-              <@components.dob name="dob" content="Date of Birth" day="${(Claimant.dobDay)!}" month="${(Claimant.dobMonth)!}" year="${(Claimant.dobYear)!}" dayText="Day" monthText="Month" yearText="Year" hint="For example, 31 3 1980" />              
+              <@components.dob paths=["claimant.dobDay","claimant.dobMonth","claimant.dobYear"] name="dob" content="Date of Birth" day="${(claimant.dobDay)!}" month="${(claimant.dobMonth)!}" year="${(claimant.dobYear)!}" dayText="Day" monthText="Month" yearText="Year" hint="DD MM YYYY" />              
               
-              <@components.inputText name="nino" content="National Insurance number" value="${(Claimant.nino)!}" />
+              <@components.inputText path="claimant.nino" name="nino" content="National Insurance number" value="${(claimant.nino)!}" />
 
               <@components.submit value="Continue" />              
 
