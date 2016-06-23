@@ -73,9 +73,11 @@ public class ClaimantController {
 		  claimantValidator.validate(claimant, error);
 		  
 		  if(error.hasErrors()){
-			  model.addAttribute(claimant);
-			  logger.debug(error);
-			  return PERSONAL_DETAILS_FORM;
+			generator.setLocation(PropertyFileEnum.CLAIMANT_PROPERTY.value());
+			generator.parseModel(model);
+			 model.addAttribute(claimant);
+			 logger.debug(error);
+			 return PERSONAL_DETAILS_FORM;
 		  }
 		  session.setAttribute(CLAIMANT_DETAILS, claimant);
 		  
