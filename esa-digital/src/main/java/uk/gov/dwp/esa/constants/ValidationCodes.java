@@ -42,10 +42,10 @@ public final class ValidationCodes {
     public static final String CLAIMANT_TITLE_EMPTY = "claimant.title.empty";
     
     
-    public static final String CLAIMANT_TITLE_ALPHA = "claimant.title.alpha";
-    public static final String CLAIMANT_OTHERNAME_ALPHA = "claimant.otherName.alpha";
-    public static final String CLAIMANT_FIRSTNAME_ALPHA = "claimant.firstName.alpha";
-    public static final String CLAIMANT_SURNAME_ALPHA = "claimant.surname.alpha";
+    public static final String CLAIMANT_TITLE_INVALID = "claimant.title.invalid";
+    public static final String CLAIMANT_OTHERNAME_INVALID = "claimant.otherName.invalid";
+    public static final String CLAIMANT_FIRSTNAME_INVALID = "claimant.firstName.invalid";
+    public static final String CLAIMANT_SURNAME_INVALID = "claimant.surname.invalid";
     
     public static final String CLAIMANT_FULL_NAME_TOO_LONG = "claimant.fullName.greater.than.limit";
     public static final String CLAIMANT_FIRST_NAME_TOO_LONG = "claimant.firstName.greater.than.limit";

@@ -78,10 +78,10 @@ public class ClaimantValidatorTest {
 	}
 	
 	@Test
-	public void testTitleOnlyAlphaValidation() {
+	public void testTitleMatchesValidCharsValidation() {
 		when(claimant.getTitle()).thenReturn("abc@%C123");
 		List<ValidationError> errors =  validator.validateClaimant(claimant);
-		ValidationError ve = new ValidationError(ClaimantConstants.TITLE.value(), ValidationCodes.CLAIMANT_TITLE_ALPHA);
+		ValidationError ve = new ValidationError(ClaimantConstants.TITLE.value(), ValidationCodes.CLAIMANT_TITLE_INVALID);
 		Assert.assertEquals(1, errors.size());
 		Assert.assertEquals(errors.get(0).getErrorMessage(), ve.getErrorMessage());
 		
@@ -91,7 +91,7 @@ public class ClaimantValidatorTest {
 	public void testTitleFreeTextNoNumbersValidation() {
 		when(claimant.getTitle()).thenReturn("abc123");
 		List<ValidationError> errors =  validator.validateClaimant(claimant);
-		ValidationError ve = new ValidationError(ClaimantConstants.TITLE.value(), ValidationCodes.CLAIMANT_TITLE_ALPHA);
+		ValidationError ve = new ValidationError(ClaimantConstants.TITLE.value(), ValidationCodes.CLAIMANT_TITLE_INVALID);
 		Assert.assertEquals(1, errors.size());
 		Assert.assertEquals(errors.get(0).getErrorMessage(), ve.getErrorMessage());
 		
@@ -138,7 +138,7 @@ public class ClaimantValidatorTest {
 	public void testFirstNameOnlyAlphaValidation() {
 		when(claimant.getFirstName()).thenReturn("abc@%C123");
 		List<ValidationError> errors =  validator.validateClaimant(claimant);
-		ValidationError ve = new ValidationError(ClaimantConstants.FIRST_NAME.value(), ValidationCodes.CLAIMANT_FIRSTNAME_ALPHA);
+		ValidationError ve = new ValidationError(ClaimantConstants.FIRST_NAME.value(), ValidationCodes.CLAIMANT_FIRSTNAME_INVALID);
 		Assert.assertEquals(1, errors.size());
 		Assert.assertEquals(errors.get(0).getErrorMessage(), ve.getErrorMessage());
 		
@@ -148,7 +148,7 @@ public class ClaimantValidatorTest {
 	public void testFirstNameFreeTextNoNumbersValidation() {
 		when(claimant.getFirstName()).thenReturn("abc123");
 		List<ValidationError> errors =  validator.validateClaimant(claimant);
-		ValidationError ve = new ValidationError(ClaimantConstants.FIRST_NAME.value(), ValidationCodes.CLAIMANT_FIRSTNAME_ALPHA);
+		ValidationError ve = new ValidationError(ClaimantConstants.FIRST_NAME.value(), ValidationCodes.CLAIMANT_FIRSTNAME_INVALID);
 		Assert.assertEquals(1, errors.size());
 		Assert.assertEquals(errors.get(0).getErrorMessage(), ve.getErrorMessage());
 		
@@ -195,7 +195,7 @@ public class ClaimantValidatorTest {
 	public void testSurNameOnlyAlphaValidation() {
 		when(claimant.getSurname()).thenReturn("abc@%C123");
 		List<ValidationError> errors =  validator.validateClaimant(claimant);
-		ValidationError ve = new ValidationError(ClaimantConstants.SURNAME.value(), ValidationCodes.CLAIMANT_SURNAME_ALPHA);
+		ValidationError ve = new ValidationError(ClaimantConstants.SURNAME.value(), ValidationCodes.CLAIMANT_SURNAME_INVALID);
 		Assert.assertEquals(1, errors.size());
 		Assert.assertEquals(errors.get(0).getErrorMessage(), ve.getErrorMessage());
 		
@@ -205,7 +205,7 @@ public class ClaimantValidatorTest {
 	public void testSurNameFreeTextNoNumbersValidation() {
 		when(claimant.getSurname()).thenReturn("abc123");
 		List<ValidationError> errors =  validator.validateClaimant(claimant);
-		ValidationError ve = new ValidationError(ClaimantConstants.SURNAME.value(), ValidationCodes.CLAIMANT_SURNAME_ALPHA);
+		ValidationError ve = new ValidationError(ClaimantConstants.SURNAME.value(), ValidationCodes.CLAIMANT_SURNAME_INVALID);
 		Assert.assertEquals(1, errors.size());
 		Assert.assertEquals(errors.get(0).getErrorMessage(), ve.getErrorMessage());
 		
@@ -260,7 +260,7 @@ public class ClaimantValidatorTest {
 	public void testOtherNameAlphaWhenAdded() {
 		when(claimant.getOtherName()).thenReturn("abc@%C123");
 		List<ValidationError> errors =  validator.validateClaimant(claimant);
-		ValidationError ve = new ValidationError(ClaimantConstants.OTHERNAME.value(), ValidationCodes.CLAIMANT_OTHERNAME_ALPHA);
+		ValidationError ve = new ValidationError(ClaimantConstants.OTHERNAME.value(), ValidationCodes.CLAIMANT_OTHERNAME_INVALID);
 		Assert.assertEquals(1, errors.size());
 		Assert.assertEquals(errors.get(0).getErrorMessage(), ve.getErrorMessage());
 	}
@@ -278,7 +278,7 @@ public class ClaimantValidatorTest {
 	public void testOtherNameFreeTextNoNumbersValidation() {
 		when(claimant.getOtherName()).thenReturn("abc123");
 		List<ValidationError> errors =  validator.validateClaimant(claimant);
-		ValidationError ve = new ValidationError(ClaimantConstants.OTHERNAME.value(), ValidationCodes.CLAIMANT_OTHERNAME_ALPHA);
+		ValidationError ve = new ValidationError(ClaimantConstants.OTHERNAME.value(), ValidationCodes.CLAIMANT_OTHERNAME_INVALID);
 		Assert.assertEquals(1, errors.size());
 		Assert.assertEquals(errors.get(0).getErrorMessage(), ve.getErrorMessage());
 		
