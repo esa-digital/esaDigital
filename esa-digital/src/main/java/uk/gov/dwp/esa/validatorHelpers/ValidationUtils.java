@@ -52,8 +52,6 @@ public final class ValidationUtils {
 	public static final String NUMERIC_ONLY_PATTERN ="^[0-9]*$";
 	//Post-code pattern found from here: http://stackoverflow.com/questions/164979/uk-postcode-regex-comprehensive
 	public static final String POSTCODE_PATTERN = "^(GIR ?0AA|[A-PR-UWYZ]([0-9]{1,2}|([A-HK-Y][0-9]([0-9ABEHMNPRV-Y])?)|[0-9][A-HJKPS-UW]) ?[0-9][ABD-HJLNP-UW-Z]{2})$";
-
-
 	public static final String TOP_OF_PAGE_ERRORS_KEY = "topOfPageErrors";
 
 	// Give this class its logging vehicle
