@@ -431,7 +431,7 @@ public class HelpDetailsValidatorTest {
 		when(helpDetails.getOnBehalfOfSomeoneElseOptions()).thenReturn(behalfOptions);
 		when(helpDetails.isApplyingOnBehalfOfSomeoneElse()).thenReturn(true);
 		List<ValidationError> errors = helpDetailsValidator.validateHelpDetails(helpDetails);
-		ValidationError ve = new ValidationError(HelpDetailsConstants.TEL_NUMBER.value(),messageSource.getMessage(ValidationCodes.HELPDETAILS_TELEPHONE_NUMERIC, null, Locale.ENGLISH));
+		ValidationError ve = new ValidationError(HelpDetailsConstants.TEL_NUMBER.value(),messageSource.getMessage(ValidationCodes.HELPDETAILS_TELEPHONE_INVALID, null, Locale.ENGLISH));
 		Assert.assertEquals(1, errors.size());
 		Assert.assertEquals(errors.get(0).getErrorMessage(),ve.getErrorMessage());
 	}
