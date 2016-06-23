@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import uk.gov.dwp.esa.model.Claimant;
+import uk.gov.dwp.esa.model.HelpDetails;
 import uk.gov.dwp.esa.util.ControllerUrls;
 import uk.gov.dwp.esa.validators.HelpDetailsValidator;
 
@@ -33,41 +34,41 @@ public class HelpWithApplicationController {
 		HttpSession session = request.getSession();
 		String sessionId = session.getId();
 
-		logger.debug(sessionId + " Getting personal details form");
+		logger.debug(sessionId + " Getting help with appication form");
 
-		Claimant claimant = (Claimant) session.getAttribute(HELP_DETAILS);
-		if (claimant == null) {
-			claimant = new Claimant();
+		HelpDetails helpDetails = (HelpDetails) session.getAttribute(HELP_DETAILS);
+		if (helpDetails == null) {
+			helpDetails = new HelpDetails();
 		} else {
-			model.addAttribute(HELP_DETAILS, claimant);
+			model.addAttribute(helpDetails);
 		}
 
 		return HELP_DETAILS_FORM;
 	}
 
 	@RequestMapping(value = ControllerUrls.HELP_DETAILS_FORM, method = RequestMethod.POST)
-	public String saveClaimantData(Model model, Claimant claimant, BindingResult error, HttpServletRequest request) {
+	public String saveHelpWithApplicationData(Model model, HelpDetails helpDetails, BindingResult error, HttpServletRequest request) {
 
 		HttpSession session = request.getSession();
 		String sessionId = session.getId();
 
-		logger.debug(sessionId + "Saving Claimant Details");
+		logger.debug(sessionId + "Saving Help Details");
 
 		if (error.hasErrors()) {
 
 			return HELP_DETAILS_FORM;
 		}
 
-		helpDetailsValidator.validate(claimant, error);
+		helpDetailsValidator.validate(helpDetails, error);
 
 		if (error.hasErrors()) {
-			model.addAttribute(HELP_DETAILS, claimant);
+			model.addAttribute(helpDetails);
 			logger.debug(error);
 			return HELP_DETAILS_FORM;
 		}
-		session.setAttribute(HELP_DETAILS, claimant);
+		session.setAttribute(HELP_DETAILS, helpDetails);
 
-		logger.debug(sessionId + "Saved Claimant Details");
+		logger.debug(sessionId + "Saved Help Details");
 		return "redirect:" + NEXT_FORM;
 
 	}

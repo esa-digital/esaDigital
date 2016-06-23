@@ -176,39 +176,30 @@ public final class ValidationCodes {
     public static final String CONTACT_DETAILS_POSTCODE4_TOO_LONG = "contactdetails.postcode.greater.than.limit";
     public static final String CONTACT_DETAILS_PHONENUMBER_TOO_LONG = "contactdetails.phonenumber.greater.than.limit";
     public static final String CONTACT_DETAILS_OTHERNUMBER_TOO_LONG = "contactdetails.othernumber.greater.than.limit";
-    public static final String CONTACT_DETAILS_ADDRESS_LINE1_ALPHANUMERIC = "contactdetails.address1.alphanumeric";
-    public static final String CONTACT_DETAILS_ADDRESS_LINE2_ALPHANUMERIC = "contactdetails.address2.alphanumeric";
-    public static final String CONTACT_DETAILS_ADDRESS_LINE3_ALPHANUMERIC = "contactdetails.address3.alphanumeric";
-    public static final String CONTACT_DETAILS_ADDRESS_LINE4_ALPHANUMERIC = "contactdetails.address4.alphanumeric";
+    public static final String CONTACT_DETAILS_ADDRESS_LINE1_INVALIDCHARS = "contactdetails.address1.invalid.characters";
+    public static final String CONTACT_DETAILS_ADDRESS_LINE2_INVALIDCHARS = "contactdetails.address2.invalid.characters";
+    public static final String CONTACT_DETAILS_ADDRESS_LINE3_INVALIDCHARS = "contactdetails.address3.invalid.characters";
+    public static final String CONTACT_DETAILS_ADDRESS_LINE4_INVALIDCHARS = "contactdetails.address4.invalid.characters";
     public static final String CONTACT_DETAILS_PHONENUMBER_INVALID = "contactdetails.phonenumber.invalid";
     public static final String CONTACT_DETAILS_OTHERNUMBER_INVALID = "contactdetails.phonenumber.invalid";
 	
     public static final String DOCTOR_NAME_EMPTY = "gpDetails.doctor.name.empty";
     public static final String DOCTOR_NAME_TOO_LONG = "gpDetails.doctor.name.too.long";
-
-	public static final String DOCTOR_NAME_ALPHA = "gpDetails.doctor.name.alpha";
-
+	public static final String DOCTOR_NAME_INVALIDCHARS = "gpDetails.doctor.name.invalid.characters";
 	public static final String DOCTOR_ADDRESS_LINE1_EMPTY = "gpDetails.doctor.address1.empty";
 	public static final String DOCTOR_ADDRESS_LINE1_TOO_LONG = "gpDetails.doctor.address1.too.long";
-	public static final String DOCTOR_ADDRESS_LINE1_ALPHANUMERIC = "gpDetails.doctor.address1.alphanumeric";
-
+	public static final String DOCTOR_ADDRESS_LINE1_INVALIDCHARS = "gpDetails.doctor.address1.invalid.characters";
 	public static final String DOCTOR_ADDRESS_LINE2_EMPTY = "gpDetails.doctor.address2.empty";
 	public static final String DOCTOR_ADDRESS_LINE2_TOO_LONG = "gpDetails.doctor.address2.too.long";
-	public static final String DOCTOR_ADDRESS_LINE2_ALPHANUMERIC = "gpDetails.doctor.address2.alphanumeric";
-
+	public static final String DOCTOR_ADDRESS_LINE2_INVALIDCHARS = "gpDetails.doctor.address2.invalid.characters";
 	public static final String DOCTOR_ADDRESS_LINE3_TOO_LONG = "gpDetails.doctor.address3.too.long" ;
-	public static final String DOCTOR_ADDRESS_LINE3_ALPHANUMERIC = "gpDetails.doctor.address3.alphanumeric";
-
+	public static final String DOCTOR_ADDRESS_LINE3_INVALIDCHARS = "gpDetails.doctor.address3.invalid.characters";
 	public static final String DOCTOR_ADDRESS_LINE4_TOO_LONG = "gpDetails.doctor.address4.too.long" ;
-	public static final String DOCTOR_ADDRESS_LINE4_ALPHANUMERIC = "gpDetails.doctor.address4.alphanumeric";
-
-
+	public static final String DOCTOR_ADDRESS_LINE4_INVALIDCHARS = "gpDetails.doctor.address4.invalid.characters";
 	public static final String DOCTOR_POSTCODE_EMPTY = "gpDetails.doctor.postcode.empty";
 	public static final String DOCTOR_POSTCODE_TOO_LONG = "gpDetails.doctor.postcode.too.long";
 	public static final String DOCTOR_POSTCODE_INVALID = "gpDetails.doctor.postcode.invalid";
 	public static final String DOCTOR_POSTCODE_ALPHANUMERIC = "gpDetails.doctor.postcode.alphanumeric";
-
-
 	public static final String DOCTOR_TELEPHONE_EMPTY = "gpDetails.doctor.telephone.empty";
 	public static final String DOCTOR_TELEPHONE_TOO_LONG = "gpDetails.doctor.telephone.too.long";
 	public static final String DOCTOR_TELEPHONE_NUMERIC = "gpDetails.doctor.telephone.numeric";
@@ -243,7 +234,6 @@ public final class ValidationCodes {
 	public static final String HELPDETAILS_NINO_NOTVALID= "helpdetails.nino.invalid";
 	public static final String HELPDETAILS_NINO_EMPTY= "helpdetails.nino.empty";
 	public static final String HELPDETAILS_ADDRESS1_TOO_LONG = "helpdetails.address1.greater.than.limit";
-	public static final String HELPDETAILS_POSTCODE_TOO_LONG = "helpdetails.postcode.greater.than.limit";
 	public static final String HELPDETAILS_TITLE_TOO_LONG = "helpdetails.title.greater.than.limit";
 	
 	public static final String HELPDETAILS_TELEPHONE_TOO_LONG = "helpdetails.telephone.too.long";
@@ -270,9 +260,6 @@ public final class ValidationCodes {
 	public static final String BANKDETAILS_ACCNUMBER_NUMERIC = "bankdetails.accountNumber.numeric";
 	public static final String BANKDETAILS_BUILDINGNUMBER_ALPHA = "bankdetails.buildingNumber.alpha";
 
-
-
-	
 	public static final String ALTERNATE_FORMAT_EMPTY = "alternateFormat.alternativeFormatYN.empty";
 	public static final String ALTERNATE_FORMAT_TYPE_EMPTY = "alternateFormat.alternateFormatType.empty";
 	public static final String ALTERNATE_FORMAT_OTHER_EMPTY = "alternateFormat.alternateFormatOther.empty";

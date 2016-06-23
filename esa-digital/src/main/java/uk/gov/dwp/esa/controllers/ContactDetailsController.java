@@ -35,14 +35,14 @@ public class ContactDetailsController {
 		HttpSession session = request.getSession();
 		String sessionId = session.getId();
 		
-        logger.debug(sessionId + " Getting personal details form");
+        logger.debug(sessionId + " Getting contact details form");
         
         ContactDetails contactDetails = (ContactDetails) session.getAttribute(CONTACT_DETAILS);
         if(contactDetails==null){
         	 contactDetails=  new ContactDetails();
-        }else{
-        	model.addAttribute(CONTACT_DETAILS,contactDetails);
         }
+        	
+        model.addAttribute(contactDetails);
         
 		return CONTACT_DETAILS_FORM;
 	}
@@ -53,7 +53,7 @@ public class ContactDetailsController {
 		HttpSession session = request.getSession();
 		String sessionId = session.getId();
 		
-		logger.debug(sessionId + "Saving Claimant Details");
+		logger.debug(sessionId + "Saving Contact Details");
 		
 		  if(error.hasErrors()){
 			  //this will check whether there are any preload errors
@@ -65,7 +65,7 @@ public class ContactDetailsController {
 		  contactDetailsValidator.validate(contactDetails, error);
 		  
 		  if(error.hasErrors()){
-			  model.addAttribute(CONTACT_DETAILS, contactDetails);
+			  model.addAttribute(contactDetails);
 			  logger.debug(error);
 			  return CONTACT_DETAILS_FORM;
 		  }

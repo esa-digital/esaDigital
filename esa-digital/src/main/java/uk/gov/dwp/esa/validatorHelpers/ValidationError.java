@@ -30,7 +30,7 @@ import org.springframework.stereotype.Component;
 public class ValidationError {
 
     private String fieldId;
-    private String errorMessage;
+    private String errorCode;
     
     
     
@@ -44,7 +44,7 @@ public class ValidationError {
     public ValidationError(String fieldId, String messageCode) {
         super();
         this.fieldId = fieldId;
-        this.errorMessage = messageCode;
+        this.errorCode = messageCode;
        
     }
         
@@ -74,14 +74,14 @@ public class ValidationError {
      * @return the messageCode
      */
     public String getErrorMessage() {
-        return errorMessage;
+        return errorCode;
     }
 
     /**
      * @param messageCode the messageCode to set
      */
     public void setErrorMessage(String messageCode) {
-        this.errorMessage = messageCode;
+        this.errorCode = messageCode;
     }
 
 }

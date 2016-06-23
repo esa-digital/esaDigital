@@ -4,6 +4,10 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 
 public class CustomAuthenticationToken extends UsernamePasswordAuthenticationToken{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String token;
 	
 

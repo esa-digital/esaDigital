@@ -40,7 +40,7 @@ public class AlternativeFormatsValidator implements Validator {
 		
 		//check Q1 is not empty
 		if(ValidationUtils.isEmpty(alternativeFormat.getAlternativeFormatYN())){
-			ValidationError isAlternativeFormatYN = new ValidationError(AlternateFormatsConstants.ALTERNATE_FORMAT.value(), messageSource.getMessage(ValidationCodes.ALTERNATE_FORMAT_EMPTY,null,Locale.ENGLISH));
+			ValidationError isAlternativeFormatYN = new ValidationError(AlternateFormatsConstants.ALTERNATE_FORMAT.value(), ValidationCodes.ALTERNATE_FORMAT_EMPTY);
 			errors.add(isAlternativeFormatYN);
 		}	
 	
@@ -48,7 +48,7 @@ public class AlternativeFormatsValidator implements Validator {
 		
 		if (alternativeFormat.getAlternativeFormatYN().equals("Yes")) {
 			if(ValidationUtils.isEmpty(alternativeFormat.getAlternateFormatType())){
-			ValidationError alternativeFormatTypeValidation = new ValidationError(AlternateFormatsConstants.ALTERNATE_FORMAT_TYPE.value(), messageSource.getMessage(ValidationCodes.ALTERNATE_FORMAT_TYPE_EMPTY, null, Locale.ENGLISH));
+			ValidationError alternativeFormatTypeValidation = new ValidationError(AlternateFormatsConstants.ALTERNATE_FORMAT_TYPE.value(), ValidationCodes.ALTERNATE_FORMAT_TYPE_EMPTY);
 			errors.add(alternativeFormatTypeValidation);
 		}
 		}
@@ -57,11 +57,11 @@ public class AlternativeFormatsValidator implements Validator {
 		
 		if (alternativeFormat.getAlternateFormatType().equals("Other")) {
 			if(ValidationUtils.isEmpty(alternativeFormat.getAlternateFormatOther())){
-			ValidationError alternativeFormatOtherValidation = new ValidationError(AlternateFormatsConstants.ALTERNATE_FORMAT_OTHER.value(), messageSource.getMessage(ValidationCodes.ALTERNATE_FORMAT_OTHER_EMPTY, null, Locale.ENGLISH));
+			ValidationError alternativeFormatOtherValidation = new ValidationError(AlternateFormatsConstants.ALTERNATE_FORMAT_OTHER.value(), ValidationCodes.ALTERNATE_FORMAT_OTHER_EMPTY);
 			errors.add(alternativeFormatOtherValidation);
 		} if (ValidationUtils.isStringLengthOver(alternativeFormat.getAlternateFormatOther(), maxLength)) {
 				errors.add(new ValidationError(AlternateFormatsConstants.ALTERNATE_FORMAT_OTHER.value(),
-				messageSource.getMessage(ValidationCodes.ALTERNATE_FORMAT_OTHER_TOO_LONG, null, Locale.ENGLISH)));
+				ValidationCodes.ALTERNATE_FORMAT_OTHER_TOO_LONG));
 			}
 	}
 	

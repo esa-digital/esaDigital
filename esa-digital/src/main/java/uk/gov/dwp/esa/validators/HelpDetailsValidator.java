@@ -45,9 +45,6 @@ public class HelpDetailsValidator implements Validator{
 	protected List<ValidationError> validateHelpDetails(HelpDetails helpDetails){
 		List<ValidationError> errors = new ArrayList<ValidationError>();
 
-		if(helpDetails == null){
-			helpDetails = new HelpDetails();
-		}
 
 		if(helpDetails.isGettingHelp()){
 			if(ValidationUtils.isEmpty(helpDetails.getThirdPartyDetails().getPersonName())){
@@ -225,12 +222,8 @@ public class HelpDetailsValidator implements Validator{
 		if (ValidationUtils.isEmpty(helpDetails.getOnBehalfOfSomeoneElseOptions().getBehalfType().getPostCode())) {
 			listErrors.add(new ValidationError(HelpDetailsConstants.POSTCODE.value(), messageSource.getMessage(ValidationCodes.HELPDETAILS_POSTCODE_EMPTY, null, Locale.ENGLISH)));
 		} else {
-			if (ValidationUtils.isStringLengthOver(helpDetails.getOnBehalfOfSomeoneElseOptions().getBehalfType().getPostCode(), maxLengthPostCode)) {
-				listErrors.add(new ValidationError(HelpDetailsConstants.POSTCODE.value(), messageSource.getMessage(ValidationCodes.HELPDETAILS_POSTCODE_TOO_LONG, null, Locale.ENGLISH)));
-			}
-
-				if (!ValidationUtils.isValidPostcode(helpDetails.getOnBehalfOfSomeoneElseOptions().getBehalfType().getPostCode())) {
-					listErrors.add(new ValidationError(HelpDetailsConstants.POSTCODE.value(), messageSource.getMessage(ValidationCodes.HELPDETAILS_POSTCODE_INVALID, null, Locale.ENGLISH)));
+			if (!ValidationUtils.isValidPostcode(helpDetails.getOnBehalfOfSomeoneElseOptions().getBehalfType().getPostCode())) {
+				listErrors.add(new ValidationError(HelpDetailsConstants.POSTCODE.value(), messageSource.getMessage(ValidationCodes.HELPDETAILS_POSTCODE_INVALID, null, Locale.ENGLISH)));
 			}
 		}
 

@@ -13,7 +13,7 @@ import uk.gov.dwp.esa.service.TokenValidationService;
 
 
 @Component
-public class TokenUtils {
+public class TokenValidator {
 	
 	@Autowired
 	private TokenValidationService tokenValidationService;
