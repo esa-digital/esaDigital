@@ -3,7 +3,6 @@ package uk.gov.dwp.esa.validators;
 import static org.mockito.Mockito.when;
 
 import java.util.List;
-import java.util.Locale;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -12,7 +11,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.context.MessageSource;
 
 import junit.framework.Assert;
 import uk.gov.dwp.esa.constants.HelpDetailsConstants;
@@ -41,8 +39,6 @@ public class HelpDetailsValidatorTest {
 	@Mock
 	BehalfType behalfType;
 	
-	@Mock
-	MessageSource messageSource;
 	
 	@Before
 	public void setUp(){
@@ -55,7 +51,7 @@ public class HelpDetailsValidatorTest {
 		when(behalfType.getDobMonth()).thenReturn("01");
 		when(behalfType.getDobYear()).thenReturn("1996");
 		when(behalfType.getNino()).thenReturn("ab000001d");
-		when(behalfType.getTelNumber()).thenReturn("1234567890");
+		when(behalfType.getTelNumber()).thenReturn("07741587433");
 		when(behalfType.getPostCode()).thenReturn("LS7 5DQ");
 		when(behalfType.getAddLine1()).thenReturn("ABC");
 		when(behalfType.getAddLine2()).thenReturn("DEF");
@@ -112,10 +108,10 @@ public class HelpDetailsValidatorTest {
 	}
 	
 	@Test
-	public void testThirdPartyDetailsNotAlphaValidation(){
+	public void testThirdPartyDetailsInvalidValidation(){
 		when(helpDetails.isGettingHelp()).thenReturn(true);
-		when(thirdPartyDetails.getPersonName()).thenReturn("abcd4556@7& *&");
-		when(thirdPartyDetails.getPersonRelation()).thenReturn("12345");
+		when(thirdPartyDetails.getPersonName()).thenReturn(".- ghhkgfttrdf");
+		when(thirdPartyDetails.getPersonRelation()).thenReturn("12<>345");
 		when(thirdPartyDetails.getReasonForHelp()).thenReturn("GH^78()");
 		when(helpDetails.getThirdPartyDetails()).thenReturn(thirdPartyDetails);
 		List<ValidationError> listValidationErrors = helpDetailsValidator.validateHelpDetails(helpDetails);
@@ -159,7 +155,7 @@ public class HelpDetailsValidatorTest {
 	}
 	
 	@Test
-	public void testOnBehalfOfRegisteredAppointeeDetailsAlphaValidation(){
+	public void testOnBehalfOfRegisteredAppointeeDetailsInvalidValidation(){
 		when(behalfType.getFirstName()).thenReturn("abv 563943*&7");
 		when(behalfType.getSurname()).thenReturn("1452GHIuYGYi");
 		when(helpDetails.isApplyingOnBehalfOfSomeoneElse()).thenReturn(true);
@@ -180,7 +176,7 @@ public class HelpDetailsValidatorTest {
 		when(behalfType.getDobMonth()).thenReturn("01");
 		when(behalfType.getDobYear()).thenReturn("1996");
 		when(behalfType.getNino()).thenReturn("ab000001d");
-		when(behalfType.getTelNumber()).thenReturn("1234567890");
+		when(behalfType.getTelNumber()).thenReturn("01234567890");
 		when(behalfType.getPostCode()).thenReturn("LS7 5DQ");
 		when(behalfType.getAddLine1()).thenReturn("ABC");
 		when(behalfType.getAddLine2()).thenReturn("DEF");
@@ -226,7 +222,7 @@ public class HelpDetailsValidatorTest {
 		when(helpDetails.getOnBehalfOfSomeoneElseOptions()).thenReturn(behalfOptions);
 		when(helpDetails.isApplyingOnBehalfOfSomeoneElse()).thenReturn(true);
 		List<ValidationError> listValidationErrors = helpDetailsValidator.validateHelpDetails(helpDetails);
-		ValidationError validationError = new ValidationError(HelpDetailsConstants.TITLE.value(), messageSource.getMessage(ValidationCodes.HELPDETAILS_TITLE_TOO_LONG, null,Locale.ENGLISH));
+		ValidationError validationError = new ValidationError(HelpDetailsConstants.TITLE.value(), ValidationCodes.HELPDETAILS_TITLE_TOO_LONG);
 		Assert.assertEquals(1, listValidationErrors.size());
 		Assert.assertEquals(listValidationErrors.get(0).getErrorMessage(), validationError.getErrorMessage());
 	}
@@ -239,7 +235,7 @@ public class HelpDetailsValidatorTest {
 		when(helpDetails.getOnBehalfOfSomeoneElseOptions()).thenReturn(behalfOptions);
 		when(helpDetails.isApplyingOnBehalfOfSomeoneElse()).thenReturn(true);
 		List<ValidationError> listValidationErrors = helpDetailsValidator.validateHelpDetails(helpDetails);
-		ValidationError validationError = new ValidationError(HelpDetailsConstants.TITLE.value(), messageSource.getMessage(ValidationCodes.HELPDETAILS_TITLE_ALPHA, null,Locale.ENGLISH));
+		ValidationError validationError = new ValidationError(HelpDetailsConstants.TITLE.value(), ValidationCodes.HELPDETAILS_TITLE_ALPHA);
 		Assert.assertEquals(1, listValidationErrors.size());
 		Assert.assertEquals(listValidationErrors.get(0).getErrorMessage(), validationError.getErrorMessage());
 	}
@@ -252,7 +248,7 @@ public class HelpDetailsValidatorTest {
 		when(helpDetails.getOnBehalfOfSomeoneElseOptions()).thenReturn(behalfOptions);
 		when(helpDetails.isApplyingOnBehalfOfSomeoneElse()).thenReturn(true);
 		List<ValidationError> listValidationErrors = helpDetailsValidator.validateHelpDetails(helpDetails);
-		ValidationError validationError = new ValidationError(HelpDetailsConstants.SURNAME.value(), messageSource.getMessage(ValidationCodes.HELPDETAILS_FIRST_NAME_TOO_LONG, null, Locale.ENGLISH));
+		ValidationError validationError = new ValidationError(HelpDetailsConstants.SURNAME.value(), ValidationCodes.HELPDETAILS_FIRST_NAME_TOO_LONG);
 		Assert.assertEquals(1, listValidationErrors.size());
 		Assert.assertEquals(listValidationErrors.get(0).getErrorMessage(), validationError.getErrorMessage());
 	}
@@ -265,7 +261,7 @@ public class HelpDetailsValidatorTest {
 		when(helpDetails.getOnBehalfOfSomeoneElseOptions()).thenReturn(behalfOptions);
 		when(helpDetails.isApplyingOnBehalfOfSomeoneElse()).thenReturn(true);
 		List<ValidationError> listValidationErrors = helpDetailsValidator.validateHelpDetails(helpDetails);
-		ValidationError validationError = new ValidationError(HelpDetailsConstants.FIRST_NAME.value(), messageSource.getMessage(ValidationCodes.HELPDETAILS_FIRSTNAME_ALPHA_WITH_HYPHEN, null,Locale.ENGLISH));
+		ValidationError validationError = new ValidationError(HelpDetailsConstants.FIRST_NAME.value(), ValidationCodes.HELPDETAILS_FIRSTNAME_ALPHA_WITH_HYPHEN);
 		Assert.assertEquals(1, listValidationErrors.size());
 		Assert.assertEquals(listValidationErrors.get(0).getErrorMessage(), validationError.getErrorMessage());
 	}
@@ -278,7 +274,7 @@ public class HelpDetailsValidatorTest {
 		when(helpDetails.getOnBehalfOfSomeoneElseOptions()).thenReturn(behalfOptions);
 		when(helpDetails.isApplyingOnBehalfOfSomeoneElse()).thenReturn(true);
 		List<ValidationError> listValidationErrors = helpDetailsValidator.validateHelpDetails(helpDetails);
-		ValidationError validationError = new ValidationError(HelpDetailsConstants.SURNAME.value(), messageSource.getMessage(ValidationCodes.HELPDETAILS_SURNAME_TOO_LONG, null, Locale.ENGLISH));
+		ValidationError validationError = new ValidationError(HelpDetailsConstants.SURNAME.value(), ValidationCodes.HELPDETAILS_SURNAME_TOO_LONG);
 		Assert.assertEquals(1, listValidationErrors.size());
 		Assert.assertEquals(listValidationErrors.get(0).getErrorMessage(), validationError.getErrorMessage());
 	}
@@ -291,7 +287,7 @@ public class HelpDetailsValidatorTest {
 		when(helpDetails.getOnBehalfOfSomeoneElseOptions()).thenReturn(behalfOptions);
 		when(helpDetails.isApplyingOnBehalfOfSomeoneElse()).thenReturn(true);
 		List<ValidationError> listValidationErrors = helpDetailsValidator.validateHelpDetails(helpDetails);
-		ValidationError validationError = new ValidationError(HelpDetailsConstants.FIRST_NAME.value(), messageSource.getMessage(ValidationCodes.HELPDETAILS_SURNAME_ALPHA_WITH_HYPHEN, null,Locale.ENGLISH));
+		ValidationError validationError = new ValidationError(HelpDetailsConstants.FIRST_NAME.value(), ValidationCodes.HELPDETAILS_SURNAME_ALPHA_WITH_HYPHEN);
 		Assert.assertEquals(1, listValidationErrors.size());
 		Assert.assertEquals(listValidationErrors.get(0).getErrorMessage(), validationError.getErrorMessage());
 	}
@@ -304,7 +300,7 @@ public class HelpDetailsValidatorTest {
 		when(helpDetails.getOnBehalfOfSomeoneElseOptions()).thenReturn(behalfOptions);
 		when(helpDetails.isApplyingOnBehalfOfSomeoneElse()).thenReturn(true);
 		List<ValidationError> listValidationErrors = helpDetailsValidator.validateHelpDetails(helpDetails);
-		ValidationError validationError = new ValidationError(HelpDetailsConstants.SURNAME.value(), messageSource.getMessage(ValidationCodes.HELPDETAILS_OTHERNAME_TOO_LONG, null, Locale.ENGLISH));
+		ValidationError validationError = new ValidationError(HelpDetailsConstants.SURNAME.value(), ValidationCodes.HELPDETAILS_OTHERNAME_TOO_LONG);
 		Assert.assertEquals(1, listValidationErrors.size());
 		Assert.assertEquals(listValidationErrors.get(0).getErrorMessage(), validationError.getErrorMessage());
 	}
@@ -317,7 +313,7 @@ public class HelpDetailsValidatorTest {
 		when(helpDetails.getOnBehalfOfSomeoneElseOptions()).thenReturn(behalfOptions);
 		when(helpDetails.isApplyingOnBehalfOfSomeoneElse()).thenReturn(true);
 		List<ValidationError> listValidationErrors = helpDetailsValidator.validateHelpDetails(helpDetails);
-		ValidationError validationError = new ValidationError(HelpDetailsConstants.FIRST_NAME.value(), messageSource.getMessage(ValidationCodes.HELPDETAILS_OTHERNAME_ALPHA_WITH_HYPHEN, null,Locale.ENGLISH));
+		ValidationError validationError = new ValidationError(HelpDetailsConstants.FIRST_NAME.value(), ValidationCodes.HELPDETAILS_OTHERNAME_ALPHA_WITH_HYPHEN);
 		Assert.assertEquals(1, listValidationErrors.size());
 		Assert.assertEquals(listValidationErrors.get(0).getErrorMessage(), validationError.getErrorMessage());
 	}
@@ -331,7 +327,7 @@ public class HelpDetailsValidatorTest {
 		when(helpDetails.getOnBehalfOfSomeoneElseOptions()).thenReturn(behalfOptions);
 		when(helpDetails.isApplyingOnBehalfOfSomeoneElse()).thenReturn(true);
 		List<ValidationError> errors =  helpDetailsValidator.validateHelpDetails(helpDetails);
-		ValidationError ve = new ValidationError(HelpDetailsConstants.DOB.value(), messageSource.getMessage(ValidationCodes.HELPDETAILS_DOB_INVALID,null,Locale.ENGLISH));
+		ValidationError ve = new ValidationError(HelpDetailsConstants.DOB.value(), ValidationCodes.HELPDETAILS_DOB_INVALID);
 		Assert.assertEquals(1, errors.size());
 		Assert.assertEquals(errors.get(0).getErrorMessage(), ve.getErrorMessage());
 	}
@@ -345,7 +341,7 @@ public class HelpDetailsValidatorTest {
 		when(helpDetails.getOnBehalfOfSomeoneElseOptions()).thenReturn(behalfOptions);
 		when(helpDetails.isApplyingOnBehalfOfSomeoneElse()).thenReturn(true);
 		List<ValidationError> errors =  helpDetailsValidator.validateHelpDetails(helpDetails);
-		ValidationError ve = new ValidationError(HelpDetailsConstants.DOB.value(), messageSource.getMessage(ValidationCodes.HELPDETAILS_DOB_FUTURE,null,Locale.ENGLISH));
+		ValidationError ve = new ValidationError(HelpDetailsConstants.DOB.value(), ValidationCodes.HELPDETAILS_DOB_FUTURE);
 		Assert.assertEquals(1, errors.size());
 		Assert.assertEquals(errors.get(0).getErrorMessage(), ve.getErrorMessage());
 	}
@@ -357,7 +353,7 @@ public class HelpDetailsValidatorTest {
 		when(helpDetails.getOnBehalfOfSomeoneElseOptions()).thenReturn(behalfOptions);
 		when(helpDetails.isApplyingOnBehalfOfSomeoneElse()).thenReturn(true);
 		List<ValidationError> errors =  helpDetailsValidator.validateHelpDetails(helpDetails);
-		ValidationError ve = new ValidationError(HelpDetailsConstants.NINO.value(), messageSource.getMessage(ValidationCodes.HELPDETAILS_NINO_NOTVALID,null,Locale.ENGLISH));
+		ValidationError ve = new ValidationError(HelpDetailsConstants.NINO.value(), ValidationCodes.HELPDETAILS_NINO_NOTVALID);
 		Assert.assertEquals(1, errors.size());
 		Assert.assertEquals(errors.get(0).getErrorMessage(), ve.getErrorMessage());
 	}
@@ -369,7 +365,7 @@ public class HelpDetailsValidatorTest {
 		when(helpDetails.getOnBehalfOfSomeoneElseOptions()).thenReturn(behalfOptions);
 		when(helpDetails.isApplyingOnBehalfOfSomeoneElse()).thenReturn(true);
 		List<ValidationError> errors = helpDetailsValidator.validateHelpDetails(helpDetails);
-		ValidationError ve = new ValidationError(HelpDetailsConstants.POSTCODE.value(),messageSource.getMessage(ValidationCodes.HELPDETAILS_POSTCODE_EMPTY,null,Locale.ENGLISH));
+		ValidationError ve = new ValidationError(HelpDetailsConstants.POSTCODE.value(),ValidationCodes.HELPDETAILS_POSTCODE_EMPTY);
 		Assert.assertEquals(1, errors.size());
 		Assert.assertEquals(errors.get(0).getErrorMessage(),ve.getErrorMessage());
 	}
@@ -381,7 +377,7 @@ public class HelpDetailsValidatorTest {
 		when(helpDetails.getOnBehalfOfSomeoneElseOptions()).thenReturn(behalfOptions);
 		when(helpDetails.isApplyingOnBehalfOfSomeoneElse()).thenReturn(true);
 		List<ValidationError> errors = helpDetailsValidator.validateHelpDetails(helpDetails);
-		ValidationError ve = new ValidationError(HelpDetailsConstants.POSTCODE.value(),messageSource.getMessage(ValidationCodes.HELPDETAILS_POSTCODE_EMPTY,null,Locale.ENGLISH));
+		ValidationError ve = new ValidationError(HelpDetailsConstants.POSTCODE.value(),ValidationCodes.HELPDETAILS_POSTCODE_EMPTY);
 		Assert.assertEquals(1, errors.size());
 		Assert.assertEquals(errors.get(0).getErrorMessage(),ve.getErrorMessage());
 	}
@@ -394,7 +390,7 @@ public class HelpDetailsValidatorTest {
 		when(helpDetails.getOnBehalfOfSomeoneElseOptions()).thenReturn(behalfOptions);
 		when(helpDetails.isApplyingOnBehalfOfSomeoneElse()).thenReturn(true);
 		List<ValidationError> errors = helpDetailsValidator.validateHelpDetails(helpDetails);
-		ValidationError ve = new ValidationError(HelpDetailsConstants.POSTCODE.value(),messageSource.getMessage(ValidationCodes.HELPDETAILS_POSTCODE_INVALID,null,Locale.ENGLISH));
+		ValidationError ve = new ValidationError(HelpDetailsConstants.POSTCODE.value(),ValidationCodes.HELPDETAILS_POSTCODE_INVALID);
 		Assert.assertEquals(1, errors.size());
 		Assert.assertEquals(errors.get(0).getErrorMessage(),ve.getErrorMessage());
 	}
@@ -406,7 +402,7 @@ public class HelpDetailsValidatorTest {
 		when(helpDetails.getOnBehalfOfSomeoneElseOptions()).thenReturn(behalfOptions);
 		when(helpDetails.isApplyingOnBehalfOfSomeoneElse()).thenReturn(true);
 		List<ValidationError> errors = helpDetailsValidator.validateHelpDetails(helpDetails);
-		ValidationError ve = new ValidationError(HelpDetailsConstants.POSTCODE.value(),messageSource.getMessage(ValidationCodes.HELPDETAILS_POSTCODE_INVALID,null,Locale.ENGLISH));
+		ValidationError ve = new ValidationError(HelpDetailsConstants.POSTCODE.value(),ValidationCodes.HELPDETAILS_POSTCODE_INVALID);
 		Assert.assertEquals(1, errors.size());
 		Assert.assertEquals(errors.get(0).getErrorMessage(),ve.getErrorMessage());
 	}
@@ -414,12 +410,12 @@ public class HelpDetailsValidatorTest {
 		
 	@Test
 	public void testGpTelNumberIsOver20Chars(){
-		when(behalfType.getTelNumber()).thenReturn("123456789012345678901");
+		when(behalfType.getTelNumber()).thenReturn("0123456789012345678901");
 		when(behalfOptions.isRegisteredPowerAttorney()).thenReturn(true);
 		when(helpDetails.getOnBehalfOfSomeoneElseOptions()).thenReturn(behalfOptions);
 		when(helpDetails.isApplyingOnBehalfOfSomeoneElse()).thenReturn(true);
 		List<ValidationError> errors = helpDetailsValidator.validateHelpDetails(helpDetails);
-		ValidationError ve = new ValidationError(HelpDetailsConstants.TEL_NUMBER.value(),messageSource.getMessage(ValidationCodes.HELPDETAILS_TELEPHONE_TOO_LONG, null, Locale.ENGLISH));
+		ValidationError ve = new ValidationError(HelpDetailsConstants.TEL_NUMBER.value(),ValidationCodes.HELPDETAILS_TELEPHONE_TOO_LONG);
 		Assert.assertEquals(1, errors.size());
 		Assert.assertEquals(errors.get(0).getErrorMessage(),ve.getErrorMessage());
 	}
@@ -431,7 +427,7 @@ public class HelpDetailsValidatorTest {
 		when(helpDetails.getOnBehalfOfSomeoneElseOptions()).thenReturn(behalfOptions);
 		when(helpDetails.isApplyingOnBehalfOfSomeoneElse()).thenReturn(true);
 		List<ValidationError> errors = helpDetailsValidator.validateHelpDetails(helpDetails);
-		ValidationError ve = new ValidationError(HelpDetailsConstants.TEL_NUMBER.value(),messageSource.getMessage(ValidationCodes.HELPDETAILS_TELEPHONE_INVALID, null, Locale.ENGLISH));
+		ValidationError ve = new ValidationError(HelpDetailsConstants.TEL_NUMBER.value(),ValidationCodes.HELPDETAILS_TELEPHONE_INVALID);
 		Assert.assertEquals(1, errors.size());
 		Assert.assertEquals(errors.get(0).getErrorMessage(),ve.getErrorMessage());
 	}
@@ -444,7 +440,7 @@ public class HelpDetailsValidatorTest {
 		when(helpDetails.getOnBehalfOfSomeoneElseOptions()).thenReturn(behalfOptions);
 		when(helpDetails.isApplyingOnBehalfOfSomeoneElse()).thenReturn(true);
 		List<ValidationError> errors = helpDetailsValidator.validateHelpDetails(helpDetails);
-		ValidationError ve = new ValidationError(HelpDetailsConstants.ADDRESS_LINE1.value(), messageSource.getMessage(ValidationCodes.HELPDETAILS_ADDRESS_LINE1_EMPTY,null,Locale.ENGLISH));
+		ValidationError ve = new ValidationError(HelpDetailsConstants.ADDRESS_LINE1.value(), ValidationCodes.HELPDETAILS_ADDRESS_LINE1_EMPTY);
 		Assert.assertEquals(1, errors.size());
 		Assert.assertEquals(errors.get(0).getErrorMessage(), ve.getErrorMessage());
 	}
@@ -456,7 +452,7 @@ public class HelpDetailsValidatorTest {
 		when(helpDetails.getOnBehalfOfSomeoneElseOptions()).thenReturn(behalfOptions);
 		when(helpDetails.isApplyingOnBehalfOfSomeoneElse()).thenReturn(true);
 		List<ValidationError> errors = helpDetailsValidator.validateHelpDetails(helpDetails);
-		ValidationError ve = new ValidationError(HelpDetailsConstants.ADDRESS_LINE1.value(), messageSource.getMessage(ValidationCodes.HELPDETAILS_ADDRESS_LINE1_EMPTY,null,Locale.ENGLISH));
+		ValidationError ve = new ValidationError(HelpDetailsConstants.ADDRESS_LINE1.value(), ValidationCodes.HELPDETAILS_ADDRESS_LINE1_EMPTY);
 		Assert.assertEquals(1, errors.size());
 		Assert.assertEquals(errors.get(0).getErrorMessage(), ve.getErrorMessage());
 	}
@@ -468,7 +464,7 @@ public class HelpDetailsValidatorTest {
 		when(helpDetails.getOnBehalfOfSomeoneElseOptions()).thenReturn(behalfOptions);
 		when(helpDetails.isApplyingOnBehalfOfSomeoneElse()).thenReturn(true);
 		List<ValidationError> errors = helpDetailsValidator.validateHelpDetails(helpDetails);
-		ValidationError ve = new ValidationError(HelpDetailsConstants.ADDRESS_LINE1.value(), messageSource.getMessage(ValidationCodes.HELPDETAILS_ADDRESS_LINE1_TOO_LONG,null,Locale.ENGLISH));
+		ValidationError ve = new ValidationError(HelpDetailsConstants.ADDRESS_LINE1.value(), ValidationCodes.HELPDETAILS_ADDRESS_LINE1_TOO_LONG);
 		Assert.assertEquals(1, errors.size());
 		Assert.assertEquals(errors.get(0).getErrorMessage(), ve.getErrorMessage());
 	}
@@ -480,7 +476,7 @@ public class HelpDetailsValidatorTest {
 		when(helpDetails.getOnBehalfOfSomeoneElseOptions()).thenReturn(behalfOptions);
 		when(helpDetails.isApplyingOnBehalfOfSomeoneElse()).thenReturn(true);
 		List<ValidationError> errors = helpDetailsValidator.validateHelpDetails(helpDetails);
-		ValidationError ve = new ValidationError(HelpDetailsConstants.ADDRESS_LINE1.value(), messageSource.getMessage(ValidationCodes.HELPDETAILS_ADDRESS_LINE_ALPHA,null,Locale.ENGLISH));
+		ValidationError ve = new ValidationError(HelpDetailsConstants.ADDRESS_LINE1.value(), ValidationCodes.HELPDETAILS_ADDRESS_LINE_ALPHA);
 		Assert.assertEquals(1, errors.size());
 		Assert.assertEquals(errors.get(0).getErrorMessage(), ve.getErrorMessage());
 	}
@@ -493,7 +489,7 @@ public class HelpDetailsValidatorTest {
 		when(helpDetails.getOnBehalfOfSomeoneElseOptions()).thenReturn(behalfOptions);
 		when(helpDetails.isApplyingOnBehalfOfSomeoneElse()).thenReturn(true);
 		List<ValidationError> errors = helpDetailsValidator.validateHelpDetails(helpDetails);
-		ValidationError ve = new ValidationError(HelpDetailsConstants.ADDRESS_LINE2.value(), messageSource.getMessage(ValidationCodes.HELPDETAILS_ADDRESS_LINE2_EMPTY,null,Locale.ENGLISH));
+		ValidationError ve = new ValidationError(HelpDetailsConstants.ADDRESS_LINE2.value(), ValidationCodes.HELPDETAILS_ADDRESS_LINE2_EMPTY);
 		Assert.assertEquals(1, errors.size());
 		Assert.assertEquals(errors.get(0).getErrorMessage(), ve.getErrorMessage());
 	}
@@ -505,7 +501,7 @@ public class HelpDetailsValidatorTest {
 		when(helpDetails.getOnBehalfOfSomeoneElseOptions()).thenReturn(behalfOptions);
 		when(helpDetails.isApplyingOnBehalfOfSomeoneElse()).thenReturn(true);
 		List<ValidationError> errors = helpDetailsValidator.validateHelpDetails(helpDetails);
-		ValidationError ve = new ValidationError(HelpDetailsConstants.ADDRESS_LINE2.value(), messageSource.getMessage(ValidationCodes.HELPDETAILS_ADDRESS_LINE2_EMPTY,null,Locale.ENGLISH));
+		ValidationError ve = new ValidationError(HelpDetailsConstants.ADDRESS_LINE2.value(), ValidationCodes.HELPDETAILS_ADDRESS_LINE2_EMPTY);
 		Assert.assertEquals(1, errors.size());
 		Assert.assertEquals(errors.get(0).getErrorMessage(), ve.getErrorMessage());
 	}
@@ -517,7 +513,7 @@ public class HelpDetailsValidatorTest {
 		when(helpDetails.getOnBehalfOfSomeoneElseOptions()).thenReturn(behalfOptions);
 		when(helpDetails.isApplyingOnBehalfOfSomeoneElse()).thenReturn(true);
 		List<ValidationError> errors = helpDetailsValidator.validateHelpDetails(helpDetails);
-		ValidationError ve = new ValidationError(HelpDetailsConstants.ADDRESS_LINE2.value(), messageSource.getMessage(ValidationCodes.HELPDETAILS_ADDRESS_LINE2_TOO_LONG,null,Locale.ENGLISH));
+		ValidationError ve = new ValidationError(HelpDetailsConstants.ADDRESS_LINE2.value(), ValidationCodes.HELPDETAILS_ADDRESS_LINE2_TOO_LONG);
 		Assert.assertEquals(1, errors.size());
 		Assert.assertEquals(errors.get(0).getErrorMessage(), ve.getErrorMessage());
 	}
@@ -529,7 +525,7 @@ public class HelpDetailsValidatorTest {
 		when(helpDetails.getOnBehalfOfSomeoneElseOptions()).thenReturn(behalfOptions);
 		when(helpDetails.isApplyingOnBehalfOfSomeoneElse()).thenReturn(true);
 		List<ValidationError> errors = helpDetailsValidator.validateHelpDetails(helpDetails);
-		ValidationError ve = new ValidationError(HelpDetailsConstants.ADDRESS_LINE2.value(), messageSource.getMessage(ValidationCodes.HELPDETAILS_ADDRESS_LINE_ALPHA,null,Locale.ENGLISH));
+		ValidationError ve = new ValidationError(HelpDetailsConstants.ADDRESS_LINE2.value(), ValidationCodes.HELPDETAILS_ADDRESS_LINE_ALPHA);
 		Assert.assertEquals(1, errors.size());
 		Assert.assertEquals(errors.get(0).getErrorMessage(), ve.getErrorMessage());
 	}
@@ -542,7 +538,7 @@ public class HelpDetailsValidatorTest {
 		when(helpDetails.getOnBehalfOfSomeoneElseOptions()).thenReturn(behalfOptions);
 		when(helpDetails.isApplyingOnBehalfOfSomeoneElse()).thenReturn(true);
 		List<ValidationError> errors = helpDetailsValidator.validateHelpDetails(helpDetails);
-		ValidationError ve = new ValidationError(HelpDetailsConstants.ADDRESS_LINE3.value(), messageSource.getMessage(ValidationCodes.HELPDETAILS_ADDRESS_LINE3_TOO_LONG,null,Locale.ENGLISH));
+		ValidationError ve = new ValidationError(HelpDetailsConstants.ADDRESS_LINE3.value(), ValidationCodes.HELPDETAILS_ADDRESS_LINE3_TOO_LONG);
 		Assert.assertEquals(1, errors.size());
 		Assert.assertEquals(errors.get(0).getErrorMessage(),ve.getErrorMessage());
 	}
@@ -554,7 +550,7 @@ public class HelpDetailsValidatorTest {
 		when(helpDetails.getOnBehalfOfSomeoneElseOptions()).thenReturn(behalfOptions);
 		when(helpDetails.isApplyingOnBehalfOfSomeoneElse()).thenReturn(true);
 		List<ValidationError> errors = helpDetailsValidator.validateHelpDetails(helpDetails);
-		ValidationError ve = new ValidationError(HelpDetailsConstants.ADDRESS_LINE3.value(), messageSource.getMessage(ValidationCodes.HELPDETAILS_ADDRESS_LINE_ALPHA,null,Locale.ENGLISH));
+		ValidationError ve = new ValidationError(HelpDetailsConstants.ADDRESS_LINE3.value(), ValidationCodes.HELPDETAILS_ADDRESS_LINE_ALPHA);
 		Assert.assertEquals(1, errors.size() );
 		Assert.assertEquals(errors.get(0).getErrorMessage(), ve.getErrorMessage());
 	}
@@ -567,7 +563,7 @@ public class HelpDetailsValidatorTest {
 		when(helpDetails.getOnBehalfOfSomeoneElseOptions()).thenReturn(behalfOptions);
 		when(helpDetails.isApplyingOnBehalfOfSomeoneElse()).thenReturn(true);
 		List<ValidationError> errors = helpDetailsValidator.validateHelpDetails(helpDetails);
-		ValidationError ve = new ValidationError(HelpDetailsConstants.ADDRESS_LINE4.value(), messageSource.getMessage(ValidationCodes.HELPDETAILS_ADDRESS_LINE4_TOO_LONG,null,Locale.ENGLISH));
+		ValidationError ve = new ValidationError(HelpDetailsConstants.ADDRESS_LINE4.value(), ValidationCodes.HELPDETAILS_ADDRESS_LINE4_TOO_LONG);
 		Assert.assertEquals(1, errors.size());
 		Assert.assertEquals(errors.get(0).getErrorMessage(),ve.getErrorMessage());
 	}
@@ -579,7 +575,7 @@ public class HelpDetailsValidatorTest {
 		when(helpDetails.getOnBehalfOfSomeoneElseOptions()).thenReturn(behalfOptions);
 		when(helpDetails.isApplyingOnBehalfOfSomeoneElse()).thenReturn(true);
 		List<ValidationError> errors = helpDetailsValidator.validateHelpDetails(helpDetails);
-		ValidationError ve = new ValidationError(HelpDetailsConstants.ADDRESS_LINE4.value(), messageSource.getMessage(ValidationCodes.HELPDETAILS_ADDRESS_LINE_ALPHA,null,Locale.ENGLISH));
+		ValidationError ve = new ValidationError(HelpDetailsConstants.ADDRESS_LINE4.value(), ValidationCodes.HELPDETAILS_ADDRESS_LINE_ALPHA);
 		Assert.assertEquals(1, errors.size() );
 		Assert.assertEquals(errors.get(0).getErrorMessage(), ve.getErrorMessage());
 	}
