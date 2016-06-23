@@ -11,6 +11,8 @@ import java.util.Set;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
 
+import uk.gov.dwp.esa.constants.PropertyFileEnum;
+
 
 @Component
 public class GenericModelParser {
@@ -26,14 +28,15 @@ public class GenericModelParser {
 			for(Entry<Object, Object> temp : dummy){
 				objMap.put((String)temp.getKey(), (String) temp.getValue());
 			}
-			model.addAllAttributes(objMap);
+			
+			model.addAttribute(PropertyFileEnum.GENERIC_CONTENT.value(),objMap);
 			claimantProperties.clear();
 		
 		} catch (FileNotFoundException e) {
 			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
+			
 		}
 	}
 
