@@ -1,3 +1,4 @@
+<#import "../lib/components.ftl" as components> 
 <!DOCTYPE html>
 <!--[if lt IE 9]><html class="lte-ie8" lang="en"><![endif]-->
 <!--[if gt IE 8]><!-->
@@ -8,26 +9,16 @@
     <meta charset="utf-8" />
     <title>GOV.UK - The best place to find government services and information</title>
     <!--[if gt IE 8]><!--><link href="assets/stylesheets/govuk-template.css" media="screen" rel="stylesheet" /><!--<![endif]-->
-    <!--[if IE 6]>
-    <link href="assets/stylesheets/govuk-template-ie6.css" media="screen" rel="stylesheet" />
-    <link href="assets/stylesheets/main-ie6.css" media="screen" rel="stylesheet" />
-    <![endif]-->
-    <!--[if IE 7]>
-    <link href="assets/stylesheets/govuk-template-ie7.css" media="screen" rel="stylesheet" />
-    <link href="assets/stylesheets/main-ie7.css" media="screen" rel="stylesheet" />
-    <![endif]-->
-    <!--[if IE 8]>
-    <link href="assets/stylesheets/govuk-template-ie8.css" media="screen" rel="stylesheet" />
-    <link href="assets/stylesheets/main-ie8.css" media="screen" rel="stylesheet" />
-    <![endif]-->
+    <!--[if IE 6]><link href="assets/stylesheets/govuk-template-ie6.css" media="screen" rel="stylesheet" /><![endif]-->
+    <!--[if IE 7]><link href="assets/stylesheets/govuk-template-ie7.css" media="screen" rel="stylesheet" /><![endif]-->
+    <!--[if IE 8]><link href="assets/stylesheets/govuk-template-ie8.css" media="screen" rel="stylesheet" /><![endif]-->
     <link href="assets/stylesheets/govuk-template-print.css" media="print" rel="stylesheet" />
     <!--[if IE 8]><link href="assets/stylesheets/fonts-ie8.css" media="all" rel="stylesheet" /><![endif]-->
-    <!--[if gte IE 9]><!-->
-    <link href="assets/stylesheets/fonts.css" media="all" rel="stylesheet" />
-    <!--<![endif]-->
-    <!--[if lt IE 9]><script src="assets/javascripts/ie.js"></script>
-    <![endif]-->
+    <!--[if gte IE 9]><!--><link href="assets/stylesheets/fonts.css" media="all" rel="stylesheet" /><!--<![endif]-->
+    <!--[if lt IE 9]><script src="assets/javascripts/ie.js"></script><![endif]-->
+    
     <link href="assets/stylesheets/style.css" media="screen" rel="stylesheet" />
+
     <link rel="shortcut icon" href="assets/images/favicon.ico" type="image/x-icon" />
     <link rel="mask-icon" href="assets/images/gov.uk_logotype_crown.svg" color="#0b0c0c">
     <link rel="apple-touch-icon-precomposed" sizes="152x152" href="assets/images/apple-touch-icon-152x152.png">

@@ -62,7 +62,7 @@ public class ContactDetailsValidator implements Validator {
 			// Checks if title is alpha only
 			if (!ValidationUtils.isValidAddress(contactDetails.getAddressLine1())) {
 				errors.add(new ValidationError(ContactDetailsConstants.ADDRESSLINE1.value(), messageSource
-						.getMessage(ValidationCodes.CONTACT_DETAILS_ADDRESS_LINE1_ALPHANUMERIC, null, Locale.ENGLISH)));
+						.getMessage(ValidationCodes.CONTACT_DETAILS_ADDRESS_LINE1_INVALIDCHARS, null, Locale.ENGLISH)));
 			}
 		}
 
@@ -73,7 +73,7 @@ public class ContactDetailsValidator implements Validator {
 		} else {
 			if (ValidationUtils.isStringLengthOver(contactDetails.getAddressLine2(), maxLengthAddressLine)) {
 				errors.add(new ValidationError(ContactDetailsConstants.ADDRESSLINE2.value(), messageSource
-						.getMessage(ValidationCodes.CONTACT_DETAILS_ADDRESS_LINE2_ALPHANUMERIC, null, Locale.ENGLISH)));
+						.getMessage(ValidationCodes.CONTACT_DETAILS_ADDRESS_LINE2_INVALIDCHARS, null, Locale.ENGLISH)));
 			}
 			// Checks if title is alpha only
 			if (!ValidationUtils.isValidAddress(contactDetails.getAddressLine2())) {
@@ -91,7 +91,7 @@ public class ContactDetailsValidator implements Validator {
 			// Checks if title is alpha only
 			if (!ValidationUtils.isValidAddress(contactDetails.getAddressLine3())) {
 				errors.add(new ValidationError(ContactDetailsConstants.ADDRESSLINE3.value(), messageSource
-						.getMessage(ValidationCodes.CONTACT_DETAILS_ADDRESS_LINE3_ALPHANUMERIC, null, Locale.ENGLISH)));
+						.getMessage(ValidationCodes.CONTACT_DETAILS_ADDRESS_LINE3_INVALIDCHARS, null, Locale.ENGLISH)));
 			}
 		}
 
@@ -104,7 +104,7 @@ public class ContactDetailsValidator implements Validator {
 			// Checks if title is alpha only
 			if (!ValidationUtils.isValidAddress(contactDetails.getAddressLine4())) {
 				errors.add(new ValidationError(ContactDetailsConstants.ADDRESSLINE4.value(), messageSource
-						.getMessage(ValidationCodes.CONTACT_DETAILS_ADDRESS_LINE4_ALPHANUMERIC, null, Locale.ENGLISH)));
+						.getMessage(ValidationCodes.CONTACT_DETAILS_ADDRESS_LINE4_INVALIDCHARS, null, Locale.ENGLISH)));
 			}
 		}
 
