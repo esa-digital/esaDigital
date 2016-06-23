@@ -43,7 +43,7 @@ public class ClaimantController {
 		generator.setLocation(PropertyFileEnum.CLAIMANT_PROPERTY.value());
 		generator.parseModel(model);
 		
-        logger.debug(sessionId + " Getting personal details form");
+        logger.info(sessionId + " Getting personal details form");
         
         Claimant claimant = (Claimant) session.getAttribute(CLAIMANT_DETAILS);
         if(claimant==null){
@@ -61,7 +61,7 @@ public class ClaimantController {
 		HttpSession session = request.getSession(false);
 		String sessionId = session.getId();
 		
-		logger.debug(sessionId + "Saving Claimant Details");
+		logger.info(sessionId + "Saving Claimant Details");
 		
 		  if(error.hasErrors()){
 			  //this will check whether there are any preload errors
@@ -79,7 +79,7 @@ public class ClaimantController {
 		  }
 		  session.setAttribute(CLAIMANT_DETAILS, claimant);
 		  
-		  logger.debug(sessionId + "Saved Claimant Details");
+		  logger.info(sessionId + "Saved Claimant Details");
 		return "redirect:" + NEXT_FORM;
 		
 	}
