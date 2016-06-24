@@ -12,8 +12,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import uk.gov.dwp.esa.constants.PropertyFileEnum;
 import uk.gov.dwp.esa.model.ContactDetails;
 import uk.gov.dwp.esa.util.ControllerUrls;
+import uk.gov.dwp.esa.util.GenericModelParser;
 import uk.gov.dwp.esa.validators.ContactDetailsValidator;
 
 @Controller
@@ -23,17 +25,21 @@ public class ContactDetailsController {
 	protected static final String CONTACT_DETAILS = "ContactDetails";
 	private String NEXT_FORM = "/api" + ControllerUrls.ALTERNATIVE_FORMATS;
 	private static String CONTACT_DETAILS_FORM = "contact-details";
-	
 		
 	@Autowired
 	private ContactDetailsValidator contactDetailsValidator;
 	
-		
+	@Autowired
+	private GenericModelParser generator;
+	
 	@RequestMapping(value = ControllerUrls.CONTACT_DETAILS, method = RequestMethod.GET)
 	public String getcontactDetailsForm(Model model, HttpServletRequest request) {
 		
 		HttpSession session = request.getSession();
 		String sessionId = session.getId();
+		
+		generator.setLocation(PropertyFileEnum.CONTACT_DETAILS_PROPERTY.value());
+		generator.parseModel(model);
 		
         logger.debug(sessionId + " Getting contact details form");
         
@@ -65,6 +71,8 @@ public class ContactDetailsController {
 		  contactDetailsValidator.validate(contactDetails, error);
 		  
 		  if(error.hasErrors()){
+			  generator.setLocation(PropertyFileEnum.CONTACT_DETAILS_PROPERTY.value());
+			  generator.parseModel(model);
 			  model.addAttribute(contactDetails);
 			  logger.debug(error);
 			  return CONTACT_DETAILS_FORM;
