@@ -3,13 +3,13 @@ package uk.gov.dwp.esa.constants;
 
 public enum ContactDetailsConstants {
 	
-	ADDRESSLINE1("addressline1"),
-	ADDRESSLINE2("addressline2"),
-	ADDRESSLINE3("addressline3"),
-	ADDRESSLINE4("addressline4"),
-	POSTCODE("postcode"),
-	PHONENUMBER("phonenumber"),
-	OTHERNUMBER("othernumber"),
+	ADDRESSLINE1("addressLine1"),
+	ADDRESSLINE2("addressLine2"),
+	ADDRESSLINE3("addressLine3"),
+	ADDRESSLINE4("addressLine4"),
+	POSTCODE("postCode"),
+	PHONENUMBER("phoneNumber"),
+	OTHERNUMBER("otherNumber"),
 	EMAIL("email");
 	
 	private String value;

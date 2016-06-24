@@ -25,14 +25,12 @@ public class ClaimantController {
 	protected static final String CLAIMANT_DETAILS = "Claimant";
 	private String NEXT_FORM = "/api" + ControllerUrls.CONTACT_DETAILS;
 	private static String PERSONAL_DETAILS_FORM = "personal-details";
-	
 		
 	@Autowired
 	private ClaimantValidator claimantValidator;
 	
 	@Autowired
 	private GenericModelParser generator;
-	
 		
 	@RequestMapping(value = ControllerUrls.PERSONAL_DETAILS_FORM, method = RequestMethod.GET)
 	public String getPersonalDetailsForm(Model model, HttpServletRequest request) {

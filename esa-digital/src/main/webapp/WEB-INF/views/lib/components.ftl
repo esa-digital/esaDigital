@@ -38,6 +38,30 @@
 	</div>
 </#macro>
 
+<#macro address paths name content addr1 addr2 addr3 addr4 postcode hint>
+	<div class="form-group<#list paths as path><@errors.hasError path /></#list>" id="${name}">
+            
+            <h2 class="form-title heading-medium">${content}</h2>
+            <p>${hint}</p>
+
+            <fieldset>
+
+              <legend class="visuallyhidden">Address</legend>
+              
+              <label class="form-label"><input type="text" class="form-control" name="address1" value="${addr1}"></label>
+              <label class="form-label"><input type="text" class="form-control" name="address2" value="${addr2}"></label>
+              <label class="form-label"><input type="text" class="form-control" name="address3" value="${addr3}"></label>
+              <label class="form-label"><input type="text" class="form-control" name="address4" value="${addr4}"></label>
+              
+              <div class="form-group">
+                <label class="form-label" for="postcode">Postcode</label>
+                <input type="text" class="form-control form-control-1-4" name="postCode" value="${postcode}">
+              </div>
+
+            </fieldset>
+          </div>
+</#macro>
+
 <#macro submit value>
 	<input id="submit" class="button" type="submit" value="${value}">
 </#macro>

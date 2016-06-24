@@ -1,8 +1,8 @@
 <#macro errorSummary fields>
 	<div class="error-summary<#if noErrors(fields)> visually-hidden</#if>" role="group" aria-labelledby="error-summary-heading" tabindex="-1">
             
-		<h1 class="heading-medium error-summary-heading" id="error-summary-heading">Message to alert the user to a problem goes here</h1>
-		<p>Optional description of the errors and how to correct them</p>
+		<h1 class="heading-medium error-summary-heading" id="error-summary-heading">There's a problem</h1>
+		<p>Check your form. You must:</p>
 
 		<ul class="error-summary-list">
 		<#list fields as item>
@@ -10,6 +10,8 @@
 				<#list getStatus(item).errorMessages as error>
 					<#if item?contains("dob")>
 						<li><a href="#${item?keep_before(item?keep_after("dob"))?keep_after(".")}">${error}</a></li>
+					<#elseif item?contains("address")>
+						<li><a href="#${item?keep_before(item?keep_after("address"))?keep_after(".")}">${error}</a></li>
 					<#else>
 						<li><a href="#${item?keep_after(".")}">${error}</a></li>
 					</#if>

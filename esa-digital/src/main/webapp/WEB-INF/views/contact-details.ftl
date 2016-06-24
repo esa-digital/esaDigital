@@ -4,57 +4,31 @@
       
       <div class="column-two-thirds">
         
-        
-        <form action="contact-details" method="post">
+        <form action="contact-details" method="post" autocomplete="off">
 
-          <div class="error-summary visually-hidden" role="group" aria-labelledby="error-summary-heading-example-1" tabindex="-1">
-            
-            <h1 class="heading-medium error-summary-heading" id="error-summary-heading-example-1">Message to alert the user to a problem goes here</h1>
-            <p>Optional description of the errors and how to correct them</p>
-            
-            <ul class="error-summary-list"></ul>
-          </div>
+          <@errors.errorSummary fields=["contactDetails.addressLine1","contactDetails.addressLine2","contactDetails.addressLine3","contactDetails.addressLine4","contactDetails.postCode","contactDetails.phoneNumber","contactDetails.otherNumber","contactDetails.email"] />
 
-          <h1 class="form-title heading-large">Contact details</h1>
-          <p class="lede">Updates about your application will be sent to you by letter, text message and email.</p>
+          <h1 class="form-title heading-large">${content['page.title']}</h1>
+          <p class="lede">${content['page.intro']}</p>
 
-          <div class="form-group">
-            
-            <h2 class="form-title heading-medium">Address</h2>
-            <p>Enter an address where you want letters about your claim to be posted.</p>
-
-            <fieldset>
-
-              <legend class="visuallyhidden">Address</legend>
-              
-              <label class="form-label"><input type="text" class="form-control" id="address-line1" value="<#if (ContactDetails.addressLine1)??>${ContactDetails.addressLine1}<#else>""</#if>"></label>
-              <label class="form-label"><input type="text" class="form-control" id="address-line2" value="<#if (ContactDetails.addressLine2)??>${ContactDetails.addressLine2}<#else>""</#if>"></label>
-              <label class="form-label"><input type="text" class="form-control" id="address-line3" value="<#if (ContactDetails.addressLine3)??>${ContactDetails.addressLine3}<#else>""</#if>"></label>
-              <label class="form-label"><input type="text" class="form-control" id="address-line4" value="<#if (ContactDetails.addressLine4)??>${ContactDetails.addressLine4}<#else>""</#if>"></label>
-              
-              <div class="form-group">
-                <label class="form-label" for="postcode" value="<#if (ContactDetails.postCode)??>${ContactDetails.postCode}<#else>""</#if>">Postcode</label>
-                <input type="text" class="form-control form-control-1-4" id="postcode">
-              </div>
-
-            </fieldset>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label-bold" for="phone" value="<#if (ContactDetails.phoneNumber)??>${ContactDetails.phoneNumber}<#else>""</#if>">Phone number <span class="form-hint">(optional)</span></label>
-            <input type="text" class="form-control" id="phone">
-          </div>
-
-         
-
-          <div class="form-group">
-            <label class="form-label-bold" for="phone2" value="<#if (ContactDetails.otherNumber)??>${ContactDetails.otherNumber}<#else>""</#if>">Other number <span class="form-hint">(optional)</span></label>
-            <input type="text" class="form-control" id="phone2">
-          </div>
-
-		  <@components.inputText path="ContactDetails.email" name="email" content="Email" value="${(ContactDetails.email)!}" hint="(optional)" />
+		  <@components.address paths=["contactDetails.addressLine1","contactDetails.addressLine2","contactDetails.addressLine3", "contactDetails.addressLine4", "contactDetails.postCode"] 
+		  					   name="address" 
+		  					   content="${content['page.question.address']}" 
+		  					   addr1="${(contactDetails.addressLine1)!}" 
+		  					   addr2="${(contactDetails.addressLine2)!}" 
+		  					   addr3="${(contactDetails.addressLine3)!}" 
+		  					   addr4="${(contactDetails.addressLine4)!}" 
+		  					   postcode="${(contactDetails.postCode)!}" 
+		  					   hint="${content['page.question.address.hint']}" />
           
-          <@components.submit value="Continue" />
+
+		  <@components.inputText path="contactDetails.phoneNumber" name="phoneNumber" content="${content['page.question.phoneNumber']}" value="${(contactDetails.phoneNumber)!}" hint="${content['page.question.hint']}" />
+          
+          <@components.inputText path="contactDetails.otherNumber" name="otherNumber" content="${content['page.question.otherNumber']}" value="${(contactDetails.otherNumber)!}" hint="${content['page.question.hint']}" />
+
+		  <@components.inputText path="contactDetails.email" name="email" content="${content['page.question.email']}" value="${(contactDetails.email)!}" hint="${content['page.question.hint']}" />
+          
+          <@components.submit value="${content['page.question.submit']}" />
 
         </form>
       </div>
