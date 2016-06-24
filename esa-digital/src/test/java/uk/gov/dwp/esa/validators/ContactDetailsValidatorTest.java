@@ -56,6 +56,7 @@ public class ContactDetailsValidatorTest {
 		ValidationError ve = new ValidationError(ContactDetailsConstants.ADDRESSLINE1.value(),
 				ValidationCodes.CONTACT_DETAILS_ADDRESS1_EMPTY);
 		Assert.assertEquals(1, errors.size());
+		Assert.assertEquals(errors.get(0).getErrorMessage(),ve.getErrorMessage());
 
 	}
 
@@ -67,6 +68,7 @@ public class ContactDetailsValidatorTest {
 		ValidationError ve = new ValidationError(ContactDetailsConstants.ADDRESSLINE2.value(),
 				ValidationCodes.CONTACT_DETAILS_ADDRESS2_EMPTY);
 		Assert.assertEquals(1, errors.size());
+		Assert.assertEquals(errors.get(0).getErrorMessage(),ve.getErrorMessage());
 
 	}
 
@@ -78,6 +80,7 @@ public class ContactDetailsValidatorTest {
 		ValidationError ve = new ValidationError(ContactDetailsConstants.ADDRESSLINE1.value(),
 				ValidationCodes.CONTACT_DETAILS_ADDRESS1_TOO_LONG);
 		Assert.assertEquals(1, errors.size());
+		Assert.assertEquals(errors.get(0).getErrorMessage(),ve.getErrorMessage());
 
 	}
 
@@ -89,6 +92,7 @@ public class ContactDetailsValidatorTest {
 		ValidationError ve = new ValidationError(ContactDetailsConstants.ADDRESSLINE1.value(),
 				ValidationCodes.CONTACT_DETAILS_ADDRESS_LINE1_INVALIDCHARS);
 		Assert.assertEquals(1, errors.size());
+		Assert.assertEquals(errors.get(0).getErrorMessage(),ve.getErrorMessage());
 
 	}
 
@@ -100,6 +104,7 @@ public class ContactDetailsValidatorTest {
 		ValidationError ve = new ValidationError(ContactDetailsConstants.ADDRESSLINE2.value(),
 				ValidationCodes.CONTACT_DETAILS_ADDRESS2_TOO_LONG);
 		Assert.assertEquals(1, errors.size());
+		Assert.assertEquals(errors.get(0).getErrorMessage(),ve.getErrorMessage());
 
 	}
 
@@ -111,6 +116,7 @@ public class ContactDetailsValidatorTest {
 		ValidationError ve = new ValidationError(ContactDetailsConstants.ADDRESSLINE2.value(),
 				ValidationCodes.CONTACT_DETAILS_ADDRESS_LINE2_INVALIDCHARS);
 		Assert.assertEquals(1, errors.size());
+		Assert.assertEquals(errors.get(0).getErrorMessage(),ve.getErrorMessage());
 
 	}
 
@@ -122,6 +128,7 @@ public class ContactDetailsValidatorTest {
 		ValidationError ve = new ValidationError(ContactDetailsConstants.ADDRESSLINE3.value(),
 				ValidationCodes.CONTACT_DETAILS_ADDRESS3_TOO_LONG);
 		Assert.assertEquals(1, errors.size());
+		Assert.assertEquals(errors.get(0).getErrorMessage(),ve.getErrorMessage());
 
 	}
 
@@ -133,6 +140,7 @@ public class ContactDetailsValidatorTest {
 		ValidationError ve = new ValidationError(ContactDetailsConstants.ADDRESSLINE3.value(),
 				ValidationCodes.CONTACT_DETAILS_ADDRESS_LINE3_INVALIDCHARS);
 		Assert.assertEquals(1, errors.size());
+		Assert.assertEquals(errors.get(0).getErrorMessage(),ve.getErrorMessage());
 
 	}
 
@@ -144,6 +152,7 @@ public class ContactDetailsValidatorTest {
 		ValidationError ve = new ValidationError(ContactDetailsConstants.ADDRESSLINE4.value(),
 				ValidationCodes.CONTACT_DETAILS_ADDRESS4_TOO_LONG);
 		Assert.assertEquals(1, errors.size());
+		Assert.assertEquals(errors.get(0).getErrorMessage(),ve.getErrorMessage());
 
 	}
 
@@ -155,6 +164,7 @@ public class ContactDetailsValidatorTest {
 		ValidationError ve = new ValidationError(ContactDetailsConstants.ADDRESSLINE4.value(),
 				ValidationCodes.CONTACT_DETAILS_ADDRESS_LINE4_INVALIDCHARS);
 		Assert.assertEquals(1, errors.size());
+		Assert.assertEquals(errors.get(0).getErrorMessage(),ve.getErrorMessage());
 
 	}
 
@@ -166,6 +176,7 @@ public class ContactDetailsValidatorTest {
 		ValidationError ve = new ValidationError(ContactDetailsConstants.POSTCODE.value(),
 				ValidationCodes.CONTACT_DETAILS_POSTCODE_EMPTY);
 		Assert.assertEquals(1, errors.size());
+		Assert.assertEquals(errors.get(0).getErrorMessage(),ve.getErrorMessage());
 
 	}
 	
@@ -177,6 +188,7 @@ public class ContactDetailsValidatorTest {
 		ValidationError ve = new ValidationError(ContactDetailsConstants.POSTCODE.value(),
 				ValidationCodes.CONTACT_DETAILS_POSTCODE_TOO_LONG);
 		Assert.assertEquals(2, errors.size());
+		Assert.assertEquals(errors.get(0).getErrorMessage(),ve.getErrorMessage());
 
 	}
 	
@@ -188,6 +200,7 @@ public class ContactDetailsValidatorTest {
 		ValidationError ve = new ValidationError(ContactDetailsConstants.PHONENUMBER.value(),
 				ValidationCodes.CONTACT_DETAILS_PHONENUMBER_TOO_LONG);
 		Assert.assertEquals(1, errors.size());
+		Assert.assertEquals(errors.get(0).getErrorMessage(),ve.getErrorMessage());
 
 	}
 	
@@ -199,6 +212,7 @@ public class ContactDetailsValidatorTest {
 		ValidationError ve = new ValidationError(ContactDetailsConstants.PHONENUMBER.value(),
 				ValidationCodes.CONTACT_DETAILS_PHONENUMBER_INVALID);
 		Assert.assertEquals(1, errors.size());
+		Assert.assertEquals(errors.get(0).getErrorMessage(),ve.getErrorMessage());
 
 	}
 
@@ -211,6 +225,7 @@ public class ContactDetailsValidatorTest {
 		ValidationError ve = new ValidationError(ContactDetailsConstants.PHONENUMBER.value(),
 				ValidationCodes.CONTACT_DETAILS_OTHERNUMBER_TOO_LONG);
 		Assert.assertEquals(1, errors.size());
+		Assert.assertEquals(errors.get(0).getErrorMessage(),ve.getErrorMessage());
 
 	}
 	
@@ -222,6 +237,7 @@ public class ContactDetailsValidatorTest {
 		ValidationError ve = new ValidationError(ContactDetailsConstants.PHONENUMBER.value(),
 				ValidationCodes.CONTACT_DETAILS_OTHERNUMBER_INVALID);
 		Assert.assertEquals(1, errors.size());
+		Assert.assertEquals(errors.get(0).getErrorMessage(),ve.getErrorMessage());
 
 	}
 	
@@ -233,6 +249,7 @@ public class ContactDetailsValidatorTest {
 		ValidationError ve = new ValidationError(ContactDetailsConstants.EMAIL.value(),
 				ValidationCodes.CONTACT_EMAIL_TOO_LONG);
 		Assert.assertEquals(1, errors.size());
+		Assert.assertEquals(errors.get(0).getErrorMessage(),ve.getErrorMessage());
 
 	}
 	
@@ -244,6 +261,7 @@ public class ContactDetailsValidatorTest {
 		ValidationError ve = new ValidationError(ContactDetailsConstants.EMAIL.value(),
 				ValidationCodes.CONTACT_EMAIL_INVALID);
 		Assert.assertEquals(1, errors.size());
+		Assert.assertEquals(errors.get(0).getErrorMessage(),ve.getErrorMessage());
 
 	}
 	
