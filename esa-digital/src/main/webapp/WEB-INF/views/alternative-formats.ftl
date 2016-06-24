@@ -1,5 +1,8 @@
 <#include "includes/head.ftl">
 
+
+<#assign pageJs = "alternative-format" />
+
 <div class="grid-row">
   <div class="column-two-thirds">
     <a class="link-back" href="contact-details">Back</a>
