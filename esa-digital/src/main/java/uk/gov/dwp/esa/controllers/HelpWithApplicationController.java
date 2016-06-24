@@ -12,7 +12,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import uk.gov.dwp.esa.model.Claimant;
 import uk.gov.dwp.esa.model.HelpDetails;
 import uk.gov.dwp.esa.util.ControllerUrls;
 import uk.gov.dwp.esa.validators.HelpDetailsValidator;

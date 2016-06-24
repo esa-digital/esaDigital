@@ -3,7 +3,6 @@ package uk.gov.dwp.esa.validators;
 import static org.mockito.Mockito.when;
 
 import java.util.List;
-import java.util.Locale;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -12,7 +11,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.context.MessageSource;
 
 import junit.framework.Assert;
 import uk.gov.dwp.esa.constants.GpDetailsConstants;
@@ -28,9 +26,6 @@ public class GpDetailsValidatorTest {
 	
 	@Mock
 	GPDetails gpDetails;
-	
-	@Mock
-	MessageSource source;
 	
 	//Sets up the J unit tests which should pass because the values are valid
 	@Before
@@ -88,9 +83,8 @@ public class GpDetailsValidatorTest {
 	@Test
 	public void testGpNameIsEmptyString() {
 		when(gpDetails.getDoctorName()).thenReturn("");
-		when(source.getMessage(ValidationCodes.DOCTOR_NAME_EMPTY,null,Locale.ENGLISH)).thenReturn("dummy");
 		List <ValidationError> errors = gpDetailsValidator.validateGPDetails(gpDetails);
-		ValidationError ve = new ValidationError(GpDetailsConstants.DOCTOR_NAME.value(),source.getMessage(ValidationCodes.DOCTOR_NAME_EMPTY,null,Locale.ENGLISH));
+		ValidationError ve = new ValidationError(GpDetailsConstants.DOCTOR_NAME.value(),ValidationCodes.DOCTOR_NAME_EMPTY);
 		Assert.assertEquals(1, errors.size());
 		Assert.assertEquals(errors.get(0).getErrorMessage(),ve.getErrorMessage());
 		
@@ -99,9 +93,8 @@ public class GpDetailsValidatorTest {
 	@Test
 	public void testGpNameMandatoryNotNullValidation() {
 		when(gpDetails.getDoctorName()).thenReturn(null);
-		when(source.getMessage(ValidationCodes.DOCTOR_NAME_EMPTY,null,Locale.ENGLISH)).thenReturn("dummy5");
 		List<ValidationError> errors =  gpDetailsValidator.validateGPDetails(gpDetails);
-		ValidationError ve = new ValidationError(GpDetailsConstants.DOCTOR_NAME.value(), source.getMessage(ValidationCodes.DOCTOR_NAME_EMPTY,null,Locale.ENGLISH));
+		ValidationError ve = new ValidationError(GpDetailsConstants.DOCTOR_NAME.value(), ValidationCodes.DOCTOR_NAME_EMPTY);
 		Assert.assertEquals(1, errors.size());
 		Assert.assertEquals(errors.get(0).getErrorMessage(), ve.getErrorMessage());
 	}
@@ -109,9 +102,8 @@ public class GpDetailsValidatorTest {
 	@Test
 	public void testGpNameMoreThan27Validation() {
 		when(gpDetails.getDoctorName()).thenReturn("abcdefghijklmnopqrstuvwxyzabc");
-		when(source.getMessage(ValidationCodes.DOCTOR_NAME_TOO_LONG,null,Locale.ENGLISH)).thenReturn("dummy2");
 		List<ValidationError> errors =  gpDetailsValidator.validateGPDetails(gpDetails);
-		ValidationError ve = new ValidationError(GpDetailsConstants.DOCTOR_NAME.value(), source.getMessage(ValidationCodes.DOCTOR_NAME_TOO_LONG,null,Locale.ENGLISH));
+		ValidationError ve = new ValidationError(GpDetailsConstants.DOCTOR_NAME.value(), ValidationCodes.DOCTOR_NAME_TOO_LONG);
 		Assert.assertEquals(1, errors.size());
 		Assert.assertEquals(errors.get(0).getErrorMessage(), ve.getErrorMessage());
 		
@@ -120,9 +112,8 @@ public class GpDetailsValidatorTest {
 	@Test
 	public void testGpNameFreeTextNoNumbersValidation() {
 		when(gpDetails.getDoctorName()).thenReturn("abc123");
-		when(source.getMessage(ValidationCodes.DOCTOR_NAME_INVALIDCHARS,null,Locale.ENGLISH)).thenReturn("dummy3");
 		List<ValidationError> errors =  gpDetailsValidator.validateGPDetails(gpDetails);
-		ValidationError ve = new ValidationError(GpDetailsConstants.DOCTOR_NAME.value(), source.getMessage(ValidationCodes.DOCTOR_NAME_INVALIDCHARS,null,Locale.ENGLISH));
+		ValidationError ve = new ValidationError(GpDetailsConstants.DOCTOR_NAME.value(), ValidationCodes.DOCTOR_NAME_INVALIDCHARS);
 		Assert.assertEquals(1, errors.size());
 		Assert.assertEquals(errors.get(0).getErrorMessage(), ve.getErrorMessage());
 	}
@@ -130,9 +121,8 @@ public class GpDetailsValidatorTest {
 	@Test
 	public void testGpNameAlphaPlusCertainSpecialCharactersValidation() {
 		when(gpDetails.getDoctorName()).thenReturn("abc!@?%");
-		when(source.getMessage(ValidationCodes.DOCTOR_NAME_INVALIDCHARS,null,Locale.ENGLISH)).thenReturn("dummy4");
 		List<ValidationError> errors =  gpDetailsValidator.validateGPDetails(gpDetails);
-		ValidationError ve = new ValidationError(GpDetailsConstants.DOCTOR_NAME.value(), source.getMessage(ValidationCodes.DOCTOR_NAME_INVALIDCHARS,null,Locale.ENGLISH));
+		ValidationError ve = new ValidationError(GpDetailsConstants.DOCTOR_NAME.value(), ValidationCodes.DOCTOR_NAME_INVALIDCHARS);
 		Assert.assertEquals(1, errors.size());
 		Assert.assertEquals(errors.get(0).getErrorMessage(), ve.getErrorMessage());
 	}
@@ -156,9 +146,8 @@ public class GpDetailsValidatorTest {
 	@Test
 	public void testGpAddressLine1IsEmptyString() {
 		when(gpDetails.getDocAddLine1()).thenReturn("");
-		when(source.getMessage(ValidationCodes.DOCTOR_ADDRESS_LINE1_EMPTY, null,Locale.ENGLISH)).thenReturn("dummy5");
 		List<ValidationError> errors = gpDetailsValidator.validateGPDetails(gpDetails);
-		ValidationError ve = new ValidationError(GpDetailsConstants.DOCTOR_ADDRESS_LINE1.value(), source.getMessage(ValidationCodes.DOCTOR_ADDRESS_LINE1_EMPTY,null,Locale.ENGLISH));
+		ValidationError ve = new ValidationError(GpDetailsConstants.DOCTOR_ADDRESS_LINE1.value(), ValidationCodes.DOCTOR_ADDRESS_LINE1_EMPTY);
 		Assert.assertEquals(1, errors.size());
 		Assert.assertEquals(errors.get(0).getErrorMessage(), ve.getErrorMessage());
 	}
@@ -166,9 +155,8 @@ public class GpDetailsValidatorTest {
 	@Test
 	public void testGpAddressLine1IsNull() {
 		when(gpDetails.getDocAddLine1()).thenReturn(null);
-		when(source.getMessage(ValidationCodes.DOCTOR_ADDRESS_LINE1_EMPTY, null,Locale.ENGLISH)).thenReturn("dummy6");
 		List<ValidationError> errors = gpDetailsValidator.validateGPDetails(gpDetails);
-		ValidationError ve = new ValidationError(GpDetailsConstants.DOCTOR_ADDRESS_LINE1.value(), source.getMessage(ValidationCodes.DOCTOR_ADDRESS_LINE1_EMPTY,null,Locale.ENGLISH));
+		ValidationError ve = new ValidationError(GpDetailsConstants.DOCTOR_ADDRESS_LINE1.value(), ValidationCodes.DOCTOR_ADDRESS_LINE1_EMPTY);
 		Assert.assertEquals(1, errors.size());
 		Assert.assertEquals(errors.get(0).getErrorMessage(), ve.getErrorMessage());
 	}
@@ -176,9 +164,8 @@ public class GpDetailsValidatorTest {
 	@Test
 	public void testGpAddressLine1More27Chars() {
 		when(gpDetails.getDocAddLine1()).thenReturn("1234567890123456789012345678");
-		when(source.getMessage(ValidationCodes.DOCTOR_ADDRESS_LINE1_TOO_LONG, null,Locale.ENGLISH)).thenReturn("dummy7");
 		List<ValidationError> errors = gpDetailsValidator.validateGPDetails(gpDetails);
-		ValidationError ve = new ValidationError(GpDetailsConstants.DOCTOR_ADDRESS_LINE1.value(), source.getMessage(ValidationCodes.DOCTOR_ADDRESS_LINE1_TOO_LONG,null,Locale.ENGLISH));
+		ValidationError ve = new ValidationError(GpDetailsConstants.DOCTOR_ADDRESS_LINE1.value(), ValidationCodes.DOCTOR_ADDRESS_LINE1_TOO_LONG);
 		Assert.assertEquals(1, errors.size());
 		Assert.assertEquals(errors.get(0).getErrorMessage(), ve.getErrorMessage());
 	}
@@ -186,9 +173,8 @@ public class GpDetailsValidatorTest {
 	@Test
 	public void testGpAddressLine1InvalidSpecialCharacters() {
 		when(gpDetails.getDocAddLine1()).thenReturn("123ABC$%*");
-		when(source.getMessage(ValidationCodes.DOCTOR_ADDRESS_LINE1_INVALIDCHARS, null,Locale.ENGLISH)).thenReturn("dummy8");
 		List<ValidationError> errors = gpDetailsValidator.validateGPDetails(gpDetails);
-		ValidationError ve = new ValidationError(GpDetailsConstants.DOCTOR_ADDRESS_LINE1.value(), source.getMessage(ValidationCodes.DOCTOR_ADDRESS_LINE1_INVALIDCHARS,null,Locale.ENGLISH));
+		ValidationError ve = new ValidationError(GpDetailsConstants.DOCTOR_ADDRESS_LINE1.value(), ValidationCodes.DOCTOR_ADDRESS_LINE1_INVALIDCHARS);
 		Assert.assertEquals(1, errors.size());
 		Assert.assertEquals(errors.get(0).getErrorMessage(), ve.getErrorMessage());
 	}
@@ -202,9 +188,8 @@ public class GpDetailsValidatorTest {
 	@Test
 	public void testGpAddressLine2IsEmptyString() {
 		when(gpDetails.getDocAddLine2()).thenReturn("");
-		when(source.getMessage(ValidationCodes.DOCTOR_ADDRESS_LINE2_EMPTY, null,Locale.ENGLISH)).thenReturn("dummy9");
 		List<ValidationError> errors = gpDetailsValidator.validateGPDetails(gpDetails);
-		ValidationError ve = new ValidationError(GpDetailsConstants.DOCTOR_ADDRESS_LINE2.value(), source.getMessage(ValidationCodes.DOCTOR_ADDRESS_LINE2_EMPTY,null,Locale.ENGLISH));
+		ValidationError ve = new ValidationError(GpDetailsConstants.DOCTOR_ADDRESS_LINE2.value(), ValidationCodes.DOCTOR_ADDRESS_LINE2_EMPTY);
 		Assert.assertEquals(1, errors.size());
 		Assert.assertEquals(errors.get(0).getErrorMessage(), ve.getErrorMessage());
 	}
@@ -212,9 +197,8 @@ public class GpDetailsValidatorTest {
 	@Test
 	public void testGpAddressLine2IsNull() {
 		when(gpDetails.getDocAddLine2()).thenReturn(null);
-		when(source.getMessage(ValidationCodes.DOCTOR_ADDRESS_LINE2_EMPTY, null,Locale.ENGLISH)).thenReturn("dummy10");
 		List<ValidationError> errors = gpDetailsValidator.validateGPDetails(gpDetails);
-		ValidationError ve = new ValidationError(GpDetailsConstants.DOCTOR_ADDRESS_LINE2.value(), source.getMessage(ValidationCodes.DOCTOR_ADDRESS_LINE2_EMPTY,null,Locale.ENGLISH));
+		ValidationError ve = new ValidationError(GpDetailsConstants.DOCTOR_ADDRESS_LINE2.value(), ValidationCodes.DOCTOR_ADDRESS_LINE2_EMPTY);
 		Assert.assertEquals(1, errors.size());
 		Assert.assertEquals(errors.get(0).getErrorMessage(), ve.getErrorMessage());
 	}
@@ -222,9 +206,8 @@ public class GpDetailsValidatorTest {
 	@Test
 	public void testGpAddressLine2More27Chars() {
 		when(gpDetails.getDocAddLine2()).thenReturn("1234567890123456789012345678");
-		when(source.getMessage(ValidationCodes.DOCTOR_ADDRESS_LINE2_TOO_LONG, null,Locale.ENGLISH)).thenReturn("dummy11");
 		List<ValidationError> errors = gpDetailsValidator.validateGPDetails(gpDetails);
-		ValidationError ve = new ValidationError(GpDetailsConstants.DOCTOR_ADDRESS_LINE2.value(), source.getMessage(ValidationCodes.DOCTOR_ADDRESS_LINE2_TOO_LONG,null,Locale.ENGLISH));
+		ValidationError ve = new ValidationError(GpDetailsConstants.DOCTOR_ADDRESS_LINE2.value(), ValidationCodes.DOCTOR_ADDRESS_LINE2_TOO_LONG);
 		Assert.assertEquals(1, errors.size());
 		Assert.assertEquals(errors.get(0).getErrorMessage(), ve.getErrorMessage());
 	}
@@ -232,9 +215,8 @@ public class GpDetailsValidatorTest {
 	@Test
 	public void testGpAddressLine2NotValidSpecialCharacters() {
 		when(gpDetails.getDocAddLine2()).thenReturn("123ABC$%*");
-		when(source.getMessage(ValidationCodes.DOCTOR_ADDRESS_LINE2_INVALIDCHARS, null,Locale.ENGLISH)).thenReturn("dummy12");
 		List<ValidationError> errors = gpDetailsValidator.validateGPDetails(gpDetails);
-		ValidationError ve = new ValidationError(GpDetailsConstants.DOCTOR_ADDRESS_LINE2.value(), source.getMessage(ValidationCodes.DOCTOR_ADDRESS_LINE2_INVALIDCHARS,null,Locale.ENGLISH));
+		ValidationError ve = new ValidationError(GpDetailsConstants.DOCTOR_ADDRESS_LINE2.value(), ValidationCodes.DOCTOR_ADDRESS_LINE2_INVALIDCHARS);
 		Assert.assertEquals(1, errors.size());
 		Assert.assertEquals(errors.get(0).getErrorMessage(), ve.getErrorMessage());
 	}
@@ -264,9 +246,8 @@ public class GpDetailsValidatorTest {
 	@Test
 	public void testGpAddressLine3More27Chars(){
 		when(gpDetails.getDocAddLine3()).thenReturn("1234567890123456789012345678");
-		when(source.getMessage(ValidationCodes.DOCTOR_ADDRESS_LINE3_TOO_LONG,null,Locale.ENGLISH)).thenReturn("dummy13");
 		List<ValidationError> errors = gpDetailsValidator.validateGPDetails(gpDetails);
-		ValidationError ve = new ValidationError(GpDetailsConstants.DOCTOR_ADDRESS_LINE3.value(),source.getMessage(ValidationCodes.DOCTOR_ADDRESS_LINE3_TOO_LONG, null, Locale.ENGLISH));
+		ValidationError ve = new ValidationError(GpDetailsConstants.DOCTOR_ADDRESS_LINE3.value(),ValidationCodes.DOCTOR_ADDRESS_LINE3_TOO_LONG);
 		Assert.assertEquals(1, errors.size());
 		Assert.assertEquals(errors.get(0).getErrorMessage(),ve.getErrorMessage());
 	}
@@ -274,9 +255,8 @@ public class GpDetailsValidatorTest {
 	@Test
 	public void testGpAddressLine3NotValidSpecialCharacters() {
 		when(gpDetails.getDocAddLine3()).thenReturn("ABC123$%*");
-		when(source.getMessage(ValidationCodes.DOCTOR_ADDRESS_LINE3_INVALIDCHARS, null, Locale.ENGLISH)).thenReturn("dummy14");
 		List<ValidationError> errors = gpDetailsValidator.validateGPDetails(gpDetails);
-		ValidationError ve = new ValidationError(GpDetailsConstants.DOCTOR_ADDRESS_LINE3.value(),source.getMessage(ValidationCodes.DOCTOR_ADDRESS_LINE3_INVALIDCHARS,null,Locale.ENGLISH));
+		ValidationError ve = new ValidationError(GpDetailsConstants.DOCTOR_ADDRESS_LINE3.value(),ValidationCodes.DOCTOR_ADDRESS_LINE3_INVALIDCHARS);
 		Assert.assertEquals(1, errors.size() );
 		Assert.assertEquals(errors.get(0).getErrorMessage(), ve.getErrorMessage());
 	}
@@ -306,9 +286,8 @@ public class GpDetailsValidatorTest {
 	@Test
 	public void testGpAddressLine4More27Chars(){
 		when(gpDetails.getDocAddLine4()).thenReturn("1234567890123456789012345678");
-		when(source.getMessage(ValidationCodes.DOCTOR_ADDRESS_LINE4_TOO_LONG,null,Locale.ENGLISH)).thenReturn("dummy15");
 		List<ValidationError> errors = gpDetailsValidator.validateGPDetails(gpDetails);
-		ValidationError ve = new ValidationError(GpDetailsConstants.DOCTOR_ADDRESS_LINE4.value(),source.getMessage(ValidationCodes.DOCTOR_ADDRESS_LINE4_TOO_LONG, null, Locale.ENGLISH));
+		ValidationError ve = new ValidationError(GpDetailsConstants.DOCTOR_ADDRESS_LINE4.value(),ValidationCodes.DOCTOR_ADDRESS_LINE4_TOO_LONG);
 		Assert.assertEquals(1, errors.size());
 		Assert.assertEquals(errors.get(0).getErrorMessage(),ve.getErrorMessage());
 	}
@@ -316,9 +295,8 @@ public class GpDetailsValidatorTest {
 	@Test
 	public void testGpAddressLine4NotValidSpecialCharacters() {
 		when(gpDetails.getDocAddLine4()).thenReturn("ABC123%*$");
-		when(source.getMessage(ValidationCodes.DOCTOR_ADDRESS_LINE4_INVALIDCHARS, null, Locale.ENGLISH)).thenReturn("dummy16");
 		List<ValidationError> errors = gpDetailsValidator.validateGPDetails(gpDetails);
-		ValidationError ve = new ValidationError(GpDetailsConstants.DOCTOR_ADDRESS_LINE4.value(),source.getMessage(ValidationCodes.DOCTOR_ADDRESS_LINE4_INVALIDCHARS,null,Locale.ENGLISH));
+		ValidationError ve = new ValidationError(GpDetailsConstants.DOCTOR_ADDRESS_LINE4.value(),ValidationCodes.DOCTOR_ADDRESS_LINE4_INVALIDCHARS);
 		Assert.assertEquals(1, errors.size() );
 		Assert.assertEquals(errors.get(0).getErrorMessage(), ve.getErrorMessage());
 	}
@@ -340,9 +318,8 @@ public class GpDetailsValidatorTest {
 	@Test
 	public void testGpPostCodeIsEmpty() {
 		when(gpDetails.getDocPostCode()).thenReturn("");
-		when(source.getMessage(ValidationCodes.DOCTOR_POSTCODE_EMPTY, null, Locale.ENGLISH)).thenReturn("dummy17");
 		List<ValidationError> errors = gpDetailsValidator.validateGPDetails(gpDetails);
-		ValidationError ve = new ValidationError(GpDetailsConstants.DOCTOR_POSTCODE.value(),source.getMessage(ValidationCodes.DOCTOR_POSTCODE_EMPTY,null,Locale.ENGLISH));
+		ValidationError ve = new ValidationError(GpDetailsConstants.DOCTOR_POSTCODE.value(),ValidationCodes.DOCTOR_POSTCODE_EMPTY);
 		Assert.assertEquals(1, errors.size());
 		Assert.assertEquals(errors.get(0).getErrorMessage(),ve.getErrorMessage());
 	}
@@ -350,9 +327,8 @@ public class GpDetailsValidatorTest {
 	@Test
 	public void testGpPostCodeIsNull() {
 		when(gpDetails.getDocPostCode()).thenReturn(null);
-		when(source.getMessage(ValidationCodes.DOCTOR_POSTCODE_EMPTY, null, Locale.ENGLISH)).thenReturn("dummy18");
 		List<ValidationError> errors = gpDetailsValidator.validateGPDetails(gpDetails);
-		ValidationError ve = new ValidationError(GpDetailsConstants.DOCTOR_POSTCODE.value(),source.getMessage(ValidationCodes.DOCTOR_POSTCODE_EMPTY,null,Locale.ENGLISH));
+		ValidationError ve = new ValidationError(GpDetailsConstants.DOCTOR_POSTCODE.value(),ValidationCodes.DOCTOR_POSTCODE_EMPTY);
 		Assert.assertEquals(1, errors.size());
 		Assert.assertEquals(errors.get(0).getErrorMessage(),ve.getErrorMessage());
 	}
@@ -361,9 +337,8 @@ public class GpDetailsValidatorTest {
 	@Test
 	public void testGpPostCodeIsNotValid() {
 		when(gpDetails.getDocPostCode()).thenReturn("LS! 3DP");
-		when(source.getMessage(ValidationCodes.DOCTOR_POSTCODE_INVALID, null, Locale.ENGLISH)).thenReturn("dummy20");
 		List<ValidationError> errors = gpDetailsValidator.validateGPDetails(gpDetails);
-		ValidationError ve = new ValidationError(GpDetailsConstants.DOCTOR_POSTCODE.value(),source.getMessage(ValidationCodes.DOCTOR_POSTCODE_INVALID,null,Locale.ENGLISH));
+		ValidationError ve = new ValidationError(GpDetailsConstants.DOCTOR_POSTCODE.value(),ValidationCodes.DOCTOR_POSTCODE_INVALID);
 		Assert.assertEquals(1, errors.size());
 		Assert.assertEquals(errors.get(0).getErrorMessage(),ve.getErrorMessage());
 	}
@@ -385,9 +360,8 @@ public class GpDetailsValidatorTest {
 	@Test
 	public void testGpTelNumberIsEmpty(){
 		when(gpDetails.getDocTelNumber()).thenReturn("");
-		when(source.getMessage(ValidationCodes.DOCTOR_TELEPHONE_EMPTY, null, Locale.ENGLISH)).thenReturn("dummy21");
 		List<ValidationError> errors = gpDetailsValidator.validateGPDetails(gpDetails);
-		ValidationError ve = new ValidationError(GpDetailsConstants.DOCTOR_TEL_NUMBER.value(),source.getMessage(ValidationCodes.DOCTOR_TELEPHONE_EMPTY, null, Locale.ENGLISH));
+		ValidationError ve = new ValidationError(GpDetailsConstants.DOCTOR_TEL_NUMBER.value(),ValidationCodes.DOCTOR_TELEPHONE_EMPTY);
 		Assert.assertEquals(1, errors.size());
 		Assert.assertEquals(errors.get(0).getErrorMessage(),ve.getErrorMessage());
 	}
@@ -395,9 +369,8 @@ public class GpDetailsValidatorTest {
 	@Test
 	public void testGpTelNumberIsNull(){
 		when(gpDetails.getDocTelNumber()).thenReturn(null);
-		when(source.getMessage(ValidationCodes.DOCTOR_TELEPHONE_EMPTY, null, Locale.ENGLISH)).thenReturn("dummy22");
 		List<ValidationError> errors = gpDetailsValidator.validateGPDetails(gpDetails);
-		ValidationError ve = new ValidationError(GpDetailsConstants.DOCTOR_TEL_NUMBER.value(),source.getMessage(ValidationCodes.DOCTOR_TELEPHONE_EMPTY, null, Locale.ENGLISH));
+		ValidationError ve = new ValidationError(GpDetailsConstants.DOCTOR_TEL_NUMBER.value(),ValidationCodes.DOCTOR_TELEPHONE_EMPTY);
 		Assert.assertEquals(1, errors.size());
 		Assert.assertEquals(errors.get(0).getErrorMessage(),ve.getErrorMessage());
 	}
@@ -405,9 +378,8 @@ public class GpDetailsValidatorTest {
 	@Test
 	public void testGpTelNumberIsOver20Chars(){
 		when(gpDetails.getDocTelNumber()).thenReturn("012345678901234567890");
-		when(source.getMessage(ValidationCodes.DOCTOR_TELEPHONE_TOO_LONG, null, Locale.ENGLISH)).thenReturn("dummy23");
 		List<ValidationError> errors = gpDetailsValidator.validateGPDetails(gpDetails);
-		ValidationError ve = new ValidationError(GpDetailsConstants.DOCTOR_TEL_NUMBER.value(),source.getMessage(ValidationCodes.DOCTOR_TELEPHONE_TOO_LONG, null, Locale.ENGLISH));
+		ValidationError ve = new ValidationError(GpDetailsConstants.DOCTOR_TEL_NUMBER.value(),ValidationCodes.DOCTOR_TELEPHONE_TOO_LONG);
 		Assert.assertEquals(1, errors.size());
 		Assert.assertEquals(errors.get(0).getErrorMessage(),ve.getErrorMessage());
 	}
@@ -415,9 +387,8 @@ public class GpDetailsValidatorTest {
 	@Test
 	public void testGpTelNumberIsNotValidPhoneNumber(){
 		when(gpDetails.getDocTelNumber()).thenReturn("+44 0!275 256126");
-		when(source.getMessage(ValidationCodes.DOCTOR_TELEPHONE_NUMERIC, null, Locale.ENGLISH)).thenReturn("dummy24");
 		List<ValidationError> errors = gpDetailsValidator.validateGPDetails(gpDetails);
-		ValidationError ve = new ValidationError(GpDetailsConstants.DOCTOR_TEL_NUMBER.value(),source.getMessage(ValidationCodes.DOCTOR_TELEPHONE_NUMERIC, null, Locale.ENGLISH));
+		ValidationError ve = new ValidationError(GpDetailsConstants.DOCTOR_TEL_NUMBER.value(),ValidationCodes.DOCTOR_TELEPHONE_NUMERIC);
 		Assert.assertEquals(1, errors.size());
 		Assert.assertEquals(errors.get(0).getErrorMessage(),ve.getErrorMessage());
 	}

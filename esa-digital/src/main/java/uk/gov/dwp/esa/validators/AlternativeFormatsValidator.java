@@ -2,16 +2,12 @@ package uk.gov.dwp.esa.validators;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 import uk.gov.dwp.esa.constants.AlternateFormatsConstants;
-import uk.gov.dwp.esa.constants.GpDetailsConstants;
 import uk.gov.dwp.esa.constants.ValidationCodes;
 import uk.gov.dwp.esa.model.AlternativeFormat;
 import uk.gov.dwp.esa.validatorHelpers.ValidationError;
@@ -22,8 +18,6 @@ public class AlternativeFormatsValidator implements Validator {
 
 	private static final int maxLength = 25;
 	
-	@Autowired
-    private MessageSource messageSource;
 	/*
 	 * This method is used to validate the basic claimant properties 
 	 * gathered from front end.

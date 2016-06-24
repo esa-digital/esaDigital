@@ -12,7 +12,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.context.MessageSource;
 
 import junit.framework.Assert;
 import uk.gov.dwp.esa.constants.AlternateFormatsConstants;
@@ -29,8 +28,7 @@ public class AlternativeFormatValidatorTest {
 	@Mock
 	AlternativeFormat alternativeFormat;
 	
-	@Mock
-	MessageSource source;
+
 	
 	//Sets up the J unit tests which should pass because the values are valid
 	@Before
@@ -60,9 +58,8 @@ public class AlternativeFormatValidatorTest {
 	@Test
 	public void testAlternativeFormatIsEmpty(){
 	when(alternativeFormat.getAlternativeFormatYN()).thenReturn("");
-	when(source.getMessage(ValidationCodes.ALTERNATE_FORMAT_EMPTY,null,Locale.ENGLISH)).thenReturn("Alternative format empty");
 	List <ValidationError> errors = alternativeFormatsValidator.validateAlternativeFormats(alternativeFormat);
-	ValidationError ve = new ValidationError(AlternateFormatsConstants.ALTERNATE_FORMAT.value(),source.getMessage(ValidationCodes.ALTERNATE_FORMAT_EMPTY,null,Locale.ENGLISH));
+	ValidationError ve = new ValidationError(AlternateFormatsConstants.ALTERNATE_FORMAT.value(),ValidationCodes.ALTERNATE_FORMAT_EMPTY);
 	Assert.assertEquals(1, errors.size());
 	Assert.assertEquals(errors.get(0).getErrorMessage(),ve.getErrorMessage());
 	}
@@ -75,9 +72,8 @@ public class AlternativeFormatValidatorTest {
 	@Test
 	public void testAlternativeFormatTypeIsEmpty(){
 	when(alternativeFormat.getAlternateFormatType()).thenReturn("");
-	when(source.getMessage(ValidationCodes.ALTERNATE_FORMAT_TYPE_EMPTY, null, Locale.ENGLISH)).thenReturn("Alt format type empty");
 	List <ValidationError> errors = alternativeFormatsValidator.validateAlternativeFormats(alternativeFormat);
-	ValidationError ve = new ValidationError(AlternateFormatsConstants.ALTERNATE_FORMAT_TYPE.value(),source.getMessage(ValidationCodes.ALTERNATE_FORMAT_TYPE_EMPTY,null,Locale.ENGLISH));
+	ValidationError ve = new ValidationError(AlternateFormatsConstants.ALTERNATE_FORMAT_TYPE.value(),ValidationCodes.ALTERNATE_FORMAT_TYPE_EMPTY);
 	Assert.assertEquals(1, errors.size());
 	Assert.assertEquals(errors.get(0).getErrorMessage(),ve.getErrorMessage());
 	
@@ -92,9 +88,8 @@ public class AlternativeFormatValidatorTest {
 	@Test
 	public void testAlternativeFormatOtherIsEmpty(){
 	when(alternativeFormat.getAlternateFormatOther()).thenReturn("");
-	when(source.getMessage(ValidationCodes.ALTERNATE_FORMAT_OTHER_EMPTY, null, Locale.ENGLISH)).thenReturn("Alt. format OTHER empty");
 	List <ValidationError> errors = alternativeFormatsValidator.validateAlternativeFormats(alternativeFormat);
-	ValidationError ve = new ValidationError(AlternateFormatsConstants.ALTERNATE_FORMAT_OTHER.value(),source.getMessage(ValidationCodes.ALTERNATE_FORMAT_OTHER_EMPTY,null,Locale.ENGLISH));
+	ValidationError ve = new ValidationError(AlternateFormatsConstants.ALTERNATE_FORMAT_OTHER.value(),ValidationCodes.ALTERNATE_FORMAT_OTHER_EMPTY);
 	Assert.assertEquals(1, errors.size());
 	Assert.assertEquals(errors.get(0).getErrorMessage(),ve.getErrorMessage());
 	}
@@ -102,9 +97,8 @@ public class AlternativeFormatValidatorTest {
 	@Test
 	public void testAlternativeFormatOtherIsTooLong(){
 	when(alternativeFormat.getAlternateFormatOther()).thenReturn("12345678901234567890123456");
-	when(source.getMessage(ValidationCodes.ALTERNATE_FORMAT_OTHER_TOO_LONG, null, Locale.ENGLISH)).thenReturn("Alt. format OTHER too long");
 	List <ValidationError> errors = alternativeFormatsValidator.validateAlternativeFormats(alternativeFormat);
-	ValidationError ve = new ValidationError(AlternateFormatsConstants.ALTERNATE_FORMAT_OTHER.value(),source.getMessage(ValidationCodes.ALTERNATE_FORMAT_OTHER_TOO_LONG,null,Locale.ENGLISH));
+	ValidationError ve = new ValidationError(AlternateFormatsConstants.ALTERNATE_FORMAT_OTHER.value(),ValidationCodes.ALTERNATE_FORMAT_OTHER_TOO_LONG);
 	Assert.assertEquals(1, errors.size());
 	Assert.assertEquals(errors.get(0).getErrorMessage(),ve.getErrorMessage());	
 	}
