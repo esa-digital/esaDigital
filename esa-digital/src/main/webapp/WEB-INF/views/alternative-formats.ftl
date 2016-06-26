@@ -5,14 +5,29 @@
 
     <form action="alternative-formats" method="post" autocomplete="off">
 
+      <#--
+      <@errors.errorSummary fields=["alternateFormat.alternativeFormatYN","alternateFormat.alternateFormatType", "alternateFormat.alternateFormatOther"] />
+      -->
+      
       <h1 class="form-title heading-large">${content['page.title']}</h1>
 
       <div class="form-group">
         <fieldset class="inline">
+        
+        <legend>
 
-          <p class="form-label-bold">You will get your decision
-            letter in the post. Do you need this in a different format
-            eg braille, large print or audio CD?</p>
+          <span class="form-label-bold">
+            ${content['page.question.title']}
+          </span>
+          
+          <#--
+          <@errors.listInlineErrors "alternateFormat.alternativeFormatYN"/>
+          <@errors.listInlineErrors "alternateFormat.alternateFormatType"/>
+          <@errors.listInlineErrors "alternateFormat.alternateFormatOther"/>
+          -->
+        </legend>
+
+          <p class="form-label-bold">${content['page.question.title']}</p>
 
           <label for="radio-part-2" data-target="format"
             class="block-label"> <input id="radio-part-2"
@@ -31,31 +46,26 @@
         <fieldset class="">
           <label class="block-label" for="radio-inline-1"> <input
             id="radio-inline-1" type="radio" name="partner" value="Yes">
-            Large print
+            ${content['page.question.largePrint']}
           </label> <label class="block-label" for="radio-inline-2"> <input
             id="radio-inline-2" type="radio" name="partner" value="No">
-            Braille
+            ${content['page.question.braille']}
           </label> <label class="block-label" for="radio-inline-7"> <input
             id="radio-inline-7" type="radio" name="partner" value="No">
-            Audio CD
+            ${content['page.question.audioCd']}
           </label> <label class="block-label" data-target="other"
             for="radio-inline-3"> <input id="radio-inline-3"
             type="radio" name="partner" value="No" aria-controls="other">
-            Other
+            ${content['page.question.other']}
           </label>
           <div class="panel panel-border-narrow js-hidden" id="other">
-            <label class="form-label" for="other-field">What
-              format do you need?</label>
+            <label class="form-label" for="other-field">${content['page.question.otherDetail']}</label>
             <textarea type="text" class="form-control" id="other-field"></textarea>
           </div>
         </fieldset>
       </div>
 
-      <!-- Primary buttons, secondary links -->
-      <div class="form-group">
-        <input type="submit" class="button" value="Continue">
-        <!--a href="overview">I do not agree - leave now</a-->
-      </div>
+      <@components.submit value="${content['page.question.submit']}" />
     </form>
 
   </div>
