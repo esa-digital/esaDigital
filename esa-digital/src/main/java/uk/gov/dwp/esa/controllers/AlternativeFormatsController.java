@@ -16,6 +16,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import uk.gov.dwp.esa.constants.PropertyFileEnum;
 import uk.gov.dwp.esa.model.AlternativeFormat;
 import uk.gov.dwp.esa.model.Claim;
 import uk.gov.dwp.esa.model.Claimant;
@@ -23,6 +24,7 @@ import uk.gov.dwp.esa.model.GPDetails;
 import uk.gov.dwp.esa.service.ESAClaimService;
 import uk.gov.dwp.esa.util.ControllerUrls;
 import uk.gov.dwp.esa.validators.AlternativeFormatsValidator;
+import uk.gov.dwp.esa.util.GenericModelParser;
 
 @Controller
 public class AlternativeFormatsController {
@@ -30,7 +32,10 @@ public class AlternativeFormatsController {
 	private static final Logger logger = LogManager.getLogger(GPController.class);
 	private static final String ALT_FORMATS = "/alternative-formats";
 	private static String ALT_FORMATS_FORM = "alternative-formats";
-
+	
+	@Autowired
+	private GenericModelParser generator;
+	
 	@Autowired
 	private ESAClaimService esaClaimService;
 
@@ -42,6 +47,9 @@ public class AlternativeFormatsController {
 
 		HttpSession session = request.getSession();
 		String sessionId = session.getId();
+		
+		generator.setLocation(PropertyFileEnum.ALTERNATIVE_FORMATS_PROPERTY.value());
+		generator.parseModel(model);
 
 		logger.debug(sessionId + " getting alternative formats form");
 		
@@ -75,6 +83,8 @@ public class AlternativeFormatsController {
 		alternativeFormatsValidator.validate(alternativeFormat, error);
 
 		if (error.hasErrors()) {
+			generator.setLocation(PropertyFileEnum.ALTERNATIVE_FORMATS_PROPERTY.value());
+			generator.parseModel(model);
 			model.addAttribute(ALT_FORMATS, alternativeFormat);
 			logger.debug(error);
 			return ALT_FORMATS_FORM;
