@@ -31,40 +31,23 @@
     	</sequence>
     </complexType>
 
-     <complexType name="HelpDetails">
+  <complexType name="HelpDetails">
     <sequence>
-    	<element name="fillingByYourself" type="boolean"></element>
-    	<element name="gettingHelp" type="boolean"></element>
-    	<element name="thirdPartyDetails" type="tns:GettingHelp" maxOccurs="1" minOccurs="0"></element>
-    	<element name="applyingOnBehalfOfSomeoneElse" type="boolean"></element>	
-    	<element name="onBehalfOfSomeoneElseOptions" type="tns:BehalfOptions" maxOccurs="1" minOccurs="0"></element>	
+    	<element name="helpDetailsType" type="string"></element>
+    	<element name="thirdPartyDetails" type="tns:HelpDetailsType" maxOccurs="1" minOccurs="0"></element>	
     </sequence>
-    </complexType>
-    
-    <complexType name="GettingHelp">
-		<sequence>
-			<element name="personName" type="string"></element>
-			<element name="personRelation" type="string"></element>
-			<element name="reasonForHelp" type="string"></element>
-		</sequence>
-	</complexType>
+   </complexType>
+
 	
-	<complexType name="BehalfOptions">
+	<complexType name="HelpDetailsType">
 		<sequence>
-			<element name="registeredPowerAttorney" type="boolean"></element>
-			<element name="yourDeputy" type="boolean"></element>
-			<element name="registeredAppointee" type="boolean"></element>
-			<element name="cannotManageAffairs" type="boolean"></element>
-			<element name="other" type="boolean"></element>
-			<element name="behalfType" type="tns:BehalfType" maxOccurs="1" minOccurs="0"></element>	
-		</sequence>
-	</complexType>
-	
-	<complexType name="BehalfType">
-		<sequence>
+			<element name="behalfOfType" type="string"></element>
 			<element name="title" type="string"></element>
     		<element name="firstName" type="string"></element>
     		<element name="otherName" type="string"></element>
+			<element name="personName" type="string"></element>
+			<element name="personRelation" type="string"></element>
+			<element name="reasonForHelp" type="string"></element>
     		<element name="surname" type="string"></element>
     		<element name="dobYear" type="string"></element>
     		<element name="dobMonth" type="string"></element>
