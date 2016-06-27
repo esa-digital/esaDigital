@@ -32,16 +32,15 @@ public class HelpWithApplicationController {
 
 		HttpSession session = request.getSession(false);
 		String sessionId = session.getId();
-		
 
 		logger.debug(sessionId + " Getting help with appication form");
 
 		HelpDetails helpDetails = (HelpDetails) session.getAttribute(HELP_DETAILS);
 		if (helpDetails == null) {
 			helpDetails = new HelpDetails();
-		} else {
-			model.addAttribute(helpDetails);
 		}
+
+		model.addAttribute(helpDetails);
 
 		return HELP_DETAILS_FORM;
 	}
@@ -49,7 +48,7 @@ public class HelpWithApplicationController {
 	@RequestMapping(value = ControllerUrls.HELP_DETAILS_FORM, method = RequestMethod.POST)
 	public String saveHelpWithApplicationData(Model model, HelpDetails helpDetails, BindingResult error, HttpServletRequest request) {
 
-		HttpSession session = request.getSession();
+		HttpSession session = request.getSession(false);
 		String sessionId = session.getId();
 
 		logger.debug(sessionId + "Saving Help Details");
@@ -69,7 +68,7 @@ public class HelpWithApplicationController {
 		session.setAttribute(HELP_DETAILS, helpDetails);
 		session.setAttribute(ControllerUrls.LAST_COMPLETED_FORM, ControllerUrls.HELP_DETAILS_URL);
 
-		logger.debug(sessionId + "Saved Help Details");
+		logger.info(sessionId + "Saved Help Details");
 		return "redirect:" + NEXT_FORM;
 
 	}

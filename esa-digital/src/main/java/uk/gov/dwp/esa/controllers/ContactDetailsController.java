@@ -40,6 +40,7 @@ public class ContactDetailsController {
 		String sessionId = session.getId();
 
 		if(null == session.getAttribute(ControllerUrls.LAST_COMPLETED_FORM)){
+			logger.error("Direct page hit: Redirecting to default help page");
 			return "redirect:" + session.getAttribute(ControllerUrls.DEFAULT_URL);
 		}
 
@@ -48,7 +49,7 @@ public class ContactDetailsController {
 			generator.setLocation(PropertyFileEnum.CONTACT_DETAILS_PROPERTY.value());
 			generator.parseModel(model);
 
-			logger.debug(sessionId + " Getting contact details form");
+			logger.info(sessionId + " Getting contact details form");
 
 			ContactDetails contactDetails = (ContactDetails) session.getAttribute(CONTACT_DETAILS);
 			if(contactDetails==null){
@@ -59,6 +60,7 @@ public class ContactDetailsController {
 
 			return CONTACT_DETAILS_FORM;
 		}else{
+			logger.info("Previous page not completed, redirecting to last completed for,");
 			return "redirect:" + session.getAttribute(ControllerUrls.LAST_COMPLETED_FORM);
 		}
 
@@ -91,7 +93,7 @@ public class ContactDetailsController {
 		session.setAttribute(CONTACT_DETAILS, contactDetails);
 		session.setAttribute(ControllerUrls.LAST_COMPLETED_FORM, ControllerUrls.CONTACT_DETAILS_URL);
 
-		logger.debug(sessionId + "Saved Claimant Details");
+		logger.info(sessionId + "Saved Claimant Details");
 		return "redirect:" + NEXT_FORM;
 
 	}

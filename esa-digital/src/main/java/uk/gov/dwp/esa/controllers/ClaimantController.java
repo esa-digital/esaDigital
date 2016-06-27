@@ -36,7 +36,6 @@ public class ClaimantController {
 		
 	@RequestMapping(value = ControllerUrls.PERSONAL_DETAILS_FORM, method = RequestMethod.GET)
 	public String getPersonalDetailsForm(Model model, HttpServletRequest request) {
-		
 		HttpSession session = request.getSession(false);
 		String sessionId = session.getId();
 				

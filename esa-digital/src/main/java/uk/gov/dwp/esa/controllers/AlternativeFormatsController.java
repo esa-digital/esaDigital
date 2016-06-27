@@ -34,10 +34,10 @@ public class AlternativeFormatsController {
 	private static String ALT_FORMATS_FORM = "alternative-formats";
 	private String PREVIOUS_FORM = ControllerUrls.CONTACT_DETAILS_URL;
 
-	
+
 	@Autowired
 	private GenericModelParser generator;
-	
+
 
 	@Autowired
 	private ESAClaimService esaClaimService;
@@ -50,26 +50,27 @@ public class AlternativeFormatsController {
 
 		HttpSession session = request.getSession(false);
 		String sessionId = session.getId();
-		
+
 		generator.setLocation(PropertyFileEnum.ALTERNATIVE_FORMATS_PROPERTY.value());
 		generator.parseModel(model);
 
 		if(null == session.getAttribute(ControllerUrls.LAST_COMPLETED_FORM)){
+			logger.error("Direct page hit: Redirecting to default help page");
 			return "redirect:" + session.getAttribute(ControllerUrls.DEFAULT_URL);
 		}
 
 		if(session.getAttribute(ControllerUrls.LAST_COMPLETED_FORM).equals(PREVIOUS_FORM)){
-			logger.debug(sessionId + " getting alternative formats form");
+			logger.info(sessionId + " Getting alternative formats form");
 
 			AlternativeFormat alternativeFormat = (AlternativeFormat) session.getAttribute(ALT_FORMATS);
 
 			if (alternativeFormat == null) {
 				alternativeFormat = new AlternativeFormat();
-			} else {
-				model.addAttribute(ALT_FORMATS, alternativeFormat);
 			}
+			model.addAttribute(alternativeFormat);
 			return ALT_FORMATS_FORM;
 		}else{
+			logger.info("Previous page not completed, redirecting to last completed for,");
 			return "redirect:" + session.getAttribute(ControllerUrls.LAST_COMPLETED_FORM);
 		}
 
@@ -81,7 +82,6 @@ public class AlternativeFormatsController {
 		HttpSession session = request.getSession(false);
 		String sessionId = session.getId();
 
-		logger.debug(sessionId + " Getting GP details form");
 
 		if (error.hasErrors()) {
 			// this will check whether there are any preload errors
@@ -96,19 +96,22 @@ public class AlternativeFormatsController {
 		if (error.hasErrors()) {
 			generator.setLocation(PropertyFileEnum.ALTERNATIVE_FORMATS_PROPERTY.value());
 			generator.parseModel(model);
-			model.addAttribute(ALT_FORMATS, alternativeFormat);
+			model.addAttribute(alternativeFormat);
 			logger.debug(error);
 			return ALT_FORMATS_FORM;
 		}
-
+		logger.info(sessionId + "Saved Alternative Format Details");
 		session.setAttribute(ALT_FORMATS, alternativeFormat);
 		session.setAttribute(ControllerUrls.LAST_COMPLETED_FORM, ControllerUrls.ALTERNATIVE_FORMATS_URL);
 
 		Claim claim = populateClaimObject(request);
 
+		
+		logger.info("Calling Claim Service to save Claim Object");
 		ResponseEntity<Map> status = esaClaimService.submitClaimDetails(claim);
 		HttpStatus httpStatus = status.getStatusCode();
 		if(httpStatus.equals(HttpStatus.CREATED)){
+			logger.info("Claim successfully submitted");
 			return "home";
 		}
 
@@ -116,8 +119,10 @@ public class AlternativeFormatsController {
 	}
 
 	private Claim populateClaimObject(HttpServletRequest request){
+		
+		logger.info("Populating final Claim object to save to database");
 
-		HttpSession session = request.getSession();
+		HttpSession session = request.getSession(false);
 		String tokenList = (String) session.getAttribute(TokenServiceController.TOKEN_SESSION_ATTRIBUTE);
 		String[] tokens = tokenList.split(":");
 
