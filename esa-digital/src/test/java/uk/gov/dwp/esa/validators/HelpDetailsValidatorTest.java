@@ -15,10 +15,8 @@ import org.mockito.runners.MockitoJUnitRunner;
 import junit.framework.Assert;
 import uk.gov.dwp.esa.constants.HelpDetailsConstants;
 import uk.gov.dwp.esa.constants.ValidationCodes;
-import uk.gov.dwp.esa.model.BehalfOptions;
-import uk.gov.dwp.esa.model.BehalfType;
-import uk.gov.dwp.esa.model.GettingHelp;
 import uk.gov.dwp.esa.model.HelpDetails;
+import uk.gov.dwp.esa.model.HelpDetailsType;
 import uk.gov.dwp.esa.validatorHelpers.ValidationError;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -31,52 +29,46 @@ public class HelpDetailsValidatorTest {
 	HelpDetails helpDetails;
 	
 	@Mock
-	GettingHelp thirdPartyDetails;
+	HelpDetailsType thirdPartyDetails;
 	
-	@Mock
-	BehalfOptions behalfOptions;
-	
-	@Mock
-	BehalfType behalfType;
+
 	
 	
 	@Before
 	public void setUp(){
 		MockitoAnnotations.initMocks(this.getClass());
-		when(behalfType.getTitle()).thenReturn("ms");
-		when(behalfType.getFirstName()).thenReturn("test");
-		when(behalfType.getSurname()).thenReturn("test");
-		when(behalfType.getOtherName()).thenReturn("othertest");
-		when(behalfType.getDobDay()).thenReturn("01");
-		when(behalfType.getDobMonth()).thenReturn("01");
-		when(behalfType.getDobYear()).thenReturn("1996");
-		when(behalfType.getNino()).thenReturn("ab000001d");
-		when(behalfType.getTelNumber()).thenReturn("07741587433");
-		when(behalfType.getPostCode()).thenReturn("LS7 5DQ");
-		when(behalfType.getAddLine1()).thenReturn("ABC");
-		when(behalfType.getAddLine2()).thenReturn("DEF");
-		when(behalfType.getAddLine3()).thenReturn("tyu");
-		when(behalfType.getAddLine4()).thenReturn("ghgj");
-		when(behalfOptions.getBehalfType()).thenReturn(behalfType);
-		when(helpDetails.getOnBehalfOfSomeoneElseOptions()).thenReturn(behalfOptions);
+		when(thirdPartyDetails.getTitle()).thenReturn("ms");
+		when(thirdPartyDetails.getFirstName()).thenReturn("test");
+		when(thirdPartyDetails.getSurname()).thenReturn("test");
+		when(thirdPartyDetails.getOtherName()).thenReturn("othertest");
+		when(thirdPartyDetails.getDobDay()).thenReturn("01");
+		when(thirdPartyDetails.getDobMonth()).thenReturn("01");
+		when(thirdPartyDetails.getDobYear()).thenReturn("1996");
+		when(thirdPartyDetails.getNino()).thenReturn("ab000001d");
+		when(thirdPartyDetails.getTelNumber()).thenReturn("07741587433");
+		when(thirdPartyDetails.getPostCode()).thenReturn("LS7 5DQ");
+		when(thirdPartyDetails.getAddLine1()).thenReturn("ABC");
+		when(thirdPartyDetails.getAddLine2()).thenReturn("DEF");
+		when(thirdPartyDetails.getAddLine3()).thenReturn("tyu");
+		when(thirdPartyDetails.getAddLine4()).thenReturn("ghgj");
+		when(helpDetails.getThirdPartyDetails()).thenReturn(thirdPartyDetails);
 		when(thirdPartyDetails.getPersonName()).thenReturn("testname");
 		when(thirdPartyDetails.getPersonRelation()).thenReturn("father");
 		when(thirdPartyDetails.getReasonForHelp()).thenReturn("Unable to fill");
 		when(helpDetails.getThirdPartyDetails()).thenReturn(thirdPartyDetails);
-		when(helpDetails.isApplyingOnBehalfOfSomeoneElse()).thenReturn(true);
 		
 	}
 	
 	@Test
 	public void testIsFillingYourselfValidation(){
-		when(helpDetails.isFillingByYourself()).thenReturn(true);
+		when(helpDetails.getHelpDetailsType()).thenReturn(HelpDetailsConstants.SELF_TYPE.value());
 		List<ValidationError> listValidationErrors = helpDetailsValidator.validateHelpDetails(helpDetails);
 		Assert.assertEquals(0, listValidationErrors.size());
 	}
 	
 	@Test
 	public void testThirdPartyValidation(){
-		when(helpDetails.isGettingHelp()).thenReturn(true);
+		when(helpDetails.getHelpDetailsType()).thenReturn(HelpDetailsConstants.THIRD_PARTY_HELP_TYPE.value());
 		when(thirdPartyDetails.getPersonName()).thenReturn("testname");
 		when(thirdPartyDetails.getPersonRelation()).thenReturn("father");
 		when(thirdPartyDetails.getReasonForHelp()).thenReturn("Unable to fill");
@@ -87,7 +79,7 @@ public class HelpDetailsValidatorTest {
 	
 	@Test
 	public void testNoThirdPartyDetailsValidation(){
-		when(helpDetails.isGettingHelp()).thenReturn(true);
+		when(helpDetails.getHelpDetailsType()).thenReturn(HelpDetailsConstants.THIRD_PARTY_HELP_TYPE.value());
 		when(thirdPartyDetails.getPersonName()).thenReturn(null);
 		when(thirdPartyDetails.getPersonRelation()).thenReturn(null);
 		when(thirdPartyDetails.getReasonForHelp()).thenReturn(null);
@@ -98,7 +90,7 @@ public class HelpDetailsValidatorTest {
 
 	@Test
 	public void testThirdPartyDetailsSizeValidation(){
-		when(helpDetails.isGettingHelp()).thenReturn(true);
+		when(helpDetails.getHelpDetailsType()).thenReturn(HelpDetailsConstants.THIRD_PARTY_HELP_TYPE.value());
 		when(thirdPartyDetails.getPersonName()).thenReturn("abcdefghijklmnopqrstuvwxyzab");
 		when(thirdPartyDetails.getPersonRelation()).thenReturn("abcdefghijklmnopqrstuvwxyzab");
 		when(thirdPartyDetails.getReasonForHelp()).thenReturn("abcdeghijklmnopqrstuvwxyzababcdeghijklmnopqrstuvwxyzab");
@@ -107,9 +99,17 @@ public class HelpDetailsValidatorTest {
 		Assert.assertEquals(3, listValidationErrors.size());
 	}
 	
+	
+	@Test
+	public void testWhenNoOptionSelected(){
+		when(helpDetails.getHelpDetailsType()).thenReturn("");
+		List<ValidationError> listValidationErrors = helpDetailsValidator.validateHelpDetails(helpDetails);
+		Assert.assertEquals(1, listValidationErrors.size());
+	}
+	
 	@Test
 	public void testThirdPartyDetailsInvalidValidation(){
-		when(helpDetails.isGettingHelp()).thenReturn(true);
+		when(helpDetails.getHelpDetailsType()).thenReturn(HelpDetailsConstants.THIRD_PARTY_HELP_TYPE.value());
 		when(thirdPartyDetails.getPersonName()).thenReturn(".- ghhkgfttrdf");
 		when(thirdPartyDetails.getPersonRelation()).thenReturn("12<>345");
 		when(thirdPartyDetails.getReasonForHelp()).thenReturn("GH^78()");
@@ -119,108 +119,110 @@ public class HelpDetailsValidatorTest {
 	}
 	
 	@Test
+	public void testOnBehalfOfErrorWhenTypeNotSelected(){
+		when(helpDetails.getHelpDetailsType()).thenReturn(HelpDetailsConstants.BEHALF_TYPE.value());
+		when(thirdPartyDetails.getBehalfOfType()).thenReturn("");
+		List<ValidationError> listValidationErrors = helpDetailsValidator.validateHelpDetails(helpDetails);
+		Assert.assertEquals(1, listValidationErrors.size());
+	}
+	
+	@Test
 	public void testOnBehalfOfRegisteredAppointeeDetailsValidation(){
-		when(behalfType.getFirstName()).thenReturn("test");
-		when(behalfType.getSurname()).thenReturn("test");
-		when(helpDetails.isApplyingOnBehalfOfSomeoneElse()).thenReturn(true);
-		when(behalfOptions.getBehalfType()).thenReturn(behalfType);
-		when(behalfOptions.isRegisteredAppointee()).thenReturn(true);
-		when(helpDetails.getOnBehalfOfSomeoneElseOptions()).thenReturn(behalfOptions);
+		when(thirdPartyDetails.getFirstName()).thenReturn("test");
+		when(thirdPartyDetails.getSurname()).thenReturn("test");
+		when(helpDetails.getHelpDetailsType()).thenReturn(HelpDetailsConstants.BEHALF_TYPE.value());
+		when(helpDetails.getThirdPartyDetails()).thenReturn(thirdPartyDetails);
+		when(thirdPartyDetails.getBehalfOfType()).thenReturn("dummy");
 		List<ValidationError> listValidationErrors = helpDetailsValidator.validateHelpDetails(helpDetails);
 		Assert.assertEquals(0, listValidationErrors.size());
 	}
 	
 	@Test
 	public void testOnBehalfOfRegisteredAppointeeNoDetailsValidation(){
-		when(behalfType.getFirstName()).thenReturn(null);
-		when(behalfType.getSurname()).thenReturn(null);
-		when(helpDetails.isApplyingOnBehalfOfSomeoneElse()).thenReturn(true);
-		when(behalfOptions.getBehalfType()).thenReturn(behalfType);
-		when(behalfOptions.isRegisteredAppointee()).thenReturn(true);
-		when(helpDetails.getOnBehalfOfSomeoneElseOptions()).thenReturn(behalfOptions);
+		when(thirdPartyDetails.getFirstName()).thenReturn(null);
+		when(thirdPartyDetails.getSurname()).thenReturn(null);
+		when(helpDetails.getHelpDetailsType()).thenReturn(HelpDetailsConstants.BEHALF_TYPE.value());
+		when(helpDetails.getThirdPartyDetails()).thenReturn(thirdPartyDetails);
+		when(thirdPartyDetails.getBehalfOfType()).thenReturn("dummy");
 		List<ValidationError> listValidationErrors = helpDetailsValidator.validateHelpDetails(helpDetails);
 		Assert.assertEquals(2, listValidationErrors.size());
 	}
 	
 	@Test
 	public void testOnBehalfOfRegisteredAppointeeDetailsLengthValidation(){
-		when(behalfType.getFirstName()).thenReturn("abcdefghijklmnopqrstuvwxyzab");
-		when(behalfType.getSurname()).thenReturn("abcdefghijklmnopqrstuvwxyzab");
-		when(helpDetails.isApplyingOnBehalfOfSomeoneElse()).thenReturn(true);
-		when(behalfOptions.getBehalfType()).thenReturn(behalfType);
-		when(behalfOptions.isRegisteredAppointee()).thenReturn(true);
-		when(helpDetails.getOnBehalfOfSomeoneElseOptions()).thenReturn(behalfOptions);
+		when(thirdPartyDetails.getFirstName()).thenReturn("abcdefghijklmnopqrstuvwxyzab");
+		when(thirdPartyDetails.getSurname()).thenReturn("abcdefghijklmnopqrstuvwxyzab");
+		when(helpDetails.getHelpDetailsType()).thenReturn(HelpDetailsConstants.BEHALF_TYPE.value());
+				when(helpDetails.getThirdPartyDetails()).thenReturn(thirdPartyDetails);
+		when(thirdPartyDetails.getBehalfOfType()).thenReturn("dummy");
 		List<ValidationError> listValidationErrors = helpDetailsValidator.validateHelpDetails(helpDetails);
 		Assert.assertEquals(2, listValidationErrors.size());
 	}
 	
 	@Test
 	public void testOnBehalfOfRegisteredAppointeeDetailsInvalidValidation(){
-		when(behalfType.getFirstName()).thenReturn("abv 563943*&7");
-		when(behalfType.getSurname()).thenReturn("1452GHIuYGYi");
-		when(helpDetails.isApplyingOnBehalfOfSomeoneElse()).thenReturn(true);
-		when(behalfOptions.getBehalfType()).thenReturn(behalfType);
-		when(behalfOptions.isRegisteredAppointee()).thenReturn(true);
-		when(helpDetails.getOnBehalfOfSomeoneElseOptions()).thenReturn(behalfOptions);
+		when(thirdPartyDetails.getFirstName()).thenReturn("abv 563943*&7");
+		when(thirdPartyDetails.getSurname()).thenReturn("1452GHIuYGYi");
+		when(helpDetails.getHelpDetailsType()).thenReturn(HelpDetailsConstants.BEHALF_TYPE.value());
+				when(helpDetails.getThirdPartyDetails()).thenReturn(thirdPartyDetails);
+		when(thirdPartyDetails.getBehalfOfType()).thenReturn("dummy");
 		List<ValidationError> listValidationErrors = helpDetailsValidator.validateHelpDetails(helpDetails);
 		Assert.assertEquals(2, listValidationErrors.size());
 	}
 	
 	@Test
 	public void testOnBehalfOfCommonOptionsDetailsValidation(){
-		when(behalfType.getTitle()).thenReturn("ms");
-		when(behalfType.getFirstName()).thenReturn("test");
-		when(behalfType.getSurname()).thenReturn("test");
-		when(behalfType.getOtherName()).thenReturn("othertest");
-		when(behalfType.getDobDay()).thenReturn("01");
-		when(behalfType.getDobMonth()).thenReturn("01");
-		when(behalfType.getDobYear()).thenReturn("1996");
-		when(behalfType.getNino()).thenReturn("ab000001d");
-		when(behalfType.getTelNumber()).thenReturn("01234567890");
-		when(behalfType.getPostCode()).thenReturn("LS7 5DQ");
-		when(behalfType.getAddLine1()).thenReturn("ABC");
-		when(behalfType.getAddLine2()).thenReturn("DEF");
-		when(behalfType.getAddLine3()).thenReturn("tyu");
-		when(behalfType.getAddLine4()).thenReturn("ghgj");
-		when(behalfOptions.getBehalfType()).thenReturn(behalfType);
-		when(behalfOptions.isCannotManageAffairs()).thenReturn(true);
-		when(helpDetails.getOnBehalfOfSomeoneElseOptions()).thenReturn(behalfOptions);
-		when(helpDetails.isApplyingOnBehalfOfSomeoneElse()).thenReturn(true);
+		when(thirdPartyDetails.getTitle()).thenReturn("ms");
+		when(thirdPartyDetails.getFirstName()).thenReturn("test");
+		when(thirdPartyDetails.getSurname()).thenReturn("test");
+		when(thirdPartyDetails.getOtherName()).thenReturn("othertest");
+		when(thirdPartyDetails.getDobDay()).thenReturn("01");
+		when(thirdPartyDetails.getDobMonth()).thenReturn("01");
+		when(thirdPartyDetails.getDobYear()).thenReturn("1996");
+		when(thirdPartyDetails.getNino()).thenReturn("ab000001d");
+		when(thirdPartyDetails.getTelNumber()).thenReturn("01234567890");
+		when(thirdPartyDetails.getPostCode()).thenReturn("LS7 5DQ");
+		when(thirdPartyDetails.getAddLine1()).thenReturn("ABC");
+		when(thirdPartyDetails.getAddLine2()).thenReturn("DEF");
+		when(thirdPartyDetails.getAddLine3()).thenReturn("tyu");
+		when(thirdPartyDetails.getAddLine4()).thenReturn("ghgj");
+		when(helpDetails.getThirdPartyDetails()).thenReturn(thirdPartyDetails);
+		when(thirdPartyDetails.getBehalfOfType()).thenReturn("dummy");
+		when(helpDetails.getHelpDetailsType()).thenReturn(HelpDetailsConstants.BEHALF_TYPE.value());
 		List<ValidationError> listValidationErrors = helpDetailsValidator.validateHelpDetails(helpDetails);
 		Assert.assertEquals(0, listValidationErrors.size());
 	}
 	
 	@Test
 	public void testOnBehalfOfCommonOptionsNoDetailsValidation(){
-		when(behalfType.getTitle()).thenReturn(null);
-		when(behalfType.getFirstName()).thenReturn(null);
-		when(behalfType.getSurname()).thenReturn(null);
-		when(behalfType.getOtherName()).thenReturn(null);
-		when(behalfType.getDobDay()).thenReturn(null);
-		when(behalfType.getDobMonth()).thenReturn(null);
-		when(behalfType.getDobYear()).thenReturn(null);
-		when(behalfType.getNino()).thenReturn(null);
-		when(behalfType.getTelNumber()).thenReturn(null);
-		when(behalfType.getPostCode()).thenReturn(null);
-		when(behalfType.getAddLine1()).thenReturn(null);
-		when(behalfType.getAddLine2()).thenReturn(null);
-		when(behalfType.getAddLine3()).thenReturn(null);
-		when(behalfType.getAddLine4()).thenReturn(null);
-		when(behalfOptions.getBehalfType()).thenReturn(behalfType);
-		when(behalfOptions.isCannotManageAffairs()).thenReturn(true);
-		when(helpDetails.getOnBehalfOfSomeoneElseOptions()).thenReturn(behalfOptions);
-		when(helpDetails.isApplyingOnBehalfOfSomeoneElse()).thenReturn(true);
+		when(thirdPartyDetails.getTitle()).thenReturn(null);
+		when(thirdPartyDetails.getFirstName()).thenReturn(null);
+		when(thirdPartyDetails.getSurname()).thenReturn(null);
+		when(thirdPartyDetails.getOtherName()).thenReturn(null);
+		when(thirdPartyDetails.getDobDay()).thenReturn(null);
+		when(thirdPartyDetails.getDobMonth()).thenReturn(null);
+		when(thirdPartyDetails.getDobYear()).thenReturn(null);
+		when(thirdPartyDetails.getNino()).thenReturn(null);
+		when(thirdPartyDetails.getTelNumber()).thenReturn(null);
+		when(thirdPartyDetails.getPostCode()).thenReturn(null);
+		when(thirdPartyDetails.getAddLine1()).thenReturn(null);
+		when(thirdPartyDetails.getAddLine2()).thenReturn(null);
+		when(thirdPartyDetails.getAddLine3()).thenReturn(null);
+		when(thirdPartyDetails.getAddLine4()).thenReturn(null);
+				when(helpDetails.getThirdPartyDetails()).thenReturn(thirdPartyDetails);
+		when(thirdPartyDetails.getBehalfOfType()).thenReturn("dummy");
+		when(helpDetails.getHelpDetailsType()).thenReturn(HelpDetailsConstants.BEHALF_TYPE.value());
 		List<ValidationError> listValidationErrors = helpDetailsValidator.validateHelpDetails(helpDetails);
 		Assert.assertEquals(8, listValidationErrors.size());
 	}
 	
 	@Test
-	public void testBehalfTypeTitleLengthValidation(){
-		when(behalfType.getTitle()).thenReturn("abcdefghijklmnopqrstuvwxyzabc");
-		when(behalfOptions.getBehalfType()).thenReturn(behalfType);
-		when(behalfOptions.isCannotManageAffairs()).thenReturn(true);
-		when(helpDetails.getOnBehalfOfSomeoneElseOptions()).thenReturn(behalfOptions);
-		when(helpDetails.isApplyingOnBehalfOfSomeoneElse()).thenReturn(true);
+	public void testthirdPartyDetailsTitleLengthValidation(){
+		when(thirdPartyDetails.getTitle()).thenReturn("abcdefghijklmnopqrstuvwxyzabc");
+				when(helpDetails.getThirdPartyDetails()).thenReturn(thirdPartyDetails);
+		when(thirdPartyDetails.getBehalfOfType()).thenReturn("dummy");
+		
+		when(helpDetails.getHelpDetailsType()).thenReturn(HelpDetailsConstants.BEHALF_TYPE.value());
 		List<ValidationError> listValidationErrors = helpDetailsValidator.validateHelpDetails(helpDetails);
 		ValidationError validationError = new ValidationError(HelpDetailsConstants.TITLE.value(), ValidationCodes.HELPDETAILS_TITLE_TOO_LONG);
 		Assert.assertEquals(1, listValidationErrors.size());
@@ -228,12 +230,12 @@ public class HelpDetailsValidatorTest {
 	}
 	
 	@Test
-	public void testBehalfTypeTitleAlphaValidation(){
-		when(behalfType.getTitle()).thenReturn("abc@%C123");
-		when(behalfOptions.getBehalfType()).thenReturn(behalfType);
-		when(behalfOptions.isCannotManageAffairs()).thenReturn(true);
-		when(helpDetails.getOnBehalfOfSomeoneElseOptions()).thenReturn(behalfOptions);
-		when(helpDetails.isApplyingOnBehalfOfSomeoneElse()).thenReturn(true);
+	public void testthirdPartyDetailsTitleAlphaValidation(){
+		when(thirdPartyDetails.getTitle()).thenReturn("abc@%C123");
+				when(helpDetails.getThirdPartyDetails()).thenReturn(thirdPartyDetails);
+		when(thirdPartyDetails.getBehalfOfType()).thenReturn("dummy");
+		
+		when(helpDetails.getHelpDetailsType()).thenReturn(HelpDetailsConstants.BEHALF_TYPE.value());
 		List<ValidationError> listValidationErrors = helpDetailsValidator.validateHelpDetails(helpDetails);
 		ValidationError validationError = new ValidationError(HelpDetailsConstants.TITLE.value(), ValidationCodes.HELPDETAILS_TITLE_ALPHA);
 		Assert.assertEquals(1, listValidationErrors.size());
@@ -241,12 +243,12 @@ public class HelpDetailsValidatorTest {
 	}
 	
 	@Test
-	public void testBehalfTypeFirstNameLengthValidation(){
-		when(behalfType.getFirstName()).thenReturn("abcdefghijklmnopqrstuvwxyzabc");
-		when(behalfOptions.getBehalfType()).thenReturn(behalfType);
-		when(behalfOptions.isCannotManageAffairs()).thenReturn(true);
-		when(helpDetails.getOnBehalfOfSomeoneElseOptions()).thenReturn(behalfOptions);
-		when(helpDetails.isApplyingOnBehalfOfSomeoneElse()).thenReturn(true);
+	public void testthirdPartyDetailsFirstNameLengthValidation(){
+		when(thirdPartyDetails.getFirstName()).thenReturn("abcdefghijklmnopqrstuvwxyzabc");
+				when(helpDetails.getThirdPartyDetails()).thenReturn(thirdPartyDetails);
+		when(thirdPartyDetails.getBehalfOfType()).thenReturn("dummy");
+		
+		when(helpDetails.getHelpDetailsType()).thenReturn(HelpDetailsConstants.BEHALF_TYPE.value());
 		List<ValidationError> listValidationErrors = helpDetailsValidator.validateHelpDetails(helpDetails);
 		ValidationError validationError = new ValidationError(HelpDetailsConstants.SURNAME.value(), ValidationCodes.HELPDETAILS_FIRST_NAME_TOO_LONG);
 		Assert.assertEquals(1, listValidationErrors.size());
@@ -254,12 +256,12 @@ public class HelpDetailsValidatorTest {
 	}
 	
 	@Test
-	public void testBehalfTypeFirstNameAlphaValidation(){
-		when(behalfType.getFirstName()).thenReturn("abcdefghijklmn45474757abc");
-		when(behalfOptions.getBehalfType()).thenReturn(behalfType);
-		when(behalfOptions.isCannotManageAffairs()).thenReturn(true);
-		when(helpDetails.getOnBehalfOfSomeoneElseOptions()).thenReturn(behalfOptions);
-		when(helpDetails.isApplyingOnBehalfOfSomeoneElse()).thenReturn(true);
+	public void testthirdPartyDetailsFirstNameAlphaValidation(){
+		when(thirdPartyDetails.getFirstName()).thenReturn("abcdefghijklmn45474757abc");
+				when(helpDetails.getThirdPartyDetails()).thenReturn(thirdPartyDetails);
+		when(thirdPartyDetails.getBehalfOfType()).thenReturn("dummy");
+		
+		when(helpDetails.getHelpDetailsType()).thenReturn(HelpDetailsConstants.BEHALF_TYPE.value());
 		List<ValidationError> listValidationErrors = helpDetailsValidator.validateHelpDetails(helpDetails);
 		ValidationError validationError = new ValidationError(HelpDetailsConstants.FIRST_NAME.value(), ValidationCodes.HELPDETAILS_FIRSTNAME_ALPHA_WITH_HYPHEN);
 		Assert.assertEquals(1, listValidationErrors.size());
@@ -267,12 +269,12 @@ public class HelpDetailsValidatorTest {
 	}
 	
 	@Test
-	public void testBehalfTypeSurNameLengthValidation(){
-		when(behalfType.getSurname()).thenReturn("abcdefghijhgkhgpqrstuvwxyzabc");
-		when(behalfOptions.getBehalfType()).thenReturn(behalfType);
-		when(behalfOptions.isCannotManageAffairs()).thenReturn(true);
-		when(helpDetails.getOnBehalfOfSomeoneElseOptions()).thenReturn(behalfOptions);
-		when(helpDetails.isApplyingOnBehalfOfSomeoneElse()).thenReturn(true);
+	public void testthirdPartyDetailsSurNameLengthValidation(){
+		when(thirdPartyDetails.getSurname()).thenReturn("abcdefghijhgkhgpqrstuvwxyzabc");
+				when(helpDetails.getThirdPartyDetails()).thenReturn(thirdPartyDetails);
+		when(thirdPartyDetails.getBehalfOfType()).thenReturn("dummy");
+		
+		when(helpDetails.getHelpDetailsType()).thenReturn(HelpDetailsConstants.BEHALF_TYPE.value());
 		List<ValidationError> listValidationErrors = helpDetailsValidator.validateHelpDetails(helpDetails);
 		ValidationError validationError = new ValidationError(HelpDetailsConstants.SURNAME.value(), ValidationCodes.HELPDETAILS_SURNAME_TOO_LONG);
 		Assert.assertEquals(1, listValidationErrors.size());
@@ -280,12 +282,12 @@ public class HelpDetailsValidatorTest {
 	}
 	
 	@Test
-	public void testBehalfTypeSurNameAlphaValidation(){
-		when(behalfType.getSurname()).thenReturn("abcdef$%^jklmn45474757abc");
-		when(behalfOptions.getBehalfType()).thenReturn(behalfType);
-		when(behalfOptions.isCannotManageAffairs()).thenReturn(true);
-		when(helpDetails.getOnBehalfOfSomeoneElseOptions()).thenReturn(behalfOptions);
-		when(helpDetails.isApplyingOnBehalfOfSomeoneElse()).thenReturn(true);
+	public void testthirdPartyDetailsSurNameAlphaValidation(){
+		when(thirdPartyDetails.getSurname()).thenReturn("abcdef$%^jklmn45474757abc");
+				when(helpDetails.getThirdPartyDetails()).thenReturn(thirdPartyDetails);
+		when(thirdPartyDetails.getBehalfOfType()).thenReturn("dummy");
+		
+		when(helpDetails.getHelpDetailsType()).thenReturn(HelpDetailsConstants.BEHALF_TYPE.value());
 		List<ValidationError> listValidationErrors = helpDetailsValidator.validateHelpDetails(helpDetails);
 		ValidationError validationError = new ValidationError(HelpDetailsConstants.FIRST_NAME.value(), ValidationCodes.HELPDETAILS_SURNAME_ALPHA_WITH_HYPHEN);
 		Assert.assertEquals(1, listValidationErrors.size());
@@ -293,12 +295,12 @@ public class HelpDetailsValidatorTest {
 	}
 	
 	@Test
-	public void testBehalfTypeOtherNameLengthValidation(){
-		when(behalfType.getOtherName()).thenReturn("abcdefghijhgkhgpqrstuvwxyzabc");
-		when(behalfOptions.getBehalfType()).thenReturn(behalfType);
-		when(behalfOptions.isOther()).thenReturn(true);
-		when(helpDetails.getOnBehalfOfSomeoneElseOptions()).thenReturn(behalfOptions);
-		when(helpDetails.isApplyingOnBehalfOfSomeoneElse()).thenReturn(true);
+	public void testthirdPartyDetailsOtherNameLengthValidation(){
+		when(thirdPartyDetails.getOtherName()).thenReturn("abcdefghijhgkhgpqrstuvwxyzabc");
+				when(helpDetails.getThirdPartyDetails()).thenReturn(thirdPartyDetails);
+		when(thirdPartyDetails.getBehalfOfType()).thenReturn("dummy");;
+		
+		when(helpDetails.getHelpDetailsType()).thenReturn(HelpDetailsConstants.BEHALF_TYPE.value());
 		List<ValidationError> listValidationErrors = helpDetailsValidator.validateHelpDetails(helpDetails);
 		ValidationError validationError = new ValidationError(HelpDetailsConstants.SURNAME.value(), ValidationCodes.HELPDETAILS_OTHERNAME_TOO_LONG);
 		Assert.assertEquals(1, listValidationErrors.size());
@@ -306,12 +308,12 @@ public class HelpDetailsValidatorTest {
 	}
 	
 	@Test
-	public void testBehalfTypeOtherNameAlphaValidation(){
-		when(behalfType.getOtherName()).thenReturn("abcdef$%^jklmn45474757abc");
-		when(behalfOptions.getBehalfType()).thenReturn(behalfType);
-		when(behalfOptions.isYourDeputy()).thenReturn(true);
-		when(helpDetails.getOnBehalfOfSomeoneElseOptions()).thenReturn(behalfOptions);
-		when(helpDetails.isApplyingOnBehalfOfSomeoneElse()).thenReturn(true);
+	public void testthirdPartyDetailsOtherNameAlphaValidation(){
+		when(thirdPartyDetails.getOtherName()).thenReturn("abcdef$%^jklmn45474757abc");
+				when(helpDetails.getThirdPartyDetails()).thenReturn(thirdPartyDetails);
+		when(thirdPartyDetails.getBehalfOfType()).thenReturn("deputy");;
+		
+		when(helpDetails.getHelpDetailsType()).thenReturn(HelpDetailsConstants.BEHALF_TYPE.value());
 		List<ValidationError> listValidationErrors = helpDetailsValidator.validateHelpDetails(helpDetails);
 		ValidationError validationError = new ValidationError(HelpDetailsConstants.FIRST_NAME.value(), ValidationCodes.HELPDETAILS_OTHERNAME_ALPHA_WITH_HYPHEN);
 		Assert.assertEquals(1, listValidationErrors.size());
@@ -320,12 +322,12 @@ public class HelpDetailsValidatorTest {
 	
 	@Test
 	public void testDOBMandatoryNullValidation() {
-		when(behalfType.getDobDay()).thenReturn(null);
-		when(behalfType.getDobMonth()).thenReturn(null);
-		when(behalfType.getDobYear()).thenReturn(null);
-		when(behalfOptions.isRegisteredPowerAttorney()).thenReturn(true);
-		when(helpDetails.getOnBehalfOfSomeoneElseOptions()).thenReturn(behalfOptions);
-		when(helpDetails.isApplyingOnBehalfOfSomeoneElse()).thenReturn(true);
+		when(thirdPartyDetails.getDobDay()).thenReturn(null);
+		when(thirdPartyDetails.getDobMonth()).thenReturn(null);
+		when(thirdPartyDetails.getDobYear()).thenReturn(null);
+		when(thirdPartyDetails.getBehalfOfType()).thenReturn("attorney");
+		
+		when(helpDetails.getHelpDetailsType()).thenReturn(HelpDetailsConstants.BEHALF_TYPE.value());
 		List<ValidationError> errors =  helpDetailsValidator.validateHelpDetails(helpDetails);
 		ValidationError ve = new ValidationError(HelpDetailsConstants.DOB.value(), ValidationCodes.HELPDETAILS_DOB_INVALID);
 		Assert.assertEquals(1, errors.size());
@@ -334,12 +336,12 @@ public class HelpDetailsValidatorTest {
 	
 	@Test
 	public void testDOBFutureValidation() {
-		when(behalfType.getDobDay()).thenReturn("1");
-		when(behalfType.getDobMonth()).thenReturn("1");
-		when(behalfType.getDobYear()).thenReturn("2019");
-		when(behalfOptions.isRegisteredPowerAttorney()).thenReturn(true);
-		when(helpDetails.getOnBehalfOfSomeoneElseOptions()).thenReturn(behalfOptions);
-		when(helpDetails.isApplyingOnBehalfOfSomeoneElse()).thenReturn(true);
+		when(thirdPartyDetails.getDobDay()).thenReturn("1");
+		when(thirdPartyDetails.getDobMonth()).thenReturn("1");
+		when(thirdPartyDetails.getDobYear()).thenReturn("2019");
+		when(thirdPartyDetails.getBehalfOfType()).thenReturn("attorney");
+		
+		when(helpDetails.getHelpDetailsType()).thenReturn(HelpDetailsConstants.BEHALF_TYPE.value());
 		List<ValidationError> errors =  helpDetailsValidator.validateHelpDetails(helpDetails);
 		ValidationError ve = new ValidationError(HelpDetailsConstants.DOB.value(), ValidationCodes.HELPDETAILS_DOB_FUTURE);
 		Assert.assertEquals(1, errors.size());
@@ -348,10 +350,10 @@ public class HelpDetailsValidatorTest {
 	
 	@Test
 	public void testNinoNotValid() {
-		when(behalfType.getNino()).thenReturn("AB02376e73");
-		when(behalfOptions.isRegisteredPowerAttorney()).thenReturn(true);
-		when(helpDetails.getOnBehalfOfSomeoneElseOptions()).thenReturn(behalfOptions);
-		when(helpDetails.isApplyingOnBehalfOfSomeoneElse()).thenReturn(true);
+		when(thirdPartyDetails.getNino()).thenReturn("AB02376e73");
+		when(thirdPartyDetails.getBehalfOfType()).thenReturn("attorney");
+		
+		when(helpDetails.getHelpDetailsType()).thenReturn(HelpDetailsConstants.BEHALF_TYPE.value());
 		List<ValidationError> errors =  helpDetailsValidator.validateHelpDetails(helpDetails);
 		ValidationError ve = new ValidationError(HelpDetailsConstants.NINO.value(), ValidationCodes.HELPDETAILS_NINO_NOTVALID);
 		Assert.assertEquals(1, errors.size());
@@ -360,10 +362,10 @@ public class HelpDetailsValidatorTest {
 	
 	@Test
 	public void testPostCodeIsEmpty() {
-		when(behalfType.getPostCode()).thenReturn("");
-		when(behalfOptions.isRegisteredPowerAttorney()).thenReturn(true);
-		when(helpDetails.getOnBehalfOfSomeoneElseOptions()).thenReturn(behalfOptions);
-		when(helpDetails.isApplyingOnBehalfOfSomeoneElse()).thenReturn(true);
+		when(thirdPartyDetails.getPostCode()).thenReturn("");
+		when(thirdPartyDetails.getBehalfOfType()).thenReturn("attorney");
+		
+		when(helpDetails.getHelpDetailsType()).thenReturn(HelpDetailsConstants.BEHALF_TYPE.value());
 		List<ValidationError> errors = helpDetailsValidator.validateHelpDetails(helpDetails);
 		ValidationError ve = new ValidationError(HelpDetailsConstants.POSTCODE.value(),ValidationCodes.HELPDETAILS_POSTCODE_EMPTY);
 		Assert.assertEquals(1, errors.size());
@@ -372,10 +374,10 @@ public class HelpDetailsValidatorTest {
 	
 	@Test
 	public void testPostCodeIsNull() {
-		when(behalfType.getPostCode()).thenReturn(null);
-		when(behalfOptions.isRegisteredPowerAttorney()).thenReturn(true);
-		when(helpDetails.getOnBehalfOfSomeoneElseOptions()).thenReturn(behalfOptions);
-		when(helpDetails.isApplyingOnBehalfOfSomeoneElse()).thenReturn(true);
+		when(thirdPartyDetails.getPostCode()).thenReturn(null);
+		when(thirdPartyDetails.getBehalfOfType()).thenReturn("attorney");
+		
+		when(helpDetails.getHelpDetailsType()).thenReturn(HelpDetailsConstants.BEHALF_TYPE.value());
 		List<ValidationError> errors = helpDetailsValidator.validateHelpDetails(helpDetails);
 		ValidationError ve = new ValidationError(HelpDetailsConstants.POSTCODE.value(),ValidationCodes.HELPDETAILS_POSTCODE_EMPTY);
 		Assert.assertEquals(1, errors.size());
@@ -385,10 +387,10 @@ public class HelpDetailsValidatorTest {
 	
 	@Test
 	public void testPostCodeIsNotValid() {
-		when(behalfType.getPostCode()).thenReturn("LS! 678");
-		when(behalfOptions.isRegisteredPowerAttorney()).thenReturn(true);
-		when(helpDetails.getOnBehalfOfSomeoneElseOptions()).thenReturn(behalfOptions);
-		when(helpDetails.isApplyingOnBehalfOfSomeoneElse()).thenReturn(true);
+		when(thirdPartyDetails.getPostCode()).thenReturn("LS! 678");
+		when(thirdPartyDetails.getBehalfOfType()).thenReturn("attorney");
+		
+		when(helpDetails.getHelpDetailsType()).thenReturn(HelpDetailsConstants.BEHALF_TYPE.value());
 		List<ValidationError> errors = helpDetailsValidator.validateHelpDetails(helpDetails);
 		ValidationError ve = new ValidationError(HelpDetailsConstants.POSTCODE.value(),ValidationCodes.HELPDETAILS_POSTCODE_INVALID);
 		Assert.assertEquals(1, errors.size());
@@ -397,10 +399,10 @@ public class HelpDetailsValidatorTest {
 	
 	@Test
 	public void testPostCodeLength() {
-		when(behalfType.getPostCode()).thenReturn("LS! 678 6799887665");
-		when(behalfOptions.isRegisteredPowerAttorney()).thenReturn(true);
-		when(helpDetails.getOnBehalfOfSomeoneElseOptions()).thenReturn(behalfOptions);
-		when(helpDetails.isApplyingOnBehalfOfSomeoneElse()).thenReturn(true);
+		when(thirdPartyDetails.getPostCode()).thenReturn("LS! 678 6799887665");
+		when(thirdPartyDetails.getBehalfOfType()).thenReturn("attorney");
+		
+		when(helpDetails.getHelpDetailsType()).thenReturn(HelpDetailsConstants.BEHALF_TYPE.value());
 		List<ValidationError> errors = helpDetailsValidator.validateHelpDetails(helpDetails);
 		ValidationError ve = new ValidationError(HelpDetailsConstants.POSTCODE.value(),ValidationCodes.HELPDETAILS_POSTCODE_INVALID);
 		Assert.assertEquals(1, errors.size());
@@ -410,10 +412,10 @@ public class HelpDetailsValidatorTest {
 		
 	@Test
 	public void testGpTelNumberIsOver20Chars(){
-		when(behalfType.getTelNumber()).thenReturn("0123456789012345678901");
-		when(behalfOptions.isRegisteredPowerAttorney()).thenReturn(true);
-		when(helpDetails.getOnBehalfOfSomeoneElseOptions()).thenReturn(behalfOptions);
-		when(helpDetails.isApplyingOnBehalfOfSomeoneElse()).thenReturn(true);
+		when(thirdPartyDetails.getTelNumber()).thenReturn("0123456789012345678901");
+		when(thirdPartyDetails.getBehalfOfType()).thenReturn("attorney");
+		
+		when(helpDetails.getHelpDetailsType()).thenReturn(HelpDetailsConstants.BEHALF_TYPE.value());
 		List<ValidationError> errors = helpDetailsValidator.validateHelpDetails(helpDetails);
 		ValidationError ve = new ValidationError(HelpDetailsConstants.TEL_NUMBER.value(),ValidationCodes.HELPDETAILS_TELEPHONE_TOO_LONG);
 		Assert.assertEquals(1, errors.size());
@@ -422,10 +424,10 @@ public class HelpDetailsValidatorTest {
 	
 	@Test
 	public void testGpTelNumberIsNotValidPhoneNumber(){
-		when(behalfType.getTelNumber()).thenReturn("+442767!&57");
-		when(behalfOptions.isRegisteredPowerAttorney()).thenReturn(true);
-		when(helpDetails.getOnBehalfOfSomeoneElseOptions()).thenReturn(behalfOptions);
-		when(helpDetails.isApplyingOnBehalfOfSomeoneElse()).thenReturn(true);
+		when(thirdPartyDetails.getTelNumber()).thenReturn("+442767!&57");
+		when(thirdPartyDetails.getBehalfOfType()).thenReturn("attorney");
+		
+		when(helpDetails.getHelpDetailsType()).thenReturn(HelpDetailsConstants.BEHALF_TYPE.value());
 		List<ValidationError> errors = helpDetailsValidator.validateHelpDetails(helpDetails);
 		ValidationError ve = new ValidationError(HelpDetailsConstants.TEL_NUMBER.value(),ValidationCodes.HELPDETAILS_TELEPHONE_INVALID);
 		Assert.assertEquals(1, errors.size());
@@ -435,10 +437,10 @@ public class HelpDetailsValidatorTest {
 	
 	@Test
 	public void testAddressLine1IsEmptyString() {
-		when(behalfType.getAddLine1()).thenReturn("");
-		when(behalfOptions.isRegisteredPowerAttorney()).thenReturn(true);
-		when(helpDetails.getOnBehalfOfSomeoneElseOptions()).thenReturn(behalfOptions);
-		when(helpDetails.isApplyingOnBehalfOfSomeoneElse()).thenReturn(true);
+		when(thirdPartyDetails.getAddLine1()).thenReturn("");
+		when(thirdPartyDetails.getBehalfOfType()).thenReturn("attorney");
+		
+		when(helpDetails.getHelpDetailsType()).thenReturn(HelpDetailsConstants.BEHALF_TYPE.value());
 		List<ValidationError> errors = helpDetailsValidator.validateHelpDetails(helpDetails);
 		ValidationError ve = new ValidationError(HelpDetailsConstants.ADDRESS_LINE1.value(), ValidationCodes.HELPDETAILS_ADDRESS_LINE1_EMPTY);
 		Assert.assertEquals(1, errors.size());
@@ -447,10 +449,10 @@ public class HelpDetailsValidatorTest {
 	
 	@Test
 	public void testAddressLine1IsNull() {
-		when(behalfType.getAddLine1()).thenReturn("");
-		when(behalfOptions.isRegisteredPowerAttorney()).thenReturn(true);
-		when(helpDetails.getOnBehalfOfSomeoneElseOptions()).thenReturn(behalfOptions);
-		when(helpDetails.isApplyingOnBehalfOfSomeoneElse()).thenReturn(true);
+		when(thirdPartyDetails.getAddLine1()).thenReturn("");
+		when(thirdPartyDetails.getBehalfOfType()).thenReturn("attorney");
+		
+		when(helpDetails.getHelpDetailsType()).thenReturn(HelpDetailsConstants.BEHALF_TYPE.value());
 		List<ValidationError> errors = helpDetailsValidator.validateHelpDetails(helpDetails);
 		ValidationError ve = new ValidationError(HelpDetailsConstants.ADDRESS_LINE1.value(), ValidationCodes.HELPDETAILS_ADDRESS_LINE1_EMPTY);
 		Assert.assertEquals(1, errors.size());
@@ -459,10 +461,10 @@ public class HelpDetailsValidatorTest {
 	
 	@Test
 	public void testAddressLine1More27Chars() {
-		when(behalfType.getAddLine1()).thenReturn("ahduoahwydouqwdajlkshdlajsdhkjahdskahsdjk");
-		when(behalfOptions.isRegisteredPowerAttorney()).thenReturn(true);
-		when(helpDetails.getOnBehalfOfSomeoneElseOptions()).thenReturn(behalfOptions);
-		when(helpDetails.isApplyingOnBehalfOfSomeoneElse()).thenReturn(true);
+		when(thirdPartyDetails.getAddLine1()).thenReturn("ahduoahwydouqwdajlkshdlajsdhkjahdskahsdjk");
+		when(thirdPartyDetails.getBehalfOfType()).thenReturn("attorney");
+		
+		when(helpDetails.getHelpDetailsType()).thenReturn(HelpDetailsConstants.BEHALF_TYPE.value());
 		List<ValidationError> errors = helpDetailsValidator.validateHelpDetails(helpDetails);
 		ValidationError ve = new ValidationError(HelpDetailsConstants.ADDRESS_LINE1.value(), ValidationCodes.HELPDETAILS_ADDRESS_LINE1_TOO_LONG);
 		Assert.assertEquals(1, errors.size());
@@ -471,10 +473,10 @@ public class HelpDetailsValidatorTest {
 	
 	@Test
 	public void testAddressLine1NotAlphaNumeric() {
-		when(behalfType.getAddLine1()).thenReturn("ahduoahwy$&%&kahsdjk");
-		when(behalfOptions.isRegisteredPowerAttorney()).thenReturn(true);
-		when(helpDetails.getOnBehalfOfSomeoneElseOptions()).thenReturn(behalfOptions);
-		when(helpDetails.isApplyingOnBehalfOfSomeoneElse()).thenReturn(true);
+		when(thirdPartyDetails.getAddLine1()).thenReturn("ahduoahwy$&%&kahsdjk");
+		when(thirdPartyDetails.getBehalfOfType()).thenReturn("attorney");
+		
+		when(helpDetails.getHelpDetailsType()).thenReturn(HelpDetailsConstants.BEHALF_TYPE.value());
 		List<ValidationError> errors = helpDetailsValidator.validateHelpDetails(helpDetails);
 		ValidationError ve = new ValidationError(HelpDetailsConstants.ADDRESS_LINE1.value(), ValidationCodes.HELPDETAILS_ADDRESS_LINE_ALPHA);
 		Assert.assertEquals(1, errors.size());
@@ -484,10 +486,10 @@ public class HelpDetailsValidatorTest {
 	
 	@Test
 	public void testaddressLine2IsEmptyString() {
-		when(behalfType.getAddLine2()).thenReturn("");
-		when(behalfOptions.isRegisteredPowerAttorney()).thenReturn(true);
-		when(helpDetails.getOnBehalfOfSomeoneElseOptions()).thenReturn(behalfOptions);
-		when(helpDetails.isApplyingOnBehalfOfSomeoneElse()).thenReturn(true);
+		when(thirdPartyDetails.getAddLine2()).thenReturn("");
+		when(thirdPartyDetails.getBehalfOfType()).thenReturn("attorney");
+		
+		when(helpDetails.getHelpDetailsType()).thenReturn(HelpDetailsConstants.BEHALF_TYPE.value());
 		List<ValidationError> errors = helpDetailsValidator.validateHelpDetails(helpDetails);
 		ValidationError ve = new ValidationError(HelpDetailsConstants.ADDRESS_LINE2.value(), ValidationCodes.HELPDETAILS_ADDRESS_LINE2_EMPTY);
 		Assert.assertEquals(1, errors.size());
@@ -496,10 +498,10 @@ public class HelpDetailsValidatorTest {
 	
 	@Test
 	public void testaddressLine2IsNull() {
-		when(behalfType.getAddLine2()).thenReturn(null);
-		when(behalfOptions.isRegisteredPowerAttorney()).thenReturn(true);
-		when(helpDetails.getOnBehalfOfSomeoneElseOptions()).thenReturn(behalfOptions);
-		when(helpDetails.isApplyingOnBehalfOfSomeoneElse()).thenReturn(true);
+		when(thirdPartyDetails.getAddLine2()).thenReturn(null);
+		when(thirdPartyDetails.getBehalfOfType()).thenReturn("attorney");
+		
+		when(helpDetails.getHelpDetailsType()).thenReturn(HelpDetailsConstants.BEHALF_TYPE.value());
 		List<ValidationError> errors = helpDetailsValidator.validateHelpDetails(helpDetails);
 		ValidationError ve = new ValidationError(HelpDetailsConstants.ADDRESS_LINE2.value(), ValidationCodes.HELPDETAILS_ADDRESS_LINE2_EMPTY);
 		Assert.assertEquals(1, errors.size());
@@ -508,10 +510,10 @@ public class HelpDetailsValidatorTest {
 	
 	@Test
 	public void testaddressLine2More27Chars() {
-		when(behalfType.getAddLine2()).thenReturn("ahduoahwydouqwdajlkshdlajsdhkjahdskahsdjk");
-		when(behalfOptions.isRegisteredPowerAttorney()).thenReturn(true);
-		when(helpDetails.getOnBehalfOfSomeoneElseOptions()).thenReturn(behalfOptions);
-		when(helpDetails.isApplyingOnBehalfOfSomeoneElse()).thenReturn(true);
+		when(thirdPartyDetails.getAddLine2()).thenReturn("ahduoahwydouqwdajlkshdlajsdhkjahdskahsdjk");
+		when(thirdPartyDetails.getBehalfOfType()).thenReturn("attorney");
+		
+		when(helpDetails.getHelpDetailsType()).thenReturn(HelpDetailsConstants.BEHALF_TYPE.value());
 		List<ValidationError> errors = helpDetailsValidator.validateHelpDetails(helpDetails);
 		ValidationError ve = new ValidationError(HelpDetailsConstants.ADDRESS_LINE2.value(), ValidationCodes.HELPDETAILS_ADDRESS_LINE2_TOO_LONG);
 		Assert.assertEquals(1, errors.size());
@@ -520,10 +522,10 @@ public class HelpDetailsValidatorTest {
 	
 	@Test
 	public void testaddressLine2NotAlphaNumeric() {
-		when(behalfType.getAddLine2()).thenReturn("ahduoahwy$&%&kahsdjk");
-		when(behalfOptions.isRegisteredPowerAttorney()).thenReturn(true);
-		when(helpDetails.getOnBehalfOfSomeoneElseOptions()).thenReturn(behalfOptions);
-		when(helpDetails.isApplyingOnBehalfOfSomeoneElse()).thenReturn(true);
+		when(thirdPartyDetails.getAddLine2()).thenReturn("ahduoahwy$&%&kahsdjk");
+		when(thirdPartyDetails.getBehalfOfType()).thenReturn("attorney");
+		
+		when(helpDetails.getHelpDetailsType()).thenReturn(HelpDetailsConstants.BEHALF_TYPE.value());
 		List<ValidationError> errors = helpDetailsValidator.validateHelpDetails(helpDetails);
 		ValidationError ve = new ValidationError(HelpDetailsConstants.ADDRESS_LINE2.value(), ValidationCodes.HELPDETAILS_ADDRESS_LINE_ALPHA);
 		Assert.assertEquals(1, errors.size());
@@ -533,10 +535,10 @@ public class HelpDetailsValidatorTest {
 	
 	@Test
 	public void testaddressLine3More27Chars(){
-		when(behalfType.getAddLine3()).thenReturn("ahduoahwydouqwdajlkshdlajsdhkjahdskahsdjk");
-		when(behalfOptions.isRegisteredPowerAttorney()).thenReturn(true);
-		when(helpDetails.getOnBehalfOfSomeoneElseOptions()).thenReturn(behalfOptions);
-		when(helpDetails.isApplyingOnBehalfOfSomeoneElse()).thenReturn(true);
+		when(thirdPartyDetails.getAddLine3()).thenReturn("ahduoahwydouqwdajlkshdlajsdhkjahdskahsdjk");
+		when(thirdPartyDetails.getBehalfOfType()).thenReturn("attorney");
+		
+		when(helpDetails.getHelpDetailsType()).thenReturn(HelpDetailsConstants.BEHALF_TYPE.value());
 		List<ValidationError> errors = helpDetailsValidator.validateHelpDetails(helpDetails);
 		ValidationError ve = new ValidationError(HelpDetailsConstants.ADDRESS_LINE3.value(), ValidationCodes.HELPDETAILS_ADDRESS_LINE3_TOO_LONG);
 		Assert.assertEquals(1, errors.size());
@@ -545,10 +547,10 @@ public class HelpDetailsValidatorTest {
 	
 	@Test
 	public void testaddressLine3NotAlphaNumeric() {
-		when(behalfType.getAddLine3()).thenReturn("ahduoahwy$&%&kshsdjk");
-		when(behalfOptions.isRegisteredPowerAttorney()).thenReturn(true);
-		when(helpDetails.getOnBehalfOfSomeoneElseOptions()).thenReturn(behalfOptions);
-		when(helpDetails.isApplyingOnBehalfOfSomeoneElse()).thenReturn(true);
+		when(thirdPartyDetails.getAddLine3()).thenReturn("ahduoahwy$&%&kshsdjk");
+		when(thirdPartyDetails.getBehalfOfType()).thenReturn("attorney");
+		
+		when(helpDetails.getHelpDetailsType()).thenReturn(HelpDetailsConstants.BEHALF_TYPE.value());
 		List<ValidationError> errors = helpDetailsValidator.validateHelpDetails(helpDetails);
 		ValidationError ve = new ValidationError(HelpDetailsConstants.ADDRESS_LINE3.value(), ValidationCodes.HELPDETAILS_ADDRESS_LINE_ALPHA);
 		Assert.assertEquals(1, errors.size() );
@@ -558,10 +560,10 @@ public class HelpDetailsValidatorTest {
 	
 	@Test
 	public void testaddressLine4More27Chars(){
-		when(behalfType.getAddLine4()).thenReturn("ahduoahwydouqwdajlkshdlajsdhkjahdskahsdjk");
-		when(behalfOptions.isRegisteredPowerAttorney()).thenReturn(true);
-		when(helpDetails.getOnBehalfOfSomeoneElseOptions()).thenReturn(behalfOptions);
-		when(helpDetails.isApplyingOnBehalfOfSomeoneElse()).thenReturn(true);
+		when(thirdPartyDetails.getAddLine4()).thenReturn("ahduoahwydouqwdajlkshdlajsdhkjahdskahsdjk");
+		when(thirdPartyDetails.getBehalfOfType()).thenReturn("attorney");
+		
+		when(helpDetails.getHelpDetailsType()).thenReturn(HelpDetailsConstants.BEHALF_TYPE.value());
 		List<ValidationError> errors = helpDetailsValidator.validateHelpDetails(helpDetails);
 		ValidationError ve = new ValidationError(HelpDetailsConstants.ADDRESS_LINE4.value(), ValidationCodes.HELPDETAILS_ADDRESS_LINE4_TOO_LONG);
 		Assert.assertEquals(1, errors.size());
@@ -570,10 +572,10 @@ public class HelpDetailsValidatorTest {
 	
 	@Test
 	public void testaddressLine4NotAlphaNumeric() {
-		when(behalfType.getAddLine4()).thenReturn("ahduoahwy$&%&kskahsdjk");
-		when(behalfOptions.isRegisteredPowerAttorney()).thenReturn(true);
-		when(helpDetails.getOnBehalfOfSomeoneElseOptions()).thenReturn(behalfOptions);
-		when(helpDetails.isApplyingOnBehalfOfSomeoneElse()).thenReturn(true);
+		when(thirdPartyDetails.getAddLine4()).thenReturn("ahduoahwy$&%&kskahsdjk");
+		when(thirdPartyDetails.getBehalfOfType()).thenReturn("attorney");
+		
+		when(helpDetails.getHelpDetailsType()).thenReturn(HelpDetailsConstants.BEHALF_TYPE.value());
 		List<ValidationError> errors = helpDetailsValidator.validateHelpDetails(helpDetails);
 		ValidationError ve = new ValidationError(HelpDetailsConstants.ADDRESS_LINE4.value(), ValidationCodes.HELPDETAILS_ADDRESS_LINE_ALPHA);
 		Assert.assertEquals(1, errors.size() );
