@@ -16,7 +16,11 @@
         </div>
     </footer>
     <div id="global-app-error" class="app-error hidden"></div>
+    
     <script src="assets/javascripts/govuk-template.js"></script>
+    <script src="assets/javascripts/application.js"></script>
+    <#if pageJs != "">
+      <script src="assets/javascripts/${pageJs}.js"></script>
+    </#if>
 </body>
-
 </html>

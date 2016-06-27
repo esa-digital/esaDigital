@@ -1,6 +1,9 @@
 <#import "../lib/components.ftl" as components>
 <#import "../lib/errors.ftl" as errors/>
 <#import "/spring.ftl" as spring/>
+
+<#assign pageJs = "" />
+
 <!DOCTYPE html>
 <!--[if lt IE 9]><html class="lte-ie8" lang="en"><![endif]-->
 <!--[if gt IE 8]><!--><html lang="en"><!--<![endif]-->
