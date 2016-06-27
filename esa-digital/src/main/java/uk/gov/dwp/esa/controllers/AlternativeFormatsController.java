@@ -26,10 +26,11 @@ import uk.gov.dwp.esa.validators.AlternativeFormatsValidator;
 
 @Controller
 public class AlternativeFormatsController {
-	
+
 	private static final Logger logger = LogManager.getLogger(GPController.class);
 	private static final String ALT_FORMATS = "/alternative-formats";
 	private static String ALT_FORMATS_FORM = "alternative-formats";
+	private String PREVIOUS_FORM = ControllerUrls.CONTACT_DETAILS_URL;
 
 	@Autowired
 	private ESAClaimService esaClaimService;
@@ -37,29 +38,37 @@ public class AlternativeFormatsController {
 	@Autowired
 	private AlternativeFormatsValidator alternativeFormatsValidator;
 
-	@RequestMapping(value = ControllerUrls.ALTERNATIVE_FORMATS, method = RequestMethod.GET)
+	@RequestMapping(value = ControllerUrls.ALTERNATIVE_FORMATS_FORM, method = RequestMethod.GET)
 	public String getAlternativeFormatsForm(Model model, HttpServletRequest request) {
 
-		HttpSession session = request.getSession();
+		HttpSession session = request.getSession(false);
 		String sessionId = session.getId();
 
-		logger.debug(sessionId + " getting alternative formats form");
-		
-		AlternativeFormat alternativeFormat = (AlternativeFormat) session.getAttribute(ALT_FORMATS);
-
-		if (alternativeFormat == null) {
-			alternativeFormat = new AlternativeFormat();
-		} else {
-			model.addAttribute(ALT_FORMATS, alternativeFormat);
+		if(null == session.getAttribute(ControllerUrls.LAST_COMPLETED_FORM)){
+			return "redirect:" + session.getAttribute(ControllerUrls.DEFAULT_URL);
 		}
-		return ALT_FORMATS_FORM;
+
+		if(session.getAttribute(ControllerUrls.LAST_COMPLETED_FORM).equals(PREVIOUS_FORM)){
+			logger.debug(sessionId + " getting alternative formats form");
+
+			AlternativeFormat alternativeFormat = (AlternativeFormat) session.getAttribute(ALT_FORMATS);
+
+			if (alternativeFormat == null) {
+				alternativeFormat = new AlternativeFormat();
+			} else {
+				model.addAttribute(ALT_FORMATS, alternativeFormat);
+			}
+			return ALT_FORMATS_FORM;
+		}else{
+			return "redirect:" + session.getAttribute(ControllerUrls.LAST_COMPLETED_FORM);
+		}
 
 	}
 
-	@RequestMapping(value = ControllerUrls.ALTERNATIVE_FORMATS, method = RequestMethod.POST)
+	@RequestMapping(value = ControllerUrls.ALTERNATIVE_FORMATS_FORM, method = RequestMethod.POST)
 	public String saveAlternativeFormatsData(Model model, AlternativeFormat alternativeFormat, BindingResult error, HttpServletRequest request) {
 
-		HttpSession session = request.getSession();
+		HttpSession session = request.getSession(false);
 		String sessionId = session.getId();
 
 		logger.debug(sessionId + " Getting GP details form");
@@ -81,6 +90,7 @@ public class AlternativeFormatsController {
 		}
 
 		session.setAttribute(ALT_FORMATS, alternativeFormat);
+		session.setAttribute(ControllerUrls.LAST_COMPLETED_FORM, ControllerUrls.ALTERNATIVE_FORMATS_URL);
 
 		Claim claim = populateClaimObject(request);
 
@@ -93,16 +103,16 @@ public class AlternativeFormatsController {
 		return null;
 	}
 
-		private Claim populateClaimObject(HttpServletRequest request){
+	private Claim populateClaimObject(HttpServletRequest request){
 
 		HttpSession session = request.getSession();
 		String tokenList = (String) session.getAttribute(TokenServiceController.TOKEN_SESSION_ATTRIBUTE);
 		String[] tokens = tokenList.split(":");
-		
+
 		Claimant claimant = (Claimant) session.getAttribute(ClaimantController.CLAIMANT_DETAILS);
 		GPDetails gpDetails = (GPDetails) session.getAttribute(GPController.GP_DETAILS);
 		AlternativeFormat alternativeFormat = (AlternativeFormat) session.getAttribute(AlternativeFormatsController.ALT_FORMATS);
-		
+
 		Claim claim = new Claim();
 		claim.setClaimant(claimant);
 		claim.setGpDetails(gpDetails);

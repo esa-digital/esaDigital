@@ -23,64 +23,76 @@ public class ContactDetailsController {
 
 	private static final Logger logger = LogManager.getLogger(ContactDetailsController.class);
 	protected static final String CONTACT_DETAILS = "ContactDetails";
-	private String NEXT_FORM = "/api" + ControllerUrls.ALTERNATIVE_FORMATS;
+	private String NEXT_FORM = ControllerUrls.ALTERNATIVE_FORMATS_URL;
+	private String PREVIOUS_FORM = ControllerUrls.PERSONAL_DETAILS_URL;
 	private static String CONTACT_DETAILS_FORM = "contact-details";
-		
+
 	@Autowired
 	private ContactDetailsValidator contactDetailsValidator;
-	
+
 	@Autowired
 	private GenericModelParser generator;
-	
-	@RequestMapping(value = ControllerUrls.CONTACT_DETAILS, method = RequestMethod.GET)
+
+	@RequestMapping(value = ControllerUrls.CONTACT_DETAILS_FORM, method = RequestMethod.GET)
 	public String getcontactDetailsForm(Model model, HttpServletRequest request) {
-		
-		HttpSession session = request.getSession();
+
+		HttpSession session = request.getSession(false);
 		String sessionId = session.getId();
-		
-		generator.setLocation(PropertyFileEnum.CONTACT_DETAILS_PROPERTY.value());
-		generator.parseModel(model);
-		
-        logger.debug(sessionId + " Getting contact details form");
-        
-        ContactDetails contactDetails = (ContactDetails) session.getAttribute(CONTACT_DETAILS);
-        if(contactDetails==null){
-        	 contactDetails=  new ContactDetails();
-        }
-        	
-        model.addAttribute(contactDetails);
-        
-		return CONTACT_DETAILS_FORM;
+
+		if(null == session.getAttribute(ControllerUrls.LAST_COMPLETED_FORM)){
+			return "redirect:" + session.getAttribute(ControllerUrls.DEFAULT_URL);
+		}
+
+		if(session.getAttribute(ControllerUrls.LAST_COMPLETED_FORM).equals(PREVIOUS_FORM)){
+
+			generator.setLocation(PropertyFileEnum.CONTACT_DETAILS_PROPERTY.value());
+			generator.parseModel(model);
+
+			logger.debug(sessionId + " Getting contact details form");
+
+			ContactDetails contactDetails = (ContactDetails) session.getAttribute(CONTACT_DETAILS);
+			if(contactDetails==null){
+				contactDetails=  new ContactDetails();
+			}
+
+			model.addAttribute(contactDetails);
+
+			return CONTACT_DETAILS_FORM;
+		}else{
+			return "redirect:" + session.getAttribute(ControllerUrls.LAST_COMPLETED_FORM);
+		}
+
 	}
-	
-	@RequestMapping(value = ControllerUrls.CONTACT_DETAILS, method = RequestMethod.POST)
+
+	@RequestMapping(value = ControllerUrls.CONTACT_DETAILS_FORM, method = RequestMethod.POST)
 	public String saveContactDetailsData(Model model,ContactDetails contactDetails, BindingResult error,HttpServletRequest request){
-		
-		HttpSession session = request.getSession();
+
+		HttpSession session = request.getSession(false);
 		String sessionId = session.getId();
-		
+
 		logger.debug(sessionId + "Saving Contact Details");
-		
-		  if(error.hasErrors()){
-			  //this will check whether there are any preload errors
-			  //do something -- return to error page
-			  //currently returning the same page, but should redirect to error page.
-			  return CONTACT_DETAILS_FORM;
-		  }
-		  
-		  contactDetailsValidator.validate(contactDetails, error);
-		  
-		  if(error.hasErrors()){
-			  generator.setLocation(PropertyFileEnum.CONTACT_DETAILS_PROPERTY.value());
-			  generator.parseModel(model);
-			  model.addAttribute(contactDetails);
-			  logger.debug(error);
-			  return CONTACT_DETAILS_FORM;
-		  }
-		  session.setAttribute(CONTACT_DETAILS, contactDetails);
-		  
-		  logger.debug(sessionId + "Saved Claimant Details");
+
+		if(error.hasErrors()){
+			//this will check whether there are any preload errors
+			//do something -- return to error page
+			//currently returning the same page, but should redirect to error page.
+			return CONTACT_DETAILS_FORM;
+		}
+
+		contactDetailsValidator.validate(contactDetails, error);
+
+		if(error.hasErrors()){
+			generator.setLocation(PropertyFileEnum.CONTACT_DETAILS_PROPERTY.value());
+			generator.parseModel(model);
+			model.addAttribute(contactDetails);
+			logger.debug(error);
+			return CONTACT_DETAILS_FORM;
+		}
+		session.setAttribute(CONTACT_DETAILS, contactDetails);
+		session.setAttribute(ControllerUrls.LAST_COMPLETED_FORM, ControllerUrls.CONTACT_DETAILS_URL);
+
+		logger.debug(sessionId + "Saved Claimant Details");
 		return "redirect:" + NEXT_FORM;
-		
+
 	}
 }

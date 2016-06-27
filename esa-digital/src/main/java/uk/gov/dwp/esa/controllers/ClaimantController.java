@@ -23,8 +23,10 @@ public class ClaimantController {
 
 	private static final Logger logger = LogManager.getLogger(ClaimantController.class);
 	protected static final String CLAIMANT_DETAILS = "Claimant";
-	private String NEXT_FORM = "/api" + ControllerUrls.CONTACT_DETAILS;
+	private String NEXT_FORM = ControllerUrls.CONTACT_DETAILS_URL;
 	private static String PERSONAL_DETAILS_FORM = "personal-details";
+	
+	
 		
 	@Autowired
 	private ClaimantValidator claimantValidator;
@@ -49,6 +51,7 @@ public class ClaimantController {
         }
         
         model.addAttribute(claimant);
+        session.setAttribute(ControllerUrls.DEFAULT_URL, ControllerUrls.PERSONAL_DETAILS_URL);
           
 		return PERSONAL_DETAILS_FORM;
 	}
@@ -78,6 +81,7 @@ public class ClaimantController {
 			 return PERSONAL_DETAILS_FORM;
 		  }
 		  session.setAttribute(CLAIMANT_DETAILS, claimant);
+		  session.setAttribute(ControllerUrls.LAST_COMPLETED_FORM, ControllerUrls.PERSONAL_DETAILS_URL);
 		  
 		  logger.info(sessionId + "Saved Claimant Details");
 		return "redirect:" + NEXT_FORM;

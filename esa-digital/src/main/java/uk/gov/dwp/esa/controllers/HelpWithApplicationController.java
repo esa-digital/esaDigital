@@ -21,7 +21,7 @@ public class HelpWithApplicationController {
 
 	private static final Logger logger = LogManager.getLogger(HelpWithApplicationController.class);
 	protected static final String HELP_DETAILS = "HelpDetails";
-	private String NEXT_FORM = "/api" + ControllerUrls.PERSONAL_DETAILS_FORM;
+	private String NEXT_FORM = ControllerUrls.CONTACT_DETAILS_URL;
 	private static String HELP_DETAILS_FORM = "help-details";
 
 	@Autowired
@@ -30,8 +30,9 @@ public class HelpWithApplicationController {
 	@RequestMapping(value = ControllerUrls.HELP_DETAILS_FORM, method = RequestMethod.GET)
 	public String getPersonalDetailsForm(Model model, HttpServletRequest request) {
 
-		HttpSession session = request.getSession();
+		HttpSession session = request.getSession(false);
 		String sessionId = session.getId();
+		
 
 		logger.debug(sessionId + " Getting help with appication form");
 
@@ -66,6 +67,7 @@ public class HelpWithApplicationController {
 			return HELP_DETAILS_FORM;
 		}
 		session.setAttribute(HELP_DETAILS, helpDetails);
+		session.setAttribute(ControllerUrls.LAST_COMPLETED_FORM, ControllerUrls.HELP_DETAILS_URL);
 
 		logger.debug(sessionId + "Saved Help Details");
 		return "redirect:" + NEXT_FORM;
