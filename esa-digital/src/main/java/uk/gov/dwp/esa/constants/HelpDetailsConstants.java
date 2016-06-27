@@ -2,7 +2,7 @@ package uk.gov.dwp.esa.constants;
 
 public enum HelpDetailsConstants {
 
-	
+	HELPDETAILSTYPE("helpDetailsType"),
 	HELPPERSONNAME("personName"),
 	HELPPERSONRELATION("personRelation"),
 	REASONFORHELP("reasonForHelp"),
@@ -18,7 +18,11 @@ public enum HelpDetailsConstants {
 	ADDRESS_LINE3("addLine3"),
 	ADDRESS_LINE4("addLine4"),
 	POSTCODE("postCode"),
-	TEL_NUMBER("telNumber");
+	TEL_NUMBER("telNumber"),
+	SELF_TYPE("self"),
+	THIRD_PARTY_HELP_TYPE("thirdPartyHelp"),
+	BEHALF_TYPE("behalfType");
+	
 	
 	private String value;
 	

@@ -204,6 +204,9 @@ public final class ValidationCodes {
 	public static final String DOCTOR_TELEPHONE_TOO_LONG = "gpDetails.doctor.telephone.too.long";
 	public static final String DOCTOR_TELEPHONE_NUMERIC = "gpDetails.doctor.telephone.numeric";
 
+	
+	public static final String HELPDETAILS_TYPE_EMPTY = "helpdetails.type.empty";
+
 	public static final String HELPDETAILS_PERSONNAME_EMPTY = "helpdetails.personname.empty";
 	public static final String HELPDETAILS_PERSONNAME_TOO_LONG = "helpdetails.personname.greater.than.limit";
 	public static final String HELPDETAILS_PERSONNAME_ALPHA = "helpdetails.personname.alpha";
