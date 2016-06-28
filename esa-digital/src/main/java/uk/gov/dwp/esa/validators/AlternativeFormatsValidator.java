@@ -17,7 +17,7 @@ import uk.gov.dwp.esa.validatorHelpers.ValidationUtils;
 public class AlternativeFormatsValidator implements Validator {
 
 	private static final int maxLength = 25;
-	
+
 	/*
 	 * This method is used to validate the basic claimant properties 
 	 * gathered from front end.
@@ -27,39 +27,40 @@ public class AlternativeFormatsValidator implements Validator {
 	 * @Params : AlternativeFormats
 	 */
 	protected List<ValidationError> validateAlternativeFormats(AlternativeFormat alternativeFormat) {
-		
-		List<ValidationError> errors = new ArrayList<ValidationError>();
-		
 
-		
+		List<ValidationError> errors = new ArrayList<ValidationError>();
+
+
+
 		//check Q1 is not empty
 		if(ValidationUtils.isEmpty(alternativeFormat.getAlternativeFormatYN())){
 			ValidationError isAlternativeFormatYN = new ValidationError(AlternateFormatsConstants.ALTERNATE_FORMAT.value(), ValidationCodes.ALTERNATE_FORMAT_EMPTY);
 			errors.add(isAlternativeFormatYN);
 		}	
-	
-		//Check Q2 is not empty if Q1 = 'Yes'
-		
-		if (alternativeFormat.getAlternativeFormatYN().equals("Yes")) {
-			if(ValidationUtils.isEmpty(alternativeFormat.getAlternateFormatType())){
-			ValidationError alternativeFormatTypeValidation = new ValidationError(AlternateFormatsConstants.ALTERNATE_FORMAT_TYPE.value(), ValidationCodes.ALTERNATE_FORMAT_TYPE_EMPTY);
-			errors.add(alternativeFormatTypeValidation);
-		}
-		}
-		
-	//	Check Q3 is not empty if Q2 = 'Other'
-		
-		if (alternativeFormat.getAlternateFormatType().equals("Other")) {
-			if(ValidationUtils.isEmpty(alternativeFormat.getAlternateFormatOther())){
-			ValidationError alternativeFormatOtherValidation = new ValidationError(AlternateFormatsConstants.ALTERNATE_FORMAT_OTHER.value(), ValidationCodes.ALTERNATE_FORMAT_OTHER_EMPTY);
-			errors.add(alternativeFormatOtherValidation);
-		} if (ValidationUtils.isStringLengthOver(alternativeFormat.getAlternateFormatOther(), maxLength)) {
-				errors.add(new ValidationError(AlternateFormatsConstants.ALTERNATE_FORMAT_OTHER.value(),
-				ValidationCodes.ALTERNATE_FORMAT_OTHER_TOO_LONG));
+		else{
+			//Check Q2 is not empty if Q1 = 'Yes'
+
+			if (alternativeFormat.getAlternativeFormatYN().equals("Yes")) {
+				if(ValidationUtils.isEmpty(alternativeFormat.getAlternateFormatType())){
+					ValidationError alternativeFormatTypeValidation = new ValidationError(AlternateFormatsConstants.ALTERNATE_FORMAT_TYPE.value(), ValidationCodes.ALTERNATE_FORMAT_TYPE_EMPTY);
+					errors.add(alternativeFormatTypeValidation);
+				}
 			}
-	}
-	
-	return errors;
+
+			//	Check Q3 is not empty if Q2 = 'Other'
+
+			if (alternativeFormat.getAlternateFormatType().equals("Other")) {
+				if(ValidationUtils.isEmpty(alternativeFormat.getAlternateFormatOther())){
+					ValidationError alternativeFormatOtherValidation = new ValidationError(AlternateFormatsConstants.ALTERNATE_FORMAT_OTHER.value(), ValidationCodes.ALTERNATE_FORMAT_OTHER_EMPTY);
+					errors.add(alternativeFormatOtherValidation);
+				} if (ValidationUtils.isStringLengthOver(alternativeFormat.getAlternateFormatOther(), maxLength)) {
+					errors.add(new ValidationError(AlternateFormatsConstants.ALTERNATE_FORMAT_OTHER.value(),
+							ValidationCodes.ALTERNATE_FORMAT_OTHER_TOO_LONG));
+				}
+			}
+		}
+
+		return errors;
 	}
 
 	@Override
