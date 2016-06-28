@@ -14,7 +14,7 @@
               
               <@components.inputText path="claimant.firstName" name="firstName" content="${content['page.question.firstName']}" value="${(claimant.firstName)!}" />
 
-              <@components.inputText path="claimant.otherName" name="otherName" content="${content['page.question.otherName']}" value="${(claimant.otherName)!}" hint="${content['page.question.otherName.hint']}" />              
+              <@components.inputText path="claimant.otherName" name="otherName" content="${content['page.question.otherName']}" value="${(claimant.otherName)!}" />              
                           
               <@components.inputText path="claimant.surname" name="surname" content="${content['page.question.surname']}" value="${(claimant.surname)!}" />              
 

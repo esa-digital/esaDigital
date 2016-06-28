@@ -13,20 +13,22 @@
 
 		  <@components.address paths=["contactDetails.addressLine1","contactDetails.addressLine2","contactDetails.addressLine3", "contactDetails.addressLine4", "contactDetails.postCode"] 
 		  					   name="address" 
-		  					   content="${content['page.question.address']}" 
+		  					   content="${content['page.question.address']}"
+		  					   contentPostcode="${content['page.question.postcode']}" 
 		  					   addr1="${(contactDetails.addressLine1)!}" 
 		  					   addr2="${(contactDetails.addressLine2)!}" 
 		  					   addr3="${(contactDetails.addressLine3)!}" 
 		  					   addr4="${(contactDetails.addressLine4)!}" 
 		  					   postcode="${(contactDetails.postCode)!}" 
-		  					   hint="${content['page.question.address.hint']}" />
+		  					   hint="${content['page.question.address.hint']}" 
+                   			   addrBinding="addressLine" />
           
 
-		  <@components.inputText path="contactDetails.phoneNumber" name="phoneNumber" content="${content['page.question.phoneNumber']}" value="${(contactDetails.phoneNumber)!}" hint="${content['page.question.hint']}" />
+		  <@components.inputText path="contactDetails.phoneNumber" name="phoneNumber" content="${content['page.question.phoneNumber']}" value="${(contactDetails.phoneNumber)!}" />
           
-          <@components.inputText path="contactDetails.otherNumber" name="otherNumber" content="${content['page.question.otherNumber']}" value="${(contactDetails.otherNumber)!}" hint="${content['page.question.hint']}" />
+          <@components.inputText path="contactDetails.otherNumber" name="otherNumber" content="${content['page.question.otherNumber']}" value="${(contactDetails.otherNumber)!}" />
 
-		  <@components.inputText path="contactDetails.email" name="email" content="${content['page.question.email']}" value="${(contactDetails.email)!}" hint="${content['page.question.hint']}" />
+		  <@components.inputText path="contactDetails.email" name="email" content="${content['page.question.email']}" value="${(contactDetails.email)!}" />
           
           <@components.submit value="${content['page.question.submit']}" />
 
