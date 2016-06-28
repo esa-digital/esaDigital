@@ -23,8 +23,8 @@ import uk.gov.dwp.esa.model.Claimant;
 import uk.gov.dwp.esa.model.GPDetails;
 import uk.gov.dwp.esa.service.ESAClaimService;
 import uk.gov.dwp.esa.util.ControllerUrls;
-import uk.gov.dwp.esa.validators.AlternativeFormatsValidator;
 import uk.gov.dwp.esa.util.GenericModelParser;
+import uk.gov.dwp.esa.validators.AlternativeFormatsValidator;
 
 @Controller
 public class AlternativeFormatsController {
@@ -54,12 +54,12 @@ public class AlternativeFormatsController {
 		generator.setLocation(PropertyFileEnum.ALTERNATIVE_FORMATS_PROPERTY.value());
 		generator.parseModel(model);
 
-		if(null == session.getAttribute(ControllerUrls.LAST_COMPLETED_FORM)){
-			logger.error("Direct page hit: Redirecting to default help page");
-			return "redirect:" + session.getAttribute(ControllerUrls.DEFAULT_URL);
-		}
+	//	if(null == session.getAttribute(ControllerUrls.LAST_COMPLETED_FORM)){
+		//	logger.error("Direct page hit: Redirecting to default help page");
+	//		return "redirect:" + session.getAttribute(ControllerUrls.DEFAULT_URL);
+	//	}
 
-		if(session.getAttribute(ControllerUrls.LAST_COMPLETED_FORM).equals(PREVIOUS_FORM)){
+		//if(session.getAttribute(ControllerUrls.LAST_COMPLETED_FORM).equals(PREVIOUS_FORM)){
 			logger.info(sessionId + " Getting alternative formats form");
 
 			AlternativeFormat alternativeFormat = (AlternativeFormat) session.getAttribute(ALT_FORMATS);
@@ -69,10 +69,10 @@ public class AlternativeFormatsController {
 			}
 			model.addAttribute(alternativeFormat);
 			return ALT_FORMATS_FORM;
-		}else{
-			logger.info("Previous page not completed, redirecting to last completed for,");
-			return "redirect:" + session.getAttribute(ControllerUrls.LAST_COMPLETED_FORM);
-		}
+		//}else{
+			//logger.info("Previous page not completed, redirecting to last completed for,");
+			//return "redirect:" + session.getAttribute(ControllerUrls.LAST_COMPLETED_FORM);
+		//}
 
 	}
 

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import uk.gov.dwp.esa.service.TokenValidationService;
+import uk.gov.dwp.esa.util.ControllerUrls;
 
 @Controller
 public class TokenServiceController {
@@ -43,7 +44,7 @@ public class TokenServiceController {
 				 if(sessionId.equals(tokens[0])){
 					 logger.info("Session already exists : redirecting to Personal Details");
 					 //check array and redirect to that pageR
-					 return "redirect:/api/personal-details";
+					 return "redirect:" + ControllerUrls.PERSONAL_DETAILS_URL;
 				 }
 			}
 		}
@@ -66,7 +67,7 @@ public class TokenServiceController {
 			logger.info("Redirecting to Personal Details");
 			 	String tokenValue = sessionId+":"+token;
 			 	session.setAttribute(TOKEN_SESSION_ATTRIBUTE, tokenValue); 
-	            return "redirect:/api/personal-details";
+	            return "redirect:" + ControllerUrls.PERSONAL_DETAILS_URL;
 	            //this should change to start your application
 		}
 		 

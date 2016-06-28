@@ -56,7 +56,7 @@ public class AuthenticationTokenProcessingFilter extends GenericFilterBean {
 				((HttpServletResponse) response).sendRedirect("/");
 			}
 			}catch(Exception e){
-				logger.error("Unauthorized Access");
+				logger.error("Unauthorized Access " + e.getMessage());
 				session.invalidate();
 				((HttpServletResponse) response).sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
 			}
