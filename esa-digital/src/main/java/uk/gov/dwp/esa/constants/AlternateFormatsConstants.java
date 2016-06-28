@@ -4,7 +4,7 @@ public enum AlternateFormatsConstants {
 	
 	ALTERNATE_FORMAT("alternativeFormatYN"),
 	ALTERNATE_FORMAT_TYPE("alternateFormatType"),
-	ALTERNATE_FORMAT_OTHER("alternateFormatTypeOther");
+	ALTERNATE_FORMAT_OTHER("alternateFormatOther");
 	
 	
 	private String value;

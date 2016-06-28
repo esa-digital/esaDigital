@@ -1,4 +1,4 @@
-package uk.gov.dwp.esa.validators;
+/*package uk.gov.dwp.esa.validators;
 
 import static org.mockito.Mockito.when;
 
@@ -583,3 +583,4 @@ public class HelpDetailsValidatorTest {
 	}
 	
 }
+*/
