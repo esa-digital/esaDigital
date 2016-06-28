@@ -5,9 +5,8 @@
 
     <form action="alternative-formats" method="post" autocomplete="off">
 
-      <#--
-      <@errors.errorSummary fields=["alternateFormat.alternativeFormatYN","alternateFormat.alternateFormatType", "alternateFormat.alternateFormatOther"] />
-      -->
+      <@errors.errorSummary fields=["alternativeFormat.alternativeFormatYN","alternativeFormat.alternateFormatType", "alternativeFormat.alternateFormatOther"] />
+
       
       <h1 class="form-title heading-large">${content['page.title']}</h1>
 
@@ -21,20 +20,19 @@
           </span>
           
           <#--
-          <@errors.listInlineErrors "alternateFormat.alternativeFormatYN"/>
-          <@errors.listInlineErrors "alternateFormat.alternateFormatType"/>
-          <@errors.listInlineErrors "alternateFormat.alternateFormatOther"/>
+          <@errors.listInlineErrors "alternativeFormat.alternativeFormatYN"/>
+          <@errors.listInlineErrors "alternativeFormat.alternateFormatType"/>
+          <@errors.listInlineErrors "alternativeFormat.alternateFormatOther"/>
           -->
         </legend>
 
-          <p class="form-label-bold">${content['page.question.title']}</p>
 
           <label for="radio-part-2" data-target="format"
             class="block-label"> <input id="radio-part-2"
-            type="radio" name="housing-act" value="Yes"
+            type="radio" name="alternativeFormatYN" value="Yes"
             aria-controls="format"> Yes
           </label> <label for="radio-part-3" class="block-label"> <input
-            id="radio-part-3" type="radio" name="housing-act" value="No">
+            id="radio-part-3" type="radio" name="alternativeFormatYN" value="No">
             No
           </label>
 
@@ -45,22 +43,22 @@
         id="format">
         <fieldset class="">
           <label class="block-label" for="radio-inline-1"> <input
-            id="radio-inline-1" type="radio" name="partner" value="Yes">
+            id="radio-inline-1" type="radio" name="alternateFormatType" value="LargePrint">
             ${content['page.question.largePrint']}
           </label> <label class="block-label" for="radio-inline-2"> <input
-            id="radio-inline-2" type="radio" name="partner" value="No">
+            id="radio-inline-2" type="radio" name="alternateFormatType" value="Braille">
             ${content['page.question.braille']}
           </label> <label class="block-label" for="radio-inline-7"> <input
-            id="radio-inline-7" type="radio" name="partner" value="No">
+            id="radio-inline-7" type="radio" name="alternateFormatType" value="AudioCD">
             ${content['page.question.audioCd']}
           </label> <label class="block-label" data-target="other"
             for="radio-inline-3"> <input id="radio-inline-3"
-            type="radio" name="partner" value="No" aria-controls="other">
+            type="radio" name="alternateFormatType" value="Other" aria-controls="Other">
             ${content['page.question.other']}
           </label>
           <div class="panel panel-border-narrow js-hidden" id="other">
             <label class="form-label" for="other-field">${content['page.question.otherDetail']}</label>
-            <textarea type="text" class="form-control" id="other-field"></textarea>
+            <textarea type="text" class="form-control" id="alternateFormatOther" name="alternateFormatOther"></textarea>
           </div>
         </fieldset>
       </div>
