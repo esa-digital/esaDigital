@@ -1,11 +1,16 @@
 package uk.gov.dwp.esa.controllers;
 
+import java.io.IOException;
+import java.util.Properties;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,7 +26,7 @@ import uk.gov.dwp.esa.validators.ClaimantValidator;
 @Controller
 public class ClaimantController {
 
-	private static final Logger logger = LogManager.getLogger(ClaimantController.class);
+	private static final Logger logger = Logger.getLogger(ClaimantController.class);
 	protected static final String CLAIMANT_DETAILS = "Claimant";
 	private String NEXT_FORM = ControllerUrls.CONTACT_DETAILS_URL;
 	private static String PERSONAL_DETAILS_FORM = "personal-details";
@@ -33,16 +38,44 @@ public class ClaimantController {
 	
 	@Autowired
 	private GenericModelParser generator;
-		
+	
+	 @Value("${keyservice.url}")
+	  private String url;
+	 
 	@RequestMapping(value = ControllerUrls.PERSONAL_DETAILS_FORM, method = RequestMethod.GET)
 	public String getPersonalDetailsForm(Model model, HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
 		String sessionId = session.getId();
 				
+		logger.info("ENTRY" );
+		
 		generator.setLocation(PropertyFileEnum.CLAIMANT_PROPERTY.value());
 		generator.parseModel(model);
 		
         logger.info(sessionId + " Getting personal details form");
+        
+        Properties envProp = new Properties();
+		Properties messageProp = new Properties();
+		logger.info("FIRST" );
+		logger.info("AFTER 1" );
+		try {
+			logger.info("HERE 1" );
+			envProp.load(ClaimantController.class.getClassLoader().getResourceAsStream("messages.properties"));
+			logger.info("HERE 2" );
+			String frommsg = envProp.getProperty("claimant.field.alpha");
+			logger.info("HERE 3" );
+			logger.info("FROM MSG FILE IS " + frommsg);
+			//envProp.load(ClaimantController.class.getClassLoader().get
+			//String fromenv = messageProp.getProperty("keyservice.url");
+			
+			//String fromenv = ppc.get
+			logger.info("HERE 5" );
+			logger.info("FROM ENV FILE IS " + url);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			logger.error("IN ERROR" + e);
+		}
         
         Claimant claimant = (Claimant) session.getAttribute(CLAIMANT_DETAILS);
         if(claimant==null){

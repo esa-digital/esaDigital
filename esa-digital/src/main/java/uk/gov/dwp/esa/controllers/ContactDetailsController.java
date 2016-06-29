@@ -1,5 +1,8 @@
 package uk.gov.dwp.esa.controllers;
 
+import java.io.IOException;
+import java.util.Properties;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -38,6 +41,21 @@ public class ContactDetailsController {
 
 		HttpSession session = request.getSession(false);
 		String sessionId = session.getId();
+		
+		Properties envProp = new Properties();
+		Properties messageProp = new Properties();
+		try {
+			envProp.load(ContactDetailsController.class.getClassLoader().getResourceAsStream("environment.property"));
+			envProp.load(ContactDetailsController.class.getClassLoader().getResourceAsStream("messages.property"));
+			String fromenv = messageProp.getProperty("claimant.field.alpha");
+			String frommsg = envProp.getProperty("keyservice.url");
+			String frommsg2 = messageProp.getProperty("claimant.field.alpha");
+
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		if(null == session.getAttribute(ControllerUrls.LAST_COMPLETED_FORM)){
 			logger.error("Direct page hit: Redirecting to default help page");
