@@ -12,8 +12,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import uk.gov.dwp.esa.constants.PropertyFileEnum;
 import uk.gov.dwp.esa.model.HelpDetails;
+import uk.gov.dwp.esa.model.HelpDetailsType;
 import uk.gov.dwp.esa.util.ControllerUrls;
+import uk.gov.dwp.esa.util.GenericModelParser;
 import uk.gov.dwp.esa.validators.HelpDetailsValidator;
 
 @Controller
@@ -24,6 +27,10 @@ public class HelpWithApplicationController {
 	private String NEXT_FORM = ControllerUrls.CONTACT_DETAILS_URL;
 	private static String HELP_DETAILS_FORM = "help-details";
 
+
+	@Autowired
+	private GenericModelParser generator;
+	
 	@Autowired
 	HelpDetailsValidator helpDetailsValidator;
 
@@ -35,9 +42,15 @@ public class HelpWithApplicationController {
 
 		logger.debug(sessionId + " Getting help with appication form");
 
+		generator.setLocation(PropertyFileEnum.HELP_DETAILS_PROPERTY.value());
+		generator.parseModel(model);
+		
 		HelpDetails helpDetails = (HelpDetails) session.getAttribute(HELP_DETAILS);
 		if (helpDetails == null) {
 			helpDetails = new HelpDetails();
+			HelpDetailsType type = new HelpDetailsType();
+			helpDetails.setThirdPartyDetails(type);
+			
 		}
 
 		model.addAttribute(helpDetails);
@@ -61,6 +74,8 @@ public class HelpWithApplicationController {
 		helpDetailsValidator.validate(helpDetails, error);
 
 		if (error.hasErrors()) {
+			generator.setLocation(PropertyFileEnum.HELP_DETAILS_PROPERTY.value());
+			generator.parseModel(model);
 			model.addAttribute(helpDetails);
 			logger.debug(error);
 			return HELP_DETAILS_FORM;

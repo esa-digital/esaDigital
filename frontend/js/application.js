@@ -3,7 +3,7 @@ function ShowHideContent() {
 
 
   self.escapeElementName = function(str) {
-    result = str.replace('[', '\\[').replace(']', '\\]')
+    result = str.replace('[', '\\[').replace(']', '\\]').replace('.', '\\.');
     return(result);
   };
 
@@ -31,8 +31,11 @@ function ShowHideContent() {
             var $this = $(this);
 
             var groupDataTarget = $this.parent('label').attr('data-target');
-            var $groupDataTarget = $('#' + groupDataTarget);
-
+            
+            // help-details page hack
+            //var $groupDataTarget = $('#' + groupDataTarget);
+            var $groupDataTarget = $(".panel[id*="+groupDataTarget+"]");
+            
             // Hide toggled content
             $groupDataTarget.addClass('js-hidden');
             // Set aria-expanded and aria-hidden for hidden content
@@ -40,8 +43,11 @@ function ShowHideContent() {
             $groupDataTarget.attr('aria-hidden', 'true');
           });
 
-          var $dataTarget = $('#' + dataTarget);
+          // help-details page hack
+          var $dataTarget = $(".panel[id*="+dataTarget+"]");
+          //var $dataTarget = $('#' + dataTarget);
           $dataTarget.removeClass('js-hidden');
+          
           // Set aria-expanded and aria-hidden for clicked radio
           $radio.attr('aria-expanded', 'true');
           $dataTarget.attr('aria-hidden', 'false');

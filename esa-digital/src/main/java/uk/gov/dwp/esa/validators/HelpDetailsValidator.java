@@ -91,9 +91,40 @@ public class HelpDetailsValidator implements Validator{
 				}
 			} else if (helpDetails.getHelpDetailsType().equals(HelpDetailsConstants.BEHALF_TYPE.value())) {
 				if (ValidationUtils.isEmpty(helpDetails.getThirdPartyDetails().getBehalfOfType())) {
-					errors.add(new ValidationError(HelpDetailsConstants.BEHALF_TYPE.value(),
+					errors.add(new ValidationError(HelpDetailsConstants.BEHALF_Of_TYPE.value(),
 							ValidationCodes.HELPDETAILS_TYPE_EMPTY));
 
+				} else if(helpDetails.getThirdPartyDetails().getBehalfOfType().equals(HelpDetailsConstants.APPOINTEE_TYPE.value())){
+					if (ValidationUtils.isEmpty(helpDetails.getThirdPartyDetails().getFirstName())) {
+						errors.add(new ValidationError(HelpDetailsConstants.APPOINTEE_FIRST_NAME.value(),
+								ValidationCodes.HELPDETAILS_FIRSTNAME_EMPTY));
+					} else {
+						if (ValidationUtils.isStringLengthOver(helpDetails.getThirdPartyDetails().getFirstName(),
+								maxLengthCommon)) {
+							errors.add(new ValidationError(HelpDetailsConstants.APPOINTEE_FIRST_NAME.value(),
+									ValidationCodes.HELPDETAILS_FIRST_NAME_TOO_LONG));
+						}
+						if (!ValidationUtils.isValidName(helpDetails.getThirdPartyDetails().getFirstName())) {
+							errors.add(new ValidationError(HelpDetailsConstants.APPOINTEE_FIRST_NAME.value(),
+									ValidationCodes.HELPDETAILS_FIRSTNAME_ALPHA_WITH_HYPHEN));
+						}
+
+					}
+					if (ValidationUtils.isEmpty(helpDetails.getThirdPartyDetails().getSurname())) {
+						errors.add(new ValidationError(HelpDetailsConstants.APPOINTEE_SURNAME.value(),
+								ValidationCodes.HELPDETAILS_SURNAME_EMPTY));
+					} else {
+						if (ValidationUtils.isStringLengthOver(helpDetails.getThirdPartyDetails().getSurname(),
+								maxLengthCommon)) {
+							errors.add(new ValidationError(HelpDetailsConstants.APPOINTEE_SURNAME.value(),
+									ValidationCodes.HELPDETAILS_SURNAME_TOO_LONG));
+						}
+						if (!ValidationUtils.isValidName(helpDetails.getThirdPartyDetails().getSurname())) {
+							errors.add(new ValidationError(HelpDetailsConstants.APPOINTEE_SURNAME.value(),
+									ValidationCodes.HELPDETAILS_SURNAME_ALPHA_WITH_HYPHEN));
+						}
+
+					}
 				} else {
 					errors.addAll(validateCommonDetails(helpDetails));
 				}

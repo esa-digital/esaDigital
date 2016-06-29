@@ -9,11 +9,11 @@
 			<#if getStatus(item).error >
 				<#list getStatus(item).errorMessages as error>
 					<#if item?contains("dob")>
-						<li><a href="#${item?keep_before(item?keep_after("dob"))?keep_after(".")}">${error}</a></li>
+						<li><a href="#${components.formatName(item?keep_before(item?keep_after("dob"))?keep_after("."))}">${error}</a></li>
 					<#elseif item?contains("address")>
-						<li><a href="#${item?keep_before(item?keep_after("address"))?keep_after(".")}">${error}</a></li>
+						<li><a href="#${components.formatName(item?keep_before(item?keep_after("address"))?keep_after("."))}">${error}</a></li>
 					<#else>
-						<li><a href="#${item?keep_after(".")}">${error}</a></li>
+						<li><a href="#${components.formatName(item?keep_after("."))}">${error}</a></li>
 					</#if>
 				</#list>
 	   		</#if>

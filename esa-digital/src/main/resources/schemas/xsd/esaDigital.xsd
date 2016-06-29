@@ -59,6 +59,8 @@
 			<element name="addLine4" type="string"></element>
 			<element name="postCode" type="string"></element>
 			<element name="telNumber" type="string"></element>
+			<element name="appointeeFirstName" type="string"></element>
+			<element name="appointeeSurname" type="string"></element>
 		</sequence>
 	</complexType>
 
