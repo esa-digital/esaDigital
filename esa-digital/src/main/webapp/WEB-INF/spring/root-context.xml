@@ -35,9 +35,14 @@ xmlns:context="http://www.springframework.org/schema/context"
     <authentication-manager alias="authenticationManager">
         <authentication-provider ref="customAuthenticationProvider" />  
     </authentication-manager>
-    
-    <beans:bean id="service" class="uk.gov.dwp.esa.util.ServiceFacade">
-		<beans:property name="endpoint" value="${url}" />
+	
+	<beans:bean 
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<beans:property name="ignoreResourceNotFound" value="true" />
+		<beans:property name="ignoreUnresolvablePlaceholders" value="true" />
+		<beans:property name="location">
+			<beans:value>file:/etc/env/environment.properties</beans:value>
+		</beans:property>
 	</beans:bean>
 	
 </beans:beans>

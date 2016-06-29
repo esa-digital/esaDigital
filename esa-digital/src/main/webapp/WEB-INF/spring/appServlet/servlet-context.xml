@@ -51,13 +51,5 @@
 			</beans:list>
 		</beans:property>
 	</beans:bean>
-	
-	<beans:bean 
-		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-
-		<beans:property name="location">
-			<beans:value>file:/etc/env/environment.properties</beans:value>
-		</beans:property>
-	</beans:bean>
 
 </beans:beans>

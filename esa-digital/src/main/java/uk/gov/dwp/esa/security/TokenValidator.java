@@ -24,12 +24,12 @@ public class TokenValidator {
     	
     	boolean status = false;
     	
-			//HttpStatus keyStatus= tokenValidationService.getStatus(tokenList[1]);
-			//if(keyStatus == HttpStatus.OK){
-				//status = true;
-			//}
+			HttpStatus keyStatus= tokenValidationService.getStatus(tokenList[1]);
+			if(keyStatus == HttpStatus.OK){
+				status = true;
+			}
     	
-    	return true;
+    	return status;
     }
     public UserDetails getUserFromToken(String token){
     	String[] tokenList = token.split(":");

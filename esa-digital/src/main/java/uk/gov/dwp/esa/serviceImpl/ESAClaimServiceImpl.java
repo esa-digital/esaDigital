@@ -2,6 +2,8 @@ package uk.gov.dwp.esa.serviceImpl;
 
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -16,15 +18,25 @@ import uk.gov.dwp.esa.service.ESAClaimService;
 @Service
 public class ESAClaimServiceImpl implements ESAClaimService{
 	
+	private static final Logger logger = Logger.getLogger(ESAClaimServiceImpl.class);
 	
+	private String claimURl;
 	
-	private String claimURl = "http://10.32.20.100:8081/api/Submit";
+	@Value("${gateway.claimservice.url:#{null}}")
+	private String url;
 
 	@Override
 	public ResponseEntity<Map> submitClaimDetails(Claim claim) {
 		ObjectMapper objectMapper = new ObjectMapper();
 		String json = "";
 		try {
+			logger.info("THE GATEWAY URL IS " + url);
+
+			if (url != null) {
+				claimURl = url;
+			} else {
+				claimURl = "http://localhost:8081/api/Submit";
+			}
 			json = objectMapper.writeValueAsString(claim);
 			return callRestfulServiceByPost(claimURl, json);
 		} catch (JsonProcessingException e) {
