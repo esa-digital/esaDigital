@@ -6,7 +6,7 @@ var concat = require('gulp-concat');
 
 var repo_root = __dirname + '/';
 
-var assets = '../esa-digital/src/main/webapp/resources/assets/';
+var assets = 'main/webapp/resources/assets/';
 var toolkit = './node_modules/govuk_frontend_toolkit/';
 
 // Compile scss files to css
