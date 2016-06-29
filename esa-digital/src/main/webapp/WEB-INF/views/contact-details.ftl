@@ -24,11 +24,11 @@
                    			   addrBinding="addressLine" />
           
 
-		  <@components.inputText path="contactDetails.phoneNumber" name="phoneNumber" content="${content['page.question.phoneNumber']}" value="${(contactDetails.phoneNumber)!}" />
+		  <@components.inputText path="contactDetails.phoneNumber" name="phoneNumber" content="${content['page.question.phoneNumber']}" value="${(contactDetails.phoneNumber)!}" bold="true" />
           
-          <@components.inputText path="contactDetails.otherNumber" name="otherNumber" content="${content['page.question.otherNumber']}" value="${(contactDetails.otherNumber)!}" />
+          <@components.inputText path="contactDetails.otherNumber" name="otherNumber" content="${content['page.question.otherNumber']}" value="${(contactDetails.otherNumber)!}" bold="true" />
 
-		  <@components.inputText path="contactDetails.email" name="email" content="${content['page.question.email']}" value="${(contactDetails.email)!}" />
+		  <@components.inputText path="contactDetails.email" name="email" content="${content['page.question.email']}" value="${(contactDetails.email)!}" bold="true" />
           
           <@components.submit value="${content['page.question.submit']}" />
 

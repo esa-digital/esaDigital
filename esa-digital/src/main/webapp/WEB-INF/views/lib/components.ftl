@@ -1,31 +1,31 @@
-<#macro inputText name content value path hint="" class="">
+<#macro inputText name content value path hint="" class="" bold="">
 	<div class="form-group<@errors.hasError path />" id="${formatName(name)}">
-	  <label class="form-label-bold" for="${name}-field">${content} 
+	  <label class="form-label<#if bold?has_content>-bold</#if>" for="${name}-field">${content} 
 	  	<#if hint?has_content>
 	  		<span class="form-hint">${hint}</span>
 	  	</#if>
 	  </label>
 	  <@errors.listInlineErrors path/>
 
-	  <input class="form-control" type="text" name="${name}" id="${name}-field" value="${value}" >
+	  <input class="form-control<#if class?has_content> ${class}</#if>" type="text" name="${name}" id="${name}-field" value="${value}" >
 	</div>
 </#macro>
 
-<#macro inputRadio id value group content target="" class="" selected="">
+<#macro inputRadio id value group content target="" selected="">
 	<label for="${id}" class="block-label" <#if target?has_content>data-target="${target}"</#if>>
         <input type="radio" name="${group}" id="${id}" value="${value}" <#if selected==value>checked="checked"</#if>>
         ${content}
     </label>
 </#macro>
 
-<#macro textarea name content value path hint="" class="">
+<#macro textarea name content value path hint="" class="" bold="">
 	<div class="form-group<@errors.hasError path />" id="${formatName(name)}">
-        <label for="${name}-field" class="form-label-bold">${content}</label>
+        <label for="${name}-field" class="form-label<#if bold?has_content>-bold</#if>">${content}</label>
         <#if hint?has_content>
 	  		<span class="form-hint">${hint}</span>
 	  	</#if>
         <@errors.listInlineErrors path/>
-        <textarea class="form-control form-control-2-3" type="text" id="${name}-field" name="${name}">${value}</textarea>
+        <textarea class="form-control <#if class?has_content> ${class}</#if>" type="text" id="${name}-field" name="${name}">${value}</textarea>
     </div>
 </#macro>
 
@@ -59,19 +59,21 @@
 
 <#macro address paths name content contentPostcode addr1 addr2 addr3 addr4 postcode addrBinding postcodeBinding="" hint="">
 	<div class="form-group<#list paths as path><@errors.hasError path /></#list>" id="${formatName(name)}">
-            
-		<h2 class="form-title heading-medium">${content}</h2>
-		<#if hint?has_content><p>${hint}</p></#if>
-		
+        
 		<fieldset>
-		
-			<legend class="visuallyhidden">${content}</legend>
-  
-			<label class="form-label"><input type="text" class="form-control" name="${addrBinding}1" value="${addr1}"></label>
-			<label class="form-label"><input type="text" class="form-control" name="${addrBinding}2" value="${addr2}"></label>
-			<label class="form-label"><input type="text" class="form-control" name="${addrBinding}3" value="${addr3}"></label>
-			<label class="form-label"><input type="text" class="form-control" name="${addrBinding}4" value="${addr4}"></label>
-		  
+			<legend>
+				<span class="form-label-bold">${content}</span>
+				<#if hint?has_content><p>${hint}</p></#if>
+			</legend>
+  			<#list paths as path>
+				<@errors.listInlineErrors path/>
+		  	</#list>
+			<div class="form-group">
+				<label class="form-label"><input type="text" class="form-control" name="${addrBinding}1" value="${addr1}"></label>
+				<label class="form-label"><input type="text" class="form-control" name="${addrBinding}2" value="${addr2}"></label>
+				<label class="form-label"><input type="text" class="form-control" name="${addrBinding}3" value="${addr3}"></label>
+				<label class="form-label"><input type="text" class="form-control" name="${addrBinding}4" value="${addr4}"></label>
+		  	</div>
 		  	<div class="form-group">
 			    <label class="form-label" for="postcode">${contentPostcode}</label>
 			    <input type="text" class="form-control form-control-1-4" name="<#if postcodeBinding?has_content>${postcodeBinding}</#if>postCode" value="${postcode}" id="postCode">
@@ -92,5 +94,4 @@
    <#else>
    		<#return name>
    </#if>
-	
 </#function>
