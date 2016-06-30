@@ -16,12 +16,13 @@ public class ContactDetailsController extends GenericController<ContactDetails>{
 
 	protected static final String CONTACT_DETAILS = "ContactDetails";
 	private static String NEXT_FORM = ControllerUrls.ALTERNATIVE_FORMATS_URL;
+	private static String PREVIOUS_FORM = ControllerUrls.PERSONAL_DETAILS_URL;
 
 	@Autowired
 	private ContactDetailsValidator contactDetailsValidator;
 	
 	public ContactDetailsController() {
-		super(PropertyFileEnum.CONTACT_DETAILS_PROPERTY.value(),CONTACT_DETAILS,ControllerUrls.CONTACT_DETAILS_FORM ,NEXT_FORM);
+		super(PropertyFileEnum.CONTACT_DETAILS_PROPERTY.value(),CONTACT_DETAILS,ControllerUrls.CONTACT_DETAILS_FORM ,NEXT_FORM,PREVIOUS_FORM);
 		ContactDetails contact = new ContactDetails();
 		super.setObject(contact);
 	}

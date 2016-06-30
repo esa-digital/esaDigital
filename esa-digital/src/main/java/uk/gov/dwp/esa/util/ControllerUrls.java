@@ -5,6 +5,9 @@ public final class ControllerUrls {
 	public static final String LAST_COMPLETED_FORM = "last_completed_form";
 	public static final String DEFAULT_URL = "default_url";
 	
+	public static final String START_YOUR_APPLICATION_FORM = "/start-your-application";
+	public static final String START_YOUR_APPLICATION_URL = "/api/start-your-application";
+	
 	public static final String PERSONAL_DETAILS_FORM = "/personal-details";
 	public static final String PERSONAL_DETAILS_URL = "/api/personal-details";
 	
@@ -23,5 +26,6 @@ public final class ControllerUrls {
 	public static final String HELP_DETAILS_FORM = "/help-details";
 	public static final String HELP_DETAILS_URL = "/api/help-details";
 	
+	public static final String HOME_URL = "/api/home";
 	
 }

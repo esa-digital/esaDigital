@@ -15,7 +15,8 @@ import uk.gov.dwp.esa.validators.ClaimantValidator;
 public class ClaimantController extends GenericController<Claimant> {
 
 	protected static final String CLAIMANT_DETAILS = "Claimant";
-	private static String NEXT_FORM = "redirect:" + ControllerUrls.CONTACT_DETAILS_URL;
+	private static String NEXT_FORM = ControllerUrls.CONTACT_DETAILS_URL;
+	private static String PREVIOUS_FORM = ControllerUrls.HELP_DETAILS_URL;
 	
 	@Autowired
 	private ClaimantValidator claimantValidator;
@@ -23,7 +24,7 @@ public class ClaimantController extends GenericController<Claimant> {
 	public ClaimantController() {
 
 		super(PropertyFileEnum.CLAIMANT_PROPERTY.value(), CLAIMANT_DETAILS, ControllerUrls.PERSONAL_DETAILS_FORM,
-				NEXT_FORM);
+				NEXT_FORM,PREVIOUS_FORM);
 		super.setValidator(claimantValidator);
 		Claimant claimant = new Claimant();
 		super.setObject(claimant);

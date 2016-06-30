@@ -42,9 +42,9 @@ public class TokenServiceController {
 				//redirect to 
 				 String[] tokens = sessionToken.split(":");
 				 if(sessionId.equals(tokens[0])){
-					 logger.info("Session already exists : redirecting to Personal Details");
+					 logger.info("Session already exists : redirecting to Start Page");
 					 //check array and redirect to that pageR
-					 return "redirect:" + ControllerUrls.PERSONAL_DETAILS_URL;
+					 return "redirect:" + ControllerUrls.START_YOUR_APPLICATION_URL;
 				 }
 			}
 		}
@@ -64,10 +64,10 @@ public class TokenServiceController {
 		String sessionId = session.getId();
 		logger.info("Creating session " + sessionId);
 		if(session!=null && token!=null &&!token.isEmpty()){
-			logger.info("Redirecting to Personal Details");
+			logger.info("Redirecting to Start Page");
 			 	String tokenValue = sessionId+":"+token;
 			 	session.setAttribute(TOKEN_SESSION_ATTRIBUTE, tokenValue); 
-	            return "redirect:" + ControllerUrls.PERSONAL_DETAILS_URL;
+	            return "redirect:" + ControllerUrls.START_YOUR_APPLICATION_URL;
 	            //this should change to start your application
 		}
 		 
